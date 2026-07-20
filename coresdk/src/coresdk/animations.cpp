@@ -21,15 +21,9 @@
 #include <vector>
 #include <map>
 
-using std::string;
-using std::vector;
-using std::map;
-using std::ifstream;
-using std::to_string;
-
 namespace splashkit_lib
 {
-    static map<string, animation_script> _animation_scripts;
+    static std::map<std::string, animation_script> _animation_scripts;
 
     struct row_data
     {
@@ -40,22 +34,22 @@ namespace splashkit_lib
 
     struct id_data
     {
-        string name;
+        std::string name;
         int start_id;
     };
 
-    int animation_index(animation_script temp, const string &name);
+    int animation_index(animation_script temp, const std::string &name);
 
-    animation_script load_animation_script(const string &name, const string &filename)
+    animation_script load_animation_script(const std::string &name, const std::string &filename)
     {
         animation_script result;
-        vector<row_data> rows;
-        vector<id_data> ids;
+        std::vector<row_data> rows;
+        std::vector<id_data> ids;
 
-        string line, line_id, data;
+        std::string line, line_id, data;
         int line_no, max_id;
 
-        string path = path_to_resource(filename, ANIMATION_RESOURCE);
+        std::string path = path_to_resource(filename, ANIMATION_RESOURCE);
 
         if ( ! file_exists(path) )
         {
@@ -63,7 +57,7 @@ namespace splashkit_lib
             return nullptr;
         }
 
-        ifstream input(path);
+        std::ifstream input(path);
 
         //
         // Declare lambdas that access above data
@@ -93,7 +87,7 @@ namespace splashkit_lib
 
             if (rows[my_row.id].id != -1)
             {
-                LOG(WARNING) << "Error at line " + to_string(line_no) + " in animation " + filename + ". A frame with id " + to_string(my_row.id) + " already exists.";
+                LOG(WARNING) << "Error at line " + std::to_string(line_no) + " in animation " + filename + ". A frame with id " + std::to_string(my_row.id) + " already exists.";
                 return false;
             }
             else
@@ -113,7 +107,7 @@ namespace splashkit_lib
             {
                 if (ids[j].name == my_id.name)
                 {
-                    LOG(WARNING) << "Error at line " + to_string(line_no) + " in animation " + filename + ". The id " + my_id.name + " already exists.";
+                    LOG(WARNING) << "Error at line " + std::to_string(line_no) + " in animation " + filename + ". The id " + my_id.name + " already exists.";
                     return false;
                 }
             }
@@ -144,13 +138,13 @@ namespace splashkit_lib
 
         auto process_multi_frame = [&]()
         {
-            vector<int> id_range, cell_range;
+            std::vector<int> id_range, cell_range;
             int dur, next, j;
             row_data my_row;
 
             if ( count_delimiter_with_ranges(data, ',') != 3 )
             {
-                LOG(WARNING) << "Error at line " + to_string(line_no) + " in animation " + filename + ". A multi-frame must have 4 values separated as id-range,cell-range,dur,next";
+                LOG(WARNING) << "Error at line " + std::to_string(line_no) + " in animation " + filename + ". A multi-frame must have 4 values separated as id-range,cell-range,dur,next";
                 return false;
             }
 
@@ -159,7 +153,7 @@ namespace splashkit_lib
 
             if (id_range.size() != cell_range.size())
             {
-                LOG(WARNING) << "Error at line " + to_string(line_no) + " in animation " + filename + ". The range of cells and ids is not the same length.";
+                LOG(WARNING) << "Error at line " + std::to_string(line_no) + " in animation " + filename + ". The range of cells and ids is not the same length.";
                 return false;
             }
 
@@ -191,7 +185,7 @@ namespace splashkit_lib
 
             if (count_delimiter_with_ranges(data, ',') != 1)
             {
-                LOG(WARNING) << "Error at line " + to_string(line_no) + " in animation " + filename + ". An id must have 2 values separated as name,start-id";
+                LOG(WARNING) << "Error at line " + std::to_string(line_no) + " in animation " + filename + ". An id must have 2 values separated as name,start-id";
                 return false;
             }
 
@@ -204,11 +198,11 @@ namespace splashkit_lib
         auto process_sound = [&]()
         {
             int id;
-            string snd_id, snd_file;
+            std::string snd_id, snd_file;
 
             if (count_delimiter(data, ',') != 2)
             {
-                LOG(WARNING) << "Error at line " + to_string(line_no) + " in animation " + filename + ". A sound must have three parts frame #,sound name,sound file.";
+                LOG(WARNING) << "Error at line " + std::to_string(line_no) + " in animation " + filename + ". A sound must have three parts frame #,sound name,sound file.";
                 return;
             }
 
@@ -220,7 +214,7 @@ namespace splashkit_lib
             {
                 if(load_sound_effect(snd_id, snd_file) == nullptr)
                 {
-                    LOG(WARNING) << "At line " + to_string(line_no) + " in animation " + filename + ": Cannot find " + snd_id + " sound file " + snd_file;
+                    LOG(WARNING) << "At line " + std::to_string(line_no) + " in animation " + filename + ": Cannot find " + snd_id + " sound file " + snd_file;
                     return;
                 }
             }
@@ -228,19 +222,19 @@ namespace splashkit_lib
             if (id >= 0 && id < rows.size())
                 rows[id].snd = sound_effect_named(snd_id);
             else
-                LOG(WARNING) << "At line " + to_string(line_no) + " in animation " + filename + ": No frame with id " + to_string(id) + " for sound file " + snd_file;
+                LOG(WARNING) << "At line " + std::to_string(line_no) + " in animation " + filename + ": No frame with id " + std::to_string(id) + " for sound file " + snd_file;
         };
 
         auto process_vector = [&]()
         {
-            vector<int> id_range;
-            string x_val, y_val;
+            std::vector<int> id_range;
+            std::string x_val, y_val;
             double x, y;
             vector_2d v;
 
             if (count_delimiter(data, ',') != 2)
             {
-                LOG(WARNING) << "Error at line " + to_string(line_no) + " in animation " + filename + ". A vector must have three parts frame #s, x value, y value.";
+                LOG(WARNING) << "Error at line " + std::to_string(line_no) + " in animation " + filename + ". A vector must have three parts frame #s, x value, y value.";
                 return;
             }
 
@@ -250,13 +244,13 @@ namespace splashkit_lib
 
             if (not try_str_to_double(x_val, x))
             {
-                LOG(WARNING) << "Error at line " + to_string(line_no) + " in animation " + filename + ". X value must be a number.";
+                LOG(WARNING) << "Error at line " + std::to_string(line_no) + " in animation " + filename + ". X value must be a number.";
                 return;
             }
 
             if (not try_str_to_double(y_val, y))
             {
-                LOG(WARNING) << "Error at line " + to_string(line_no) + " in animation " + filename + ". Y value must be a number.";
+                LOG(WARNING) << "Error at line " + std::to_string(line_no) + " in animation " + filename + ". Y value must be a number.";
                 return;
             }
 
@@ -282,7 +276,7 @@ namespace splashkit_lib
             // Verify that id is a single char
             if (line_id.length() != 1)
             {
-                LOG(WARNING) << "Error at line " + to_string(line_no) + " in animation " + filename + ". Error with frame #: " + line_id + ". This should be a single character.";
+                LOG(WARNING) << "Error at line " + std::to_string(line_no) + " in animation " + filename + ". Error with frame #: " + line_id + ". This should be a single character.";
                 return;
             }
 
@@ -305,7 +299,7 @@ namespace splashkit_lib
                     process_vector();
                     break;
                 default:
-                    LOG(WARNING) << "Error at line " + to_string(line_no) + " in animation " + filename + ". Error with id: " + line_id + ". This should be one of f,m,i, s, or v.";
+                    LOG(WARNING) << "Error at line " + std::to_string(line_no) + " in animation " + filename + ". Error with id: " + line_id + ". This should be one of f,m,i, s, or v.";
                     return;
             }
         };
@@ -344,7 +338,7 @@ namespace splashkit_lib
                 {
                     free_animation_script(result);
                     result = nullptr;
-                    LOG(WARNING) << "Error in animation " + filename + ". Error with frame: " + to_string(j) + ". Next is outside of available frames.";
+                    LOG(WARNING) << "Error in animation " + filename + ". Error with frame: " + std::to_string(j) + ". Next is outside of available frames.";
                     return;
                 }
                 else
@@ -409,7 +403,7 @@ namespace splashkit_lib
                 if (sum_loop(current) == 0)
                 {
                     free_animation_script(result);
-                    LOG(WARNING) << "Error in animation " + filename + ". Animation contains a loop with duration 0 starting at cell " + to_string(current->index);
+                    LOG(WARNING) << "Error in animation " + filename + ". Animation contains a loop with duration 0 starting at cell " + std::to_string(current->index);
                     return;
                 }
             }
@@ -467,7 +461,7 @@ namespace splashkit_lib
         return result;
     }
 
-    animation_script animation_script_named(const string &name)
+    animation_script animation_script_named(const std::string &name)
     {
         if (has_animation_script(name))
             return _animation_scripts[name];
@@ -498,14 +492,14 @@ namespace splashkit_lib
         delete(script_to_free);
     }
 
-    void free_animation_script(const string &name)
+    void free_animation_script(const std::string &name)
     {
         free_animation_script(animation_script_named(name));
     }
 
     void free_all_animation_scripts()
     {
-        string name;
+        std::string name;
 
         size_t sz = _animation_scripts.size();
 
@@ -552,7 +546,7 @@ namespace splashkit_lib
         }
     }
 
-    bool has_animation_script(const string &name)
+    bool has_animation_script(const std::string &name)
     {
         return _animation_scripts.count(name) > 0;
     }
@@ -621,7 +615,7 @@ namespace splashkit_lib
         return anim->frame_time;
     }
 
-    bool has_animation_named(animation_script script, const string &name)
+    bool has_animation_named(animation_script script, const std::string &name)
     {
         if (INVALID_PTR(script, ANIMATION_SCRIPT_PTR))
         {
@@ -632,7 +626,7 @@ namespace splashkit_lib
         return script->animation_ids.count(to_lower(name)) > 0;
     }
 
-    int animation_index(animation_script script, const string &name)
+    int animation_index(animation_script script, const std::string &name)
     {
         if (INVALID_PTR(script, ANIMATION_SCRIPT_PTR))
         {
@@ -649,7 +643,7 @@ namespace splashkit_lib
         return script->animation_ids[to_lower(name)];
     }
 
-    string animation_name(animation temp)
+    std::string animation_name(animation temp)
     {
         if ( INVALID_PTR(temp, ANIMATION_PTR))
         {
@@ -660,7 +654,7 @@ namespace splashkit_lib
         return temp->animation_name;
     }
 
-    string animation_name(animation_script temp, int idx)
+    std::string animation_name(animation_script temp, int idx)
     {
         if (INVALID_PTR(temp, ANIMATION_SCRIPT_PTR))
         {
@@ -670,14 +664,14 @@ namespace splashkit_lib
 
         if ( idx < 0 or idx >= temp->animation_names.size())
         {
-            LOG(WARNING) << "Attempting to get an animation that is not within range 0-" + to_string(temp->animations.size()-1) + ".";
+            LOG(WARNING) << "Attempting to get an animation that is not within range 0-" + std::to_string(temp->animations.size()-1) + ".";
             return "";
         }
 
         return temp->animation_names[idx];
     }
 
-    string animation_script_name(animation_script script)
+    std::string animation_script_name(animation_script script)
     {
         if (VALID_PTR(script, ANIMATION_SCRIPT_PTR)) return script->name;
         return "";
@@ -699,7 +693,7 @@ namespace splashkit_lib
 
         if ((idx < 0) or (idx >= script->animations.size()))
         {
-            LOG(WARNING) << "Assigning an animation frame that is not within range 0-" + to_string(script->animations.size()-1) + ".";
+            LOG(WARNING) << "Assigning an animation frame that is not within range 0-" + std::to_string(script->animations.size()-1) + ".";
             return;
         }
 
@@ -726,8 +720,8 @@ namespace splashkit_lib
 
         assign_animation(anim, anim->script, idx, with_sound);
     }
-    
-    void assign_animation(animation anim, string name, bool with_sound)
+
+    void assign_animation(animation anim, std::string name, bool with_sound)
     {
         if (INVALID_PTR(anim, ANIMATION_PTR))
         {
@@ -738,40 +732,40 @@ namespace splashkit_lib
         assign_animation(anim, anim->script, name, with_sound);
     }
 
-    
+
     void assign_animation(animation anim, int idx)
     {
         assign_animation(anim, idx, true);
     }
 
-    void assign_animation(animation anim, string name)
+    void assign_animation(animation anim, std::string name)
     {
         assign_animation(anim, name, true);
     }
-    
-    
+
+
     void assign_animation(animation anim, animation_script script, int idx)
     {
         assign_animation(anim, script, idx, true);
     }
 
-    void assign_animation(animation anim, animation_script script, const string &name)
+    void assign_animation(animation anim, animation_script script, const std::string &name)
     {
         assign_animation(anim, script, animation_index(script, name), true);
     }
 
-    void assign_animation(animation anim, animation_script script, const string &name, bool with_sound)
+    void assign_animation(animation anim, animation_script script, const std::string &name, bool with_sound)
     {
         assign_animation(anim, script, animation_index(script, name), with_sound);
     }
 
-    void assign_animation(animation anim, const string &script_name, const string &name)
+    void assign_animation(animation anim, const std::string &script_name, const std::string &name)
     {
         animation_script script = animation_script_named(script_name);
         assign_animation(anim, script, animation_index(script, name), true);
     }
 
-    void assign_animation(animation anim, const string &script_name, const string &name, bool with_sound)
+    void assign_animation(animation anim, const std::string &script_name, const std::string &name, bool with_sound)
     {
         animation_script script = animation_script_named(script_name);
         assign_animation(anim, script, animation_index(script, name), with_sound);
@@ -790,7 +784,7 @@ namespace splashkit_lib
 
         if ((idx < 0) or (idx >= script->animations.size()))
         {
-            LOG(WARNING) << "Unable to create animation number " + to_string(idx) + " from script " + script->name;
+            LOG(WARNING) << "Unable to create animation number " + std::to_string(idx) + " from script " + script->name;
             return result;
         }
 
@@ -817,22 +811,22 @@ namespace splashkit_lib
         return create_animation(script, idx, true);
     }
 
-    animation create_animation(animation_script script, const string &name, bool with_sound)
+    animation create_animation(animation_script script, const std::string &name, bool with_sound)
     {
         return create_animation(script, animation_index(script, name), with_sound);
     }
 
-    animation create_animation(animation_script script, const string &name)
+    animation create_animation(animation_script script, const std::string &name)
     {
         return create_animation(script, animation_index(script, name), true);
     }
 
-    animation create_animation(const string &script_name, const string &name, bool with_sound)
+    animation create_animation(const std::string &script_name, const std::string &name, bool with_sound)
     {
         return create_animation(animation_script_named(script_name), name, with_sound);
     }
 
-    animation create_animation(const string &script_name, const string &name)
+    animation create_animation(const std::string &script_name, const std::string &name)
     {
         return create_animation(animation_script_named(script_name), name, true);
     }

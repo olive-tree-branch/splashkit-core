@@ -16,7 +16,6 @@
 #include "drawing_options.h"
 
 #include <string>
-using std::string;
 
 namespace splashkit_lib
 {
@@ -31,7 +30,7 @@ namespace splashkit_lib
      * @attribute class animation_script
      * @attribute constructor true
      */
-    animation_script load_animation_script(const string &name, const string &filename);
+    animation_script load_animation_script(const std::string &name, const std::string &filename);
 
     /**
      * Frees loaded animation frames data. Use this when you will no
@@ -59,7 +58,7 @@ namespace splashkit_lib
      * @attribute static  animation_script
      */
 
-    void free_animation_script(const string &name);
+    void free_animation_script(const std::string &name);
 
     /**
      * Frees all loaded `animation_script`s.
@@ -82,7 +81,7 @@ namespace splashkit_lib
      *
      * @attribute static  animation_script
      */
-    animation_script animation_script_named(const string &name);
+    animation_script animation_script_named(const std::string &name);
 
     /**
      * Determines if SplashKit has animation frames loaded for the
@@ -94,7 +93,7 @@ namespace splashkit_lib
      *
      * @attribute static  animation_script
      */
-    bool has_animation_script(const string &name);
+    bool has_animation_script(const std::string &name);
 
     /**
      * Retuns the name of an `animation_script`.
@@ -106,7 +105,7 @@ namespace splashkit_lib
      * @attribute getter name
      * @attribute self   script
      */
-    string animation_script_name(animation_script script);
+    std::string animation_script_name(animation_script script);
 
     /**
      * Returns whether an `animation_script` has been loaded with the
@@ -119,7 +118,7 @@ namespace splashkit_lib
      * @attribute class  animation_script
      * @attribute self   script
      */
-    bool has_animation_named(animation_script script, const string &name);
+    bool has_animation_named(animation_script script, const std::string &name);
 
     /**
      * Returns the number of `animation`s within an `animation_script`.
@@ -151,7 +150,7 @@ namespace splashkit_lib
      *
      * @attribute suffix    with_sound
      */
-    animation create_animation(animation_script script, const string &name, bool with_sound);
+    animation create_animation(animation_script script, const std::string &name, bool with_sound);
 
     /**
      * Creates an animation from an `animation_script`'s name. This may
@@ -165,7 +164,7 @@ namespace splashkit_lib
      *
      * @attribute suffix    from_script_named_with_sound
      */
-    animation create_animation(const string &script_name, const string &name, bool with_sound);
+    animation create_animation(const std::string &script_name, const std::string &name, bool with_sound);
 
     /**
      * Creates an animation from an `animation_script`.
@@ -178,7 +177,7 @@ namespace splashkit_lib
      * @attribute method    create_animation
      * @attribute self      script
      */
-    animation create_animation(animation_script script, const string &name);
+    animation create_animation(animation_script script, const std::string &name);
 
     /**
      * Creates an animation from an `animation_script`'s name. This may
@@ -191,7 +190,7 @@ namespace splashkit_lib
      *
      * @attribute suffix    from_script_named
      */
-    animation create_animation(const string &script_name, const string &name);
+    animation create_animation(const std::string &script_name, const std::string &name);
 
     /**
      * Creates an animation from an `animation_script`. This may play a
@@ -235,7 +234,7 @@ namespace splashkit_lib
      * @attribute suffix    index_with_sound
      */
     void assign_animation(animation anim, int idx, bool with_sound);
-    
+
     /**
      * Setup an `animation` to follow the script from an indicated name.
      * This locates the name of the animation from the current animation script and
@@ -250,8 +249,8 @@ namespace splashkit_lib
      *
      * @attribute suffix    with_sound
      */
-    void assign_animation(animation anim, string name, bool with_sound);
-    
+    void assign_animation(animation anim, std::string name, bool with_sound);
+
     /**
      * Setup an `animation` to follow the script from an indicated index.
      * This uses the index from the current animation script and
@@ -266,7 +265,7 @@ namespace splashkit_lib
      * @attribute suffix    index
      */
     void assign_animation(animation anim, int idx);
-    
+
     /**
      * Setup an `animation` to follow the script from an indicated name.
      * This locates the name of the animation from the current animation script and
@@ -278,8 +277,8 @@ namespace splashkit_lib
      * @attribute class     animation
      * @attribute method    assign
      */
-    void assign_animation(animation anim, string name);
-    
+    void assign_animation(animation anim, std::string name);
+
     /**
      * Setup an `animation` to follow the script from an indicated name.
      * This will switch the animation to use the supplied script.
@@ -296,7 +295,7 @@ namespace splashkit_lib
      *
      * @attribute suffix    with_script
      */
-    void assign_animation(animation anim, animation_script script, const string &name);
+    void assign_animation(animation anim, animation_script script, const std::string &name);
 
     /**
      * Assigns an `animation` to an `animation_script`. This may play a
@@ -314,7 +313,7 @@ namespace splashkit_lib
      *
      * @attribute suffix    with_script_and_sound
      */
-    void assign_animation(animation anim, animation_script script, const string &name, bool with_sound);
+    void assign_animation(animation anim, animation_script script, const std::string &name, bool with_sound);
 
     /**
      * Assigns an `animation` to an `animation_script`.
@@ -329,7 +328,7 @@ namespace splashkit_lib
      *
      * @attribute suffix    with_script_named
      */
-    void assign_animation(animation anim, const string &script_name, const string &name);
+    void assign_animation(animation anim, const std::string &script_name, const std::string &name);
 
     /**
      * Assigns an `animation` to an `animation_script`. This may play a
@@ -347,7 +346,7 @@ namespace splashkit_lib
      *
      * @attribute suffix    with_script_named_and_sound
      */
-    void assign_animation(animation anim, const string &script_name, const string &name, bool with_sound);
+    void assign_animation(animation anim, const std::string &script_name, const std::string &name, bool with_sound);
 
     /**
      * Assigns an `animation` to an `animation_script`.
@@ -395,7 +394,7 @@ namespace splashkit_lib
      *
      * @returns Returns the index of the `animation` in the `animation_script`
      */
-    int animation_index(animation_script script, const string &name);
+    int animation_index(animation_script script, const std::string &name);
 
     /**
      * Searches an `animation_script` for an animation and returns its name.
@@ -408,7 +407,7 @@ namespace splashkit_lib
      *
      * @returns Returns the name of the `animation` in the `animation_script`.
      */
-    string animation_name(animation temp);
+    std::string animation_name(animation temp);
 
     /**
      * Returns the current cell (the part of the image or sprite) of this
