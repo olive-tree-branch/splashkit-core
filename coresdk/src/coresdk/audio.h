@@ -15,6 +15,10 @@
 
 #ifndef sk_audio
 #define sk_audio
+
+#include "sound.h"
+#include "music.h"
+
 namespace splashkit_lib
 {
     /**
@@ -39,7 +43,5 @@ namespace splashkit_lib
      */
     bool audio_ready();
 }
-#include "sound.h"
-#include "music.h"
 
 #endif

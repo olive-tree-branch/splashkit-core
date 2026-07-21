@@ -7,17 +7,16 @@
 #include <iostream>
 #include <map>
 
-using std::map;
-
 namespace splashkit_lib
 {
-    static map<string, sound_effect> _sound_effects;
+    static std::map<std::string, sound_effect> _sound_effects;
 
     struct _sound_data
     {
         pointer_identifier id;
         sk_sound_data effect;
-        string filename, name;
+        std::string filename;
+        std::string name;
     };
 
     void open_audio()
@@ -29,7 +28,7 @@ namespace splashkit_lib
     {
         sk_close_audio();
     }
-    
+
     bool audio_ready()
     {
         return sk_audio_is_open();
