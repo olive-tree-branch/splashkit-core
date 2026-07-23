@@ -33,10 +33,10 @@ namespace splashkit_lib
 
     void sk_delete_json(json j);
 
-    string json_type_to_string(backend_json::value_t type);
+    std::string json_type_to_string(backend_json::value_t type);
 
     template <typename T>
-    void sk_json_add_value(json j, string key, T value)
+    void sk_json_add_value(json j, std::string key, T value)
     {
         if (INVALID_PTR(j, JSON_PTR))
         {
@@ -55,7 +55,7 @@ namespace splashkit_lib
     }
 
     template<typename T>
-    T sk_json_read_value(json j, string key, backend_json::value_t type)
+    T sk_json_read_value(json j, std::string key, backend_json::value_t type)
     {
         if (INVALID_PTR(j, JSON_PTR))
         {
@@ -76,7 +76,7 @@ namespace splashkit_lib
     }
 
     template <typename T>
-    void sk_json_read_array(json j, string key, vector<T>& out)
+    void sk_json_read_array(json j, std::string key, std::vector<T>& out)
     {
         if (INVALID_PTR(j, JSON_PTR))
         {
@@ -89,19 +89,19 @@ namespace splashkit_lib
             LOG(ERROR) << "JSON key value is not an array. Has type " << json_type_to_string(j->data[key].type());
             return;
         }
-        
+
         out.clear();
-        
+
         backend_json json_array = j->data[key];
-        
+
         for (T e : json_array) {
             out.push_back(e);
         }
     }
 
-    inline map<string, string> sk_json_to_map(json j)
+    inline std::map<std::string, std::string> sk_json_to_map(json j)
     {
-        map<string, string> result;
+        std::map<std::string, std::string> result;
 
         backend_json bj = j->data;
         for (auto it = bj.begin(); it != bj.end(); ++it)
@@ -112,7 +112,7 @@ namespace splashkit_lib
             }
             else
             {
-                result.insert(make_pair<string, string>(it.key(), it.value()));
+                result.insert(std::make_pair<std::string, std::string>(it.key(), it.value()));
             }
         }
 

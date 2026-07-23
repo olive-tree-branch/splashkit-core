@@ -90,7 +90,7 @@ namespace splashkit_lib
 
 
 
-    sk_sound_data sk_load_sound_data(string filename, sk_sound_kind kind)
+    sk_sound_data sk_load_sound_data(std::string filename, sk_sound_kind kind)
     {
         internal_sk_init();
         sk_sound_data result = { SGSD_UNKNOWN, NULL } ;
@@ -117,7 +117,7 @@ namespace splashkit_lib
 
         if(result._data == nullptr)
         {
-            cerr << Mix_GetError() << endl;
+            std::cerr << Mix_GetError() << std::endl;
         }
 
         return result;
@@ -314,22 +314,22 @@ namespace splashkit_lib
                 if ( _current_music == sound )
                     sk_set_music_vol(vol);
                 break;
-                
+
             case SGSD_SOUND_EFFECT:
                 Mix_VolumeChunk(static_cast<Mix_Chunk *>(sound->_data), static_cast<int>(vol * MIX_MAX_VOLUME));
                 break;
-                
+
             case SGSD_UNKNOWN:
                 break;
         }
     }
-    
+
     void sk_pause_music()
     {
         internal_sk_init();
         Mix_PauseMusic();
     }
-    
+
     void sk_resume_music()
     {
         internal_sk_init();
@@ -338,23 +338,23 @@ namespace splashkit_lib
             Mix_ResumeMusic();
         }
     }
-    
+
     void sk_stop_music()
     {
         internal_sk_init();
         Mix_HaltMusic();
     }
-    
+
     void sk_stop_sound(sk_sound_data *sound)
     {
         if ( ! sound ) return;
-        
+
         switch (sound->kind)
         {
             case SGSD_MUSIC:
                 if ( _current_music == sound ) sk_stop_music();
                 break;
-                
+
             case SGSD_SOUND_EFFECT:
             {
                 for (int i = 0; i < SG_MAX_CHANNELS; i++)
@@ -366,12 +366,12 @@ namespace splashkit_lib
                 }
                 break;
             }
-                
+
             case SGSD_UNKNOWN:
                 break;
         }
     }
-    
+
     bool sk_music_paused()
     {
         internal_sk_init();
@@ -401,7 +401,7 @@ namespace splashkit_lib
             return false;
         }
     }
-    
+
     sk_sound_data * sk_current_music()
     {
         return _current_music;

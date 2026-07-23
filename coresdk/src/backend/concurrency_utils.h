@@ -26,8 +26,8 @@ namespace splashkit_lib
     class semaphore
     {
     private:
-        mutex _mutex;
-        condition_variable _cv;
+        std::mutex _mutex;
+        std::condition_variable _cv;
         int _tokens;
 
     public:
@@ -43,7 +43,7 @@ namespace splashkit_lib
 
         void acquire()
         {
-            unique_lock<mutex> lock(_mutex);
+            std::unique_lock<std::mutex> lock(_mutex);
             while (_tokens <= 0)
             {
                 _cv.wait(lock);
@@ -53,7 +53,7 @@ namespace splashkit_lib
 
         bool try_acquire()
         {
-            lock_guard<mutex> lock(_mutex);
+            std::lock_guard<std::mutex> lock(_mutex);
             if (_tokens == 0) {
                 return false;
             }
@@ -64,7 +64,7 @@ namespace splashkit_lib
 
         void release(int num = 1)
         {
-            lock_guard<mutex> lock(_mutex);
+            std::lock_guard<std::mutex> lock(_mutex);
             _tokens += num;
             _cv.notify_all();
         }
@@ -74,9 +74,9 @@ namespace splashkit_lib
     class channel
     {
     private:
-        queue<T> _queue;
+        std::queue<T> _queue;
         semaphore _take_permission;
-        mutex _mutex;
+        std::mutex _mutex;
 
         T dequeue()
         {
@@ -88,7 +88,7 @@ namespace splashkit_lib
     public:
         void put(T data)
         {
-            unique_lock<mutex> lock(_mutex);
+            std::unique_lock<std::mutex> lock(_mutex);
             _queue.push(data);
             lock.unlock();
 
@@ -98,23 +98,23 @@ namespace splashkit_lib
         T take()
         {
             _take_permission.acquire();
-            
-            lock_guard<mutex> lock(_mutex);
+
+            std::lock_guard<std::mutex> lock(_mutex);
             return dequeue();
         }
-        
+
         bool try_take(T& data)
         {
             if (_take_permission.try_acquire())
             {
-                lock_guard<mutex> lock(_mutex);
+                std::lock_guard<std::mutex> lock(_mutex);
                 data = dequeue();
                 return true;
             }
-            
+
             return false;
         }
-        
+
     };
 }
 #endif // sgsdl2_SGSDL2ConcurrencyUtils_h

@@ -19,7 +19,7 @@ namespace splashkit_lib
         }
     }
 
-    string json_type_to_string(backend_json::value_t type)
+    std::string json_type_to_string(backend_json::value_t type)
     {
         switch(type)
         {

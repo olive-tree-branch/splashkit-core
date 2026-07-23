@@ -17,8 +17,6 @@
 
 #include <easylogging++.h>
 
-using std::string;
-
 namespace splashkit_lib
 {
     // smallest positive value: less than that to be considered zero
@@ -26,9 +24,9 @@ namespace splashkit_lib
     // and its square
 #define EPSEPS 0.0001
 
-    bool file_exists(string path);
+    bool file_exists(std::string path);
 
-    bool directory_exists(string path);
+    bool directory_exists(std::string path);
 
 #define VALID_PTR(p, pkind) ((p) and p->id == pkind)
 #define INVALID_PTR(p, pkind) (not VALID_PTR(p, pkind))
@@ -39,7 +37,7 @@ namespace splashkit_lib
 #define MAX(a, b) (a > b ? a : b)
 
     template <typename T>
-    bool erase_from_vector(vector<T> &v, T value)
+    bool erase_from_vector(std::vector<T> &v, T value)
     {
         auto it = find(v.begin(), v.end(), value);
         if (it != v.end())
@@ -54,7 +52,7 @@ namespace splashkit_lib
     }
 
     template <typename T>
-    int index_of(vector<T> vec, T value)
+    int index_of(std::vector<T> vec, T value)
     {
         auto result = find(vec.begin(), vec.end(), value);
 
@@ -65,7 +63,7 @@ namespace splashkit_lib
     }
 
     template <typename K, typename V>
-    bool key_of_value(const map<K, V> &map, const V &value, K &result)
+    bool key_of_value(const std::map<K, V> &map, const V &value, K &result)
     {
         auto find_result = std::find_if(std::begin(map),
                                         std::end(map),
@@ -126,11 +124,11 @@ namespace splashkit_lib
         }                                                              \
     }
 
-    string cat(std::initializer_list<string> list);
+    std::string cat(std::initializer_list<std::string> list);
 
-    string path_from(std::initializer_list<string> list, string filename = string(""));
+    std::string path_from(std::initializer_list<std::string> list, std::string filename = std::string(""));
 
-    string path_to_user_home();
+    std::string path_to_user_home();
 
     // finally mechanism from: http://stackoverflow.com/questions/161177/does-c-support-finally-blocks-and-whats-this-raii-i-keep-hearing-about
     template <typename F>
@@ -162,8 +160,8 @@ namespace splashkit_lib
         return FinalAction<F>(f);
     }
 
-    string trim(const string &str);
-    void to_upper(string &str);
+    std::string trim(const std::string &str);
+    void to_upper(std::string &str);
 
     pointer_identifier ptr_kind(void *p);
 
@@ -173,28 +171,28 @@ namespace splashkit_lib
     sk_drawing_surface *to_surface_ptr(void *p);
     void xy_from_opts(const drawing_options &opts, double &x, double &y);
 
-    void process_range(string value_in, vector<int> &result);
+    void process_range(std::string value_in, std::vector<int> &result);
 
-    string directory_of(string path);
+    std::string directory_of(std::string path);
 
-    string extract_delimited(int index, string value, char delim);
-    string extract_delimited_with_ranges(int index, string value);
+    std::string extract_delimited(int index, std::string value, char delim);
+    std::string extract_delimited_with_ranges(int index, std::string value);
 
-    int count_delimiter(string value, char delimiter);
-    int count_delimiter_with_ranges(string value, char delimiter);
+    int count_delimiter(std::string value, char delimiter);
+    int count_delimiter_with_ranges(std::string value, char delimiter);
 
-    int str_to_int(string str, bool allow_empty = true, int empty_value = 0);
-    float str_to_float(string str, bool allow_empty = true, float empty_value = 0.0f);
-    double str_to_double(string str, bool allow_empty = true, double empty_value = 0.0);
+    int str_to_int(std::string str, bool allow_empty = true, int empty_value = 0);
+    float str_to_float(std::string str, bool allow_empty = true, float empty_value = 0.0f);
+    double str_to_double(std::string str, bool allow_empty = true, double empty_value = 0.0);
 
-    bool try_str_to_int(string str, int &result);
-    bool try_str_to_float(string str, float &result);
-    bool try_str_to_double(string str, double &result);
+    bool try_str_to_int(std::string str, int &result);
+    bool try_str_to_float(std::string str, float &result);
+    bool try_str_to_double(std::string str, double &result);
 
-    string to_lower(string str);
-    string get_env_var(const string &name);
-    string base_fs_path();
-    vector<string> scan_dir_recursive(const string &directory);
+    std::string to_lower(std::string str);
+    std::string get_env_var(const std::string &name);
+    std::string base_fs_path();
+    std::vector<std::string> scan_dir_recursive(const std::string &directory);
 
     double rad_to_deg(double radians);
 

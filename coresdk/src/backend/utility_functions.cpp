@@ -31,10 +31,6 @@
 
 #include <filesystem>
 
-using std::locale;
-using std::string;
-using std::filesystem::recursive_directory_iterator;
-
 namespace splashkit_lib
 {
 #define PI 3.141592653589793238L
@@ -45,36 +41,36 @@ namespace splashkit_lib
         return ptr && ptr->id == id;
     }
 
-    bool file_exists(const string path)
+    bool file_exists(const std::string path)
     {
         struct stat buffer;
         return (stat(path.c_str(), &buffer) == 0);
     }
 
-    bool directory_exists(const string path)
+    bool directory_exists(const std::string path)
     {
         struct stat buffer;
         return (stat(path.c_str(), &buffer) == 0) and ((buffer.st_mode & S_IFDIR) != 0);
     }
 
-    string directory_of(const string filename)
+    std::string directory_of(const std::string filename)
     {
         size_t found;
         found = filename.find_last_of("/\\");
         return filename.substr(0, found);
     }
 
-    string get_env_var(const string &name)
+    std::string get_env_var(const std::string &name)
     {
         char *val = getenv(name.c_str());
-        return val == NULL ? string("") : string(val);
+        return val == NULL ? std::string("") : std::string(val);
     }
 
-    string path_to_user_home()
+    std::string path_to_user_home()
     {
 #ifndef WINDOWS
         struct passwd *pw = getpwuid(getuid());
-        return string(pw->pw_dir);
+        return std::string(pw->pw_dir);
 #else
         WCHAR path[MAX_PATH];
         if (SUCCEEDED(SHGetFolderPathW(NULL, CSIDL_PROFILE, NULL, 0, path)))
@@ -83,7 +79,7 @@ namespace splashkit_lib
             char DefChar = ' ';
             WideCharToMultiByte(CP_ACP, 0, path, -1, ch, 260, &DefChar, NULL);
 
-            return string(ch);
+            return std::string(ch);
         }
         else
         {
@@ -92,11 +88,11 @@ namespace splashkit_lib
 #endif
     }
 
-    string cat(std::initializer_list<string> list)
+    std::string cat(std::initializer_list<std::string> list)
     {
-        string result("");
+        std::string result("");
 
-        for (string elem : list)
+        for (std::string elem : list)
         {
             result += elem;
         }
@@ -104,10 +100,10 @@ namespace splashkit_lib
         return result;
     }
 
-    string to_lower(string str)
+    std::string to_lower(std::string str)
     {
-        string result = "";
-        locale loc;
+        std::string result = "";
+        std::locale loc;
 
         for (auto elem : str)
             result += std::tolower(elem, loc);
@@ -115,7 +111,7 @@ namespace splashkit_lib
         return result;
     }
 
-    string path_from(std::initializer_list<string> list, string filename)
+    std::string path_from(std::initializer_list<std::string> list, std::string filename)
     {
 #ifdef WINDOWS
 #define PATH_SEP "\\"
@@ -123,15 +119,15 @@ namespace splashkit_lib
 #define PATH_SEP "/"
 #endif
 
-        string result("");
+        std::string result("");
         bool first = true;
-        for (string elem : list)
+        for (std::string elem : list)
         {
             if (elem.find(PATH_SEP) == 0 && !first)
                 elem.erase(0, 1);
             result += elem;
             size_t last_sep = elem.find_last_of(PATH_SEP);
-            if (last_sep == string::npos || last_sep < elem.length() - 1)
+            if (last_sep == std::string::npos || last_sep < elem.length() - 1)
                 result += PATH_SEP;
 
             first = false;
@@ -145,7 +141,7 @@ namespace splashkit_lib
         return result + filename;
     }
 
-    string base_fs_path()
+    std::string base_fs_path()
     {
 #if WINDOWS
         return get_env_var("SYSTEMDRIVE") + "\\";
@@ -154,15 +150,16 @@ namespace splashkit_lib
 #endif
     }
 
-    vector<string> scan_dir_recursive(const string &directory)
+    std::vector<std::string> scan_dir_recursive(const std::string &directory)
     {
-        vector<string> result;
+        std::vector<std::string> result;
         result.push_back(directory);
 
         // LOG(TRACE) << "Adding dir: " << directory;
 
         std::error_code ec;
 
+        using std::filesystem::recursive_directory_iterator;
         for (const auto &dir_entry : recursive_directory_iterator(directory, {}, ec))
         {
             if (dir_entry.is_directory())
@@ -264,11 +261,11 @@ namespace splashkit_lib
         y = to_screen_y(y);
     }
 
-    string extract_delimited(int index, string value, char delimiter)
+    std::string extract_delimited(int index, std::string value, char delimiter)
     {
         int at_index = 1; // 1 based
         int i;
-        string result;
+        std::string result;
 
         for (i = 0; i < value.length(); i++)
         {
@@ -293,14 +290,14 @@ namespace splashkit_lib
         return result;
     }
 
-    string extract_delimited_with_ranges(int index, string value)
+    std::string extract_delimited_with_ranges(int index, std::string value)
     {
         int i, count, start;
         bool in_range;
 
         // SetLength(result, 0);
         in_range = false;
-        string result = "";
+        std::string result = "";
         count = 1; // 1 is the first index... not 0
 
         // Find the start of this delimited range
@@ -338,7 +335,7 @@ namespace splashkit_lib
         return result;
     }
 
-    int count_delimiter(string value, char delimiter)
+    int count_delimiter(std::string value, char delimiter)
     {
         int count = 0;
         for_each(value.begin(), value.end(), [&](char ch)
@@ -346,7 +343,7 @@ namespace splashkit_lib
         return count;
     }
 
-    int count_delimiter_with_ranges(string value, char delimiter)
+    int count_delimiter_with_ranges(std::string value, char delimiter)
     {
         int i;
         bool in_range = false;
@@ -365,7 +362,7 @@ namespace splashkit_lib
         return result;
     }
 
-    bool try_str_to_int(string str, int &result)
+    bool try_str_to_int(std::string str, int &result)
     {
         char temp; // used to check nothing comes after the int
 
@@ -389,7 +386,7 @@ namespace splashkit_lib
         return true;
     }
 
-    int str_to_int(string str, bool allow_empty, int empty_value)
+    int str_to_int(std::string str, bool allow_empty, int empty_value)
     {
         int result;
 
@@ -414,7 +411,7 @@ namespace splashkit_lib
         return result;
     }
 
-    bool try_str_to_float(string str, float &result)
+    bool try_str_to_float(std::string str, float &result)
     {
         char temp; // used to check nothing comes after the int
 
@@ -438,7 +435,7 @@ namespace splashkit_lib
         return true;
     }
 
-    float str_to_float(string str, bool allow_empty, float empty_value)
+    float str_to_float(std::string str, bool allow_empty, float empty_value)
     {
         float result;
 
@@ -463,7 +460,7 @@ namespace splashkit_lib
         return result;
     }
 
-    bool try_str_to_double(string str, double &result)
+    bool try_str_to_double(std::string str, double &result)
     {
         char temp; // used to check nothing comes after the int
 
@@ -487,7 +484,7 @@ namespace splashkit_lib
         return true;
     }
 
-    double str_to_double(string str, bool allow_empty, double empty_value)
+    double str_to_double(std::string str, bool allow_empty, double empty_value)
     {
         double result;
 
@@ -512,7 +509,7 @@ namespace splashkit_lib
         return result;
     }
 
-    void to_upper(string &str)
+    void to_upper(std::string &str)
     {
         for (auto &c : str)
             c = toupper(c);
@@ -525,10 +522,10 @@ namespace splashkit_lib
         return 1;
     }
 
-    void process_range(string value_in, vector<int> &result)
+    void process_range(std::string value_in, std::vector<int> &result)
     {
         int i, j, count, temp, low_part, high_part, dash_count;
-        string part, value;
+        std::string part, value;
 
         value = trim(value_in);
         result.clear();

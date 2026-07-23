@@ -10,7 +10,6 @@
 #define sk_AudioDriver_h
 
 #include <string>
-using std::string;
 
 namespace splashkit_lib
 {
@@ -40,7 +39,7 @@ namespace splashkit_lib
 
     int sk_get_channel(sk_sound_data *sound);
 
-    sk_sound_data sk_load_sound_data(string filename, sk_sound_kind kind);
+    sk_sound_data sk_load_sound_data(std::string filename, sk_sound_kind kind);
 
     void sk_close_sound_data(sk_sound_data * sound );
 
@@ -65,19 +64,19 @@ namespace splashkit_lib
     void sk_set_sound_volume(sk_sound_data *sound, double vol);
 
     void sk_pause_music();
-    
+
     void sk_resume_music();
-    
+
     void sk_stop_music();
-    
+
     void sk_stop_sound(sk_sound_data *sound);
-    
+
     bool sk_music_paused();
 
     bool sk_music_playing();
-    
+
     sk_sound_data * sk_current_music();
-    
-    
+
+
 }
 #endif /* defined(__sk__SGSDK2Audio__) */

@@ -58,16 +58,16 @@ namespace splashkit_lib
     sk_window_data sk_get_window_event_data(sk_drawing_surface *surface);
     void sk_move_window(sk_drawing_surface *surface, int x, int y);
 
-    void sk_start_reading_text(window wind, double x, double y, double width, double height, string initial_text);
+    void sk_start_reading_text(window wind, double x, double y, double width, double height, std::string initial_text);
     void _stop_reading_text(window wind);
 
     void sk_mouse_position(double &x, double &y);
     void sk_mouse_movement(double &x, double &y);
-    
+
     bool sk_mouse_button_down(uint32_t button);
-    
+
     bool sk_show_mouse(int value);
-    
-    string sk_key_name(key_code key);
+
+    std::string sk_key_name(key_code key);
 }
 #endif /* defined(__sgsdl2__SGSDL2Input__) */

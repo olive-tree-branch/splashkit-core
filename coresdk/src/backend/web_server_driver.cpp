@@ -18,7 +18,7 @@ using std::to_string;
 
 namespace splashkit_lib
 {
-    static map<unsigned short, sk_web_server*> servers;
+    static std::map<unsigned short, sk_web_server*> servers;
 
     struct _web_server_ctx_data
     {
@@ -53,7 +53,7 @@ namespace splashkit_lib
         // Populate headers
         for (auto header : request_info->http_headers) {
           if (header.name != nullptr) {
-            r->headers.push_back(string(header.name) + ": " + string(header.value));
+            r->headers.push_back(std::string(header.name) + ": " + std::string(header.value));
           }
         }
 
@@ -93,7 +93,7 @@ namespace splashkit_lib
             int post_data_len;
             post_data_len = mg_read(conn, post_data, sizeof(post_data));
 
-            r->body = string(post_data);
+            r->body = std::string(post_data);
         }
 
         r->server = servers[port];
@@ -101,8 +101,8 @@ namespace splashkit_lib
         r->control.acquire(); // Waits until user returns response.
 
         // Concatenate headers vector
-        string headers;
-        for (string &header : r->response->headers) {
+        std::string headers;
+        for (std::string &header : r->response->headers) {
           headers.append(header.append("\r\n"));
         }
 
@@ -198,7 +198,7 @@ namespace splashkit_lib
         server->port = port;
         server->last_request = nullptr;
 
-        string port_str = to_string(port);
+        std::string port_str = std::to_string(port);
 
         // List of options. Last element must be NULL.
         const char *options[] = {"listening_ports", port_str.c_str(), NULL};

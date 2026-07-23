@@ -21,7 +21,7 @@ namespace splashkit_lib
     bool sk_contains_valid_font(sk_font_data* font);
     void sk_close_font(sk_font_data* font);
     int sk_text_line_skip(sk_font_data* font, int font_size);
-    int sk_text_size(sk_font_data* font, int font_size, const string &text, int* w, int* h);
+    int sk_text_size(sk_font_data* font, int font_size, const std::string &text, int* w, int* h);
     int sk_text_height(sk_font_data* font, int font_size);
     void sk_set_font_style(sk_font_data* font, int font_size, int style);
     int sk_get_font_style(sk_font_data* font, int font_size);
@@ -36,7 +36,7 @@ namespace splashkit_lib
                       double x, double y,
                       const char * text,
                       sk_color clr);
-    
-    string sk_find_system_font_path(string name);
+
+    std::string sk_find_system_font_path(std::string name);
 }
 #endif /* defined(__sgsdl2__SGSDL2Text__) */

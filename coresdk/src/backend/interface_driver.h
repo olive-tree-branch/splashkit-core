@@ -24,19 +24,19 @@ namespace splashkit_lib
     bool sk_interface_is_started();
     bool sk_interface_capacity_limited();
 
-    bool sk_interface_start_panel(const string& name, rectangle initial_rectangle);
+    bool sk_interface_start_panel(const std::string& name, rectangle initial_rectangle);
     void sk_interface_end_panel();
 
-    bool sk_interface_start_popup(const string& name);
+    bool sk_interface_start_popup(const std::string& name);
     void sk_interface_end_popup();
 
-    void sk_interface_start_inset(const string& name);
+    void sk_interface_start_inset(const std::string& name);
     void sk_interface_end_inset();
 
-    bool sk_interface_start_treenode(const string& name);
+    bool sk_interface_start_treenode(const std::string& name);
     void sk_interface_end_treenode();
 
-    void sk_interface_open_popup(const string& name);
+    void sk_interface_open_popup(const std::string& name);
 
     void sk_interface_set_layout(int items, int* widths, int height);
     void sk_interface_set_layout_next(const rectangle& rect, bool relative);
@@ -54,11 +54,11 @@ namespace splashkit_lib
     void sk_interface_push_ptr_id(void* ptr);
     void sk_interface_pop_id();
 
-    bool sk_interface_header(const string& label_text);
-    void sk_interface_label(const string& label_text);
-    void sk_interface_text(const string& text);
-    bool sk_interface_button(const string& label_text, int icon);
-    bool sk_interface_checkbox(const string& label_text, const bool& value);
+    bool sk_interface_header(const std::string& label_text);
+    void sk_interface_label(const std::string& label_text);
+    void sk_interface_text(const std::string& text);
+    bool sk_interface_button(const std::string& label_text, int icon);
+    bool sk_interface_checkbox(const std::string& label_text, const bool& value);
     float sk_interface_slider(const float& value, float min_value, float max_value);
     float sk_interface_number(const float& value, float step);
     std::string sk_interface_text_box(const std::string& id, const std::string& value);

@@ -183,7 +183,7 @@ namespace splashkit_lib
 
         if ( ! _sk_initial_window->window )
         {
-            cerr << "Splashkit failed to load a window." << endl << SDL_GetError() << endl;;
+            std::cerr << "Splashkit failed to load a window." << std::endl << SDL_GetError() << std::endl;;
             exit(-1);
         }
 
@@ -197,7 +197,7 @@ namespace splashkit_lib
 
             if ( ! _sk_initial_window->renderer )
             {
-                cerr << "Splashkit failed to create a renderer for the window." << endl << (SDL_GetError()) << endl;
+                std::cerr << "Splashkit failed to create a renderer for the window." << std::endl << (SDL_GetError()) << std::endl;
                 exit(EXIT_FAILURE);
             }
         }
@@ -255,7 +255,7 @@ namespace splashkit_lib
             }
             else
             {
-                // cout << "failed to load bitmap image with new window" << endl;
+                // std::cout << "failed to load bitmap image with new window" << std::endl;
                 exit(-1);
             }
         }
@@ -278,7 +278,7 @@ namespace splashkit_lib
 
         SDL_SetRenderTarget(src_renderer, src_tex);
         _sk_get_pixels_from_renderer(src_renderer, 0, 0, w, h, (int*)pixels);
-        
+
         //SDL_RenderReadPixels(src_renderer, nullptr, SDL_PIXELFORMAT_RGBA8888, pixels, 4 * w);
 
         SDL_Texture *tex = SDL_CreateTexture(dest_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, w, h);
@@ -446,7 +446,7 @@ namespace splashkit_lib
                 }
 
                 SDL_UnlockSurface(_sk_open_bitmaps[i]->surface);
-                
+
                 // Last window is being closed, saving the surface means the loaded bitmap will no longer be drawable!
                 _sk_open_bitmaps[i]->drawable = false;
             }
@@ -658,7 +658,7 @@ namespace splashkit_lib
 
         if ( ! window_be->window )
         {
-            cerr << "Splashkit failed to open a window." << endl << (SDL_GetError()) << endl;
+            std::cerr << "Splashkit failed to open a window." << std::endl << (SDL_GetError()) << std::endl;
             exit(EXIT_FAILURE);
         }
 
@@ -679,7 +679,7 @@ namespace splashkit_lib
 
             if ( ! window_be->renderer )
             {
-                cerr << "Splashkit failed to create a renderer for the window." << endl << (SDL_GetError()) << endl;
+                std::cerr << "Splashkit failed to create a renderer for the window." << std::endl << (SDL_GetError()) << std::endl;
                 exit(EXIT_FAILURE);
             }
         }
@@ -698,7 +698,7 @@ namespace splashkit_lib
         SDL_RenderClear(window_be->renderer);
 
         _sk_add_window(window_be);
-        
+
         if( _sk_has_initial_window )
         {
             _sk_destroy_initial_window();
@@ -727,7 +727,7 @@ namespace splashkit_lib
 
         if ( ! window_be )
         {
-            cerr << "Unable to open window: Out of memory" << endl;
+            std::cerr << "Unable to open window: Out of memory" << std::endl;
             exit(EXIT_FAILURE);
         }
 
@@ -764,7 +764,7 @@ namespace splashkit_lib
     {
         if ( ! surface )
         {
-            cerr << "No surface provided to close_drawing_surface" << endl;
+            std::cerr << "No surface provided to close_drawing_surface" << std::endl;
             return;
         }
 
@@ -1544,7 +1544,7 @@ namespace splashkit_lib
     {
         sk_color result = {0,0,0,0};
         unsigned int clr = 0;
-        
+
         SDL_Rect rect = {x, y, 1, 1};
 
         if ( ! surface || ! surface->_data ) return result;
@@ -1973,49 +1973,49 @@ namespace splashkit_lib
 
                 // Create new backing
                 window_be->backing = SDL_CreateTexture(window_be->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
-                
+
                 // Copy across old display data
                 SDL_SetRenderTarget(window_be->renderer, window_be->backing);
                 SDL_RenderClear(window_be->renderer);
                 SDL_RenderCopy(window_be->renderer, old, nullptr, &dst);
                 SDL_RenderPresent(window_be->renderer);
-                
+
                 // Restore clipping
                 if ( window_be->clipped )
                 {
                     SDL_RenderSetClipRect(window_be->renderer, &window_be->clip);
                 }
-                
+
                 // Delete old backing texture
                 SDL_DestroyTexture(old);
-                
+
                 SDL_PumpEvents();
                 break;
             }
-                
+
             case SGDS_Bitmap:
                 break;
-                
+
             case SGDS_Unknown:
                 break;
         }
     }
-    
+
     // Saving a surface to a png file
     void png_user_warn(png_structp ctx, png_const_charp str)
     {
         //WriteLn(stderr, 'libpng: warning: ', str);
     }
-    
+
     void png_user_error(png_structp ctx, png_const_charp str)
     {
         //WriteLn(stderr, 'libpng: error: ', str);
     }
-    
+
     int sk_save_png(sk_drawing_surface * surface, const char *filename)
     {
         if ( ! surface || ! surface->_data || surface->width <= 0 || surface->height <= 0  ) return 0;
-        
+
         FILE *fp;
         png_structp png_ptr;
         png_infop info_ptr;
@@ -2023,12 +2023,12 @@ namespace splashkit_lib
         unsigned long sz;
         png_bytepp row_pointers;
         uint8_t *pixels;
-        
+
         // Opening output file
         fp = fopen(filename, "wb");
-        
+
         if (fp == nullptr) return 0;
-        
+
         // Initializing png structures and callbacks
         png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, nullptr, &png_user_error, &png_user_warn);
         if (png_ptr == nullptr)
@@ -2036,7 +2036,7 @@ namespace splashkit_lib
             fclose(fp);
             return 0;
         }
-        
+
         info_ptr = png_create_info_struct(png_ptr);
         if (info_ptr == nullptr)
         {
@@ -2044,134 +2044,134 @@ namespace splashkit_lib
             fclose(fp);
             return 0;
         }
-        
+
         png_init_io(png_ptr, fp);
-        
+
         colortype = PNG_COLOR_TYPE_RGBA;
         png_set_IHDR( png_ptr, info_ptr,
                      (png_uint_32)surface->width, (png_uint_32)surface->height, 8, colortype,
                      PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
-        
+
         // Writing the image
         png_write_info(png_ptr, info_ptr);
-        
+
         png_set_packing(png_ptr);
         png_set_swap_alpha(png_ptr);
         png_set_bgr(png_ptr);
-        
+
         // actually get the pixel data...
         sz = (unsigned long)(surface->width * surface->height) * sizeof(uint8_t);
         pixels = (uint8_t *) malloc(sizeof(uint8_t) * sz * 4);
-        
+
         sk_to_pixels(surface, (int *)pixels, (int)sz);
-        
+
         row_pointers = (png_bytepp)png_malloc(png_ptr, (unsigned long)surface->height * sizeof(png_bytep));
-        
+
         for (i = 0; i < surface->height; i++)
         {
             row_pointers[i] = png_bytep(pixels + i * surface->width * 4);
         }
-        
+
         png_write_image(png_ptr, row_pointers);
         png_write_end(png_ptr, info_ptr); // was ptr and nullptr
-        
+
         // Cleaning out...
         png_free(png_ptr, row_pointers);
         png_destroy_write_struct(&png_ptr, &info_ptr);
         free(pixels);
-        
+
         fclose(fp);
         return -1; // success
     }
-    
-    
+
+
     //--------------------------------------------------------------------------------------
     //
     // Images
     //
     //--------------------------------------------------------------------------------------
-    
-    
+
+
     sk_drawing_surface sk_create_bitmap(int width, int height)
     {
         internal_sk_init();
         if ( _sk_num_open_windows == 0 ) _sk_create_initial_window();
-        
+
         sk_drawing_surface result = { SGDS_Unknown, 0, 0, nullptr };
-        
+
         result.kind = SGDS_Bitmap;
         sk_bitmap_be *data = static_cast<sk_bitmap_be *>(malloc(sizeof(sk_bitmap_be)));
-        
+
         result._data = data;
         result.width = width;
         result.height = height;
-        
+
         data->clipped = false;
         data->clip = {0, 0, width, height};
         data->drawable = true;
         data->surface = nullptr;
         data->texture = static_cast<SDL_Texture **>(malloc(sizeof(SDL_Texture*) * _sk_num_open_windows));
-        
+
         for (unsigned int i = 0; i < _sk_num_open_windows; i++)
         {
             data->texture[i] = SDL_CreateTexture(_sk_open_windows[i]->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
-            
+
             SDL_SetTextureBlendMode(data->texture[i], SDL_BLENDMODE_BLEND);
-            
+
             _sk_set_renderer_target(i, data);
             SDL_SetRenderDrawColor(_sk_open_windows[i]->renderer, 255, 255, 255, 0);
             SDL_RenderClear(_sk_open_windows[i]->renderer);
            // SDL_RenderPresent(_sk_open_windows[i]->renderer);
             _sk_restore_default_render_target(i, data);
         }
-        
+
         _sk_add_bitmap(data);
         return result;
     }
-    
+
     sk_drawing_surface sk_load_bitmap(const char * filename)
     {
         internal_sk_init();
         sk_drawing_surface result = { SGDS_Unknown, 0, 0, nullptr };
-        
+
         SDL_Surface *surface;
-        
+
         surface = IMG_Load(filename);
-        
+
         if ( ! surface ) {
             std::cout << "error loading image " << IMG_GetError() << std::endl;
             return result;
         }
         sk_bitmap_be *data = static_cast<sk_bitmap_be *>(malloc(sizeof(sk_bitmap_be)));
-        
+
         result._data = data;
-        
+
         // Allocate space for one texture per window
         if (_sk_num_open_windows > 0)
             data->texture = static_cast<SDL_Texture **>(malloc(sizeof(SDL_Texture*) * _sk_num_open_windows));
         else
             data->texture = nullptr;
-        
+
         for (unsigned int i = 0; i < _sk_num_open_windows; i++)
         {
             // Create a texture for each window
             data->texture[i] = SDL_CreateTextureFromSurface(_sk_open_windows[i]->renderer, surface);
         }
-        
+
         data->surface = surface;
         data->drawable = false;
         data->clipped = false;
         data->clip = {0,0,0,0};
-        
+
         result.kind = SGDS_Bitmap;
         result.width = surface->w;
         result.height = surface->h;
-        
+
         _sk_add_bitmap(data);
-        
+
         return result;
     }
-    
+
     //x, y is the position to draw the bitmap to. As bitmaps scale around their centre, (x, y) is the top-left of the bitmap IF and ONLY IF scale = 1.
     //Angle is in degrees, 0 being right way up
     //Centre is the point to rotate around, relative to the bitmap centre (therefore (0,0) would rotate around the centre point)
@@ -2179,10 +2179,10 @@ namespace splashkit_lib
     {
         if ( ! src || ! dst || src->kind != SGDS_Bitmap )
             return;
-        
+
         if ( dst_data_sz != 7 )
             return;
-        
+
         // dst_data must be 7 values
         double x         = dst_data[0];
         double y         = dst_data[1];
@@ -2191,19 +2191,19 @@ namespace splashkit_lib
         double centre_y  = dst_data[4];
         double scale_x   = dst_data[5];
         double scale_y   = dst_data[6];
-        
+
         if ( src_data_sz != 4)
             return;
-        
+
         // src_data must be
         double src_x     = src_data[0];
         double src_y     = src_data[1];
         double src_w     = src_data[2];
         double src_h     = src_data[3];
-        
+
         // Other locals
         SDL_Texture *srcT;
-        
+
         // Create destination rect from scale values
         SDL_Rect dst_rect = {
             static_cast<int>(x - (src_w * scale_x / 2.0) + src_w/2.0),
@@ -2211,51 +2211,51 @@ namespace splashkit_lib
             static_cast<int>(src_w * scale_x),
             static_cast<int>(src_h * scale_y)
         }; //scale bitmap
-        
+
         SDL_Rect src_rect = {
             static_cast<int>(src_x),
             static_cast<int>(src_y),
             static_cast<int>(src_w),
             static_cast<int>(src_h)
         };
-        
+
         // check if any size is 0... and return if nothing is to be drawn
         if ( 0 == dst_rect.w || 0 == dst_rect.h || 0 == src_rect.w || 0 == src_rect.h ) return;
-        
+
         // Adjust centre to be relative to the bitmap centre rather than top-left
         centre_x = (centre_x * scale_x) + dst_rect.w / 2.0f;
         centre_y = (centre_y * scale_y) + dst_rect.h / 2.0f;
-        
+
         unsigned int count = _sk_renderer_count(dst);
-        
+
         for (unsigned int i = 0; i < count; i++)
         {
             SDL_Renderer *renderer = _sk_prepared_renderer(dst, i);
-            
+
             // if its a window, dont use the renderer index to get the texture
             if (dst->kind == SGDS_Window)
             {
                 unsigned int idx = static_cast<sk_window_be *>(dst->_data)->idx;
-                
+
                 srcT = static_cast<sk_bitmap_be *>(src->_data)->texture[ idx ];
             }
             else
                 srcT = static_cast<sk_bitmap_be *>(src->_data)->texture[ i ];
-            
+
             //Convert parameters to format SDL_RenderCopyEx expects
             SDL_Point centre = {
                 static_cast<int>(centre_x),
                 static_cast<int>(centre_y)
             };
             SDL_RendererFlip sdl_flip = static_cast<SDL_RendererFlip>((flip == sk_FLIP_BOTH) ? (SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL) : flip); //SDL does not have a FLIP_BOTH
-            
+
             //Render
             SDL_RenderCopyEx(renderer, srcT, &src_rect, &dst_rect, angle, &centre, sdl_flip);
-            
+
             _sk_complete_render(dst, i);
         }
     }
-    
+
     void sk_finalise_graphics()
     {
         // Close all bitmaps
@@ -2263,7 +2263,7 @@ namespace splashkit_lib
         {
             _sk_destroy_bitmap(_sk_open_bitmaps[i - 1]);
         }
-        
+
         // Close all windows
         for (unsigned int i = _sk_num_open_windows; i > 0; i--)
         {

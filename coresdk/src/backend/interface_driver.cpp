@@ -467,7 +467,7 @@ namespace splashkit_lib
         #undef INTERFACE_SAFE_CAPACITY
     }
 
-    bool sk_interface_start_panel(const string& name, rectangle initial_rectangle)
+    bool sk_interface_start_panel(const std::string& name, rectangle initial_rectangle)
     {
         return mu_begin_window(ctx, name.c_str(), to_mu(initial_rectangle));
     }
@@ -477,7 +477,7 @@ namespace splashkit_lib
         mu_end_window(ctx);
     }
 
-    bool sk_interface_start_popup(const string& name)
+    bool sk_interface_start_popup(const std::string& name)
     {
         return mu_begin_popup(ctx, name.c_str());
     }
@@ -487,7 +487,7 @@ namespace splashkit_lib
         mu_end_popup(ctx);
     }
 
-    void sk_interface_start_inset(const string& name)
+    void sk_interface_start_inset(const std::string& name)
     {
         mu_begin_panel(ctx, name.c_str());
     }
@@ -497,7 +497,7 @@ namespace splashkit_lib
         mu_end_panel(ctx);
     }
 
-    bool sk_interface_start_treenode(const string& name)
+    bool sk_interface_start_treenode(const std::string& name)
     {
         return mu_begin_treenode(ctx, name.c_str());
     }
@@ -507,7 +507,7 @@ namespace splashkit_lib
         mu_end_treenode(ctx);
     }
 
-    void sk_interface_open_popup(const string& name)
+    void sk_interface_open_popup(const std::string& name)
     {
         mu_open_popup(ctx, name.c_str());
     }
@@ -582,28 +582,28 @@ namespace splashkit_lib
         mu_pop_id(ctx);
     }
 
-    bool sk_interface_header(const string& label_text)
+    bool sk_interface_header(const std::string& label_text)
     {
         return mu_header(ctx, label_text.c_str());
     }
 
-    void sk_interface_label(const string& label_text)
+    void sk_interface_label(const std::string& label_text)
     {
         mu_label(ctx, label_text.c_str());
     }
 
-    void sk_interface_text(const string& text)
+    void sk_interface_text(const std::string& text)
     {
         mu_text(ctx, text.c_str());
     }
 
-    bool sk_interface_button(const string& label_text, int icon)
+    bool sk_interface_button(const std::string& label_text, int icon)
     {
         update_elements_changed(mu_button_ex(ctx, label_text.c_str(), icon, MU_OPT_ALIGNCENTER));
         return element_confirmed;
     }
 
-    bool sk_interface_checkbox(const string& label_text, const bool& value)
+    bool sk_interface_checkbox(const std::string& label_text, const bool& value)
     {
         sk_interface_push_ptr_id((void*)&value);
 
@@ -638,7 +638,7 @@ namespace splashkit_lib
 
     std::string sk_interface_text_box(const std::string& id, const std::string& value)
     {
-        // const std::string* id = &value; 
+        // const std::string* id = &value;
         mu_Id m_id = mu_get_id(ctx, id.c_str(), id.length());
         mu_Rect r = mu_layout_next(ctx);
 

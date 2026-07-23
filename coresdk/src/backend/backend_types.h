@@ -23,9 +23,6 @@
 #include <vector>
 #include <map>
 
-using std::string;
-using std::vector;
-
 namespace splashkit_lib
 {
     typedef void *pointer;
@@ -63,7 +60,7 @@ namespace splashkit_lib
         JSON_PTR =                  0x4a534f4e, //'JSON';
         ADC_PTR=                    0x41444350, //'ADCP';
         MOTOR_DRIVER_PTR =           0x4d444950, //'MDIP';
-        SERVO_DRIVER_PTR =           0x53455256, //'SERV'; 
+        SERVO_DRIVER_PTR =           0x53455256, //'SERV';
         NONE_PTR =                  0x4e4f4e45  //'NONE';
     };
 
@@ -116,13 +113,13 @@ namespace splashkit_lib
     struct image_data
     {
         sk_drawing_surface surface;  // The actual bitmap image
-        vector<rectangle> clip_stack; // The clipping rectangle history for the bitmap
+        std::vector<rectangle> clip_stack; // The clipping rectangle history for the bitmap
     };
 
     struct _window_data
     {
         pointer_identifier  id;
-        string              caption;
+        std::string              caption;
         image_data          image;
 
         int     x, y;
@@ -133,12 +130,12 @@ namespace splashkit_lib
 
         rectangle   screen_rect;
 
-        string temp_string;
+        std::string temp_string;
         int max_string_len;
 
         rectangle   input_area;
-        string      input_text;
-        string      composition;
+        std::string      input_text;
+        std::string      composition;
         int         cursor;
         int         composition_length;
         bool        reading_text;
@@ -149,7 +146,7 @@ namespace splashkit_lib
     {
         pointer_identifier  id;
         image_data          image;
-        string              filename, name;
+        std::string              filename, name;
 
         //Used for bitmaps that are made up of cells
         int cell_w;      // The width of a cell
@@ -164,13 +161,13 @@ namespace splashkit_lib
     struct sk_font_data
     {
         pointer_identifier  id;
-        string              name;
-        string              filename;
+        std::string              name;
+        std::string              filename;
 
         bool                was_downloaded;
 
         // TTF_Font Private Data
-        map<int, void *> _data;
+        std::map<int, void *> _data;
     };
 
     enum sk_http_method
@@ -193,41 +190,41 @@ namespace splashkit_lib
     struct sk_connection_data
     {
         pointer_identifier id;
-        string name;
+        std::string name;
         sk_network_connection socket;
         unsigned int ip;
         unsigned int port;
         bool open;
         connection_type protocol;
-        string string_ip;    // TODO should this be stored?
-        vector<sk_message*> messages;
+        std::string string_ip;    // TODO should this be stored?
+        std::vector<sk_message*> messages;
         long int expected_msg_len;      // We are part way through... a message this length
-        vector<int8_t> part_msg_data;
+        std::vector<int8_t> part_msg_data;
     };
 
     struct sk_server_data
     {
         pointer_identifier id;
-        string name;
+        std::string name;
         sk_network_connection socket;
         unsigned int port;
         unsigned int new_connections;
         connection_type protocol;
-        vector<sk_connection_data*> connections;
-        vector<sk_message*> messages;
+        std::vector<sk_connection_data*> connections;
+        std::vector<sk_message*> messages;
     };
 
     struct sk_message
     {
         pointer_identifier id;
-        vector<int8_t> data;
+        std::vector<int8_t> data;
         connection_type protocol;
 
         // TCP
         sk_connection_data* connection;
 
         // UDP
-        string host;
+        std::string host;
         int port;
     };
 
@@ -235,11 +232,11 @@ namespace splashkit_lib
     {
         pointer_identifier  id;
 
-        string              content_type;
+        std::string              content_type;
         char                *message;
         unsigned long       message_size;
         http_status_code    code;
-        vector<string>      headers;
+        std::vector<std::string>      headers;
 
         semaphore           response_sent;
     };
@@ -247,14 +244,14 @@ namespace splashkit_lib
     struct sk_http_request
     {
         pointer_identifier  id;
-        string              uri;
-        string              query_string;
+        std::string              uri;
+        std::string              query_string;
         http_method         method;
 
         unsigned short      port;
-        string              body;
-        string              filename;
-        vector<string>      headers;
+        std::string              body;
+        std::string              filename;
+        std::vector<std::string>      headers;
 
         semaphore           control;
         sk_http_response    *response;
@@ -277,7 +274,7 @@ namespace splashkit_lib
          * @brief a vector of the requests that are awaiting a response - and in the users hands.
          * These must be responded to before the server can be closed.
          */
-        vector<sk_http_request*>    outstanding_requests;
+        std::vector<sk_http_request*>    outstanding_requests;
     };
 
     struct animation_frame
@@ -299,21 +296,21 @@ namespace splashkit_lib
         float frame_time;                   // How long have we spent in this frame?
         bool entered_frame;                 // Did we just enter this frame? (can be used for sound playing)
         animation_script script;            // Which script was it created from?
-        string animation_name;              // The name of the animation - when it was started
+        std::string animation_name;              // The name of the animation - when it was started
     };
 
     struct _animation_script_data
     {
         pointer_identifier id;
-        string name;           // The name of the animation template so it can be retrieved from resources
-        string filename;       // The filename from which this template was loaded
+        std::string name;           // The name of the animation template so it can be retrieved from resources
+        std::string filename;       // The filename from which this template was loaded
 
-        map<string, int> animation_ids;     // A map that links names to indexes
-        vector<string> animation_names;     // The names of the animations
-        vector<int> animations;             // The starting index of the animations in this template.
-        vector<animation_frame> frames;  // The frames of the animations within this template.
+        std::map<std::string, int> animation_ids;     // A map that links names to indexes
+        std::vector<std::string> animation_names;     // The names of the animations
+        std::vector<int> animations;             // The starting index of the animations in this template.
+        std::vector<animation_frame> frames;  // The frames of the animations within this template.
 
-        vector<animation>   anim_objs;         // The animations created from this script
+        std::vector<animation>   anim_objs;         // The animations created from this script
     };
 
     // See https://abyz.me.uk/rpi/pigpio/sif.html for more information on these.
@@ -321,7 +318,7 @@ namespace splashkit_lib
     typedef struct sk_pigpio_cmd_t
     {
         // 0 is a valid value for these, so we assign -1 and let it overflow
-        // thus ensuring that the command struct does not start with valid values. 
+        // thus ensuring that the command struct does not start with valid values.
         uint32_t cmd_code = ((uint32_t)-1);
         uint32_t param1 = ((uint32_t)-1);
         uint32_t param2 = ((uint32_t)-1);

@@ -30,14 +30,14 @@ namespace splashkit_lib
 {
     /**
      * @brief Paths to search for system fonts
-     * 
-     * Loaded in 
+     *
+     * Loaded in
      */
-    vector<string> _system_font_paths;
+    std::vector<std::string> _system_font_paths;
 
     /**
      * @brief Load the system font paths vector.
-     * 
+     *
      * Forward declaration.
      */
     void load_system_font_paths();
@@ -101,7 +101,7 @@ namespace splashkit_lib
 
                 if (!ttf_font)
                 {
-                    cerr << "Error loading font " << SDL_GetError() << endl;
+                    std::cerr << "Error loading font " << SDL_GetError() << std::endl;
                     return nullptr;
                 }
 
@@ -159,7 +159,7 @@ namespace splashkit_lib
         }
         else
         {
-            cerr << "Trying to close font that is not a valid font." << endl;
+            std::cerr << "Trying to close font that is not a valid font." << std::endl;
         }
     }
 
@@ -177,7 +177,7 @@ namespace splashkit_lib
         }
     }
 
-    int sk_text_size(sk_font_data* font, int font_size, const string &text, int* w, int* h)
+    int sk_text_size(sk_font_data* font, int font_size, const std::string &text, int* w, int* h)
     {
         TTF_Font* ttf_font = _get_font(font, font_size);
 
@@ -217,7 +217,7 @@ namespace splashkit_lib
         }
         else
         {
-            cerr << "Error setting font style in sk_set_font_style" << endl;
+            std::cerr << "Error setting font style in sk_set_font_style" << std::endl;
         }
     }
 
@@ -286,9 +286,9 @@ namespace splashkit_lib
         sdl_color.g = static_cast<Uint8>(clr.g * 255);
         sdl_color.b = static_cast<Uint8>(clr.b * 255);
         sdl_color.a = static_cast<Uint8>(clr.a * 255);
-        
+
         text_surface = TTF_RenderUTF8_Blended(static_cast<TTF_Font *>(font->_data[font_size]), text, sdl_color);
-        
+
         if (text_surface == NULL)
         {
             // fail
@@ -296,7 +296,7 @@ namespace splashkit_lib
         else
         {
             unsigned int count = _sk_renderer_count(surface);
-            
+
             for (unsigned int i = 0; i < count; i++)
             {
                 SDL_Renderer *renderer = _sk_prepared_renderer(surface, i);
@@ -312,11 +312,11 @@ namespace splashkit_lib
                     rect.y = static_cast<int>(y);
                     rect.w = text_surface->w;
                     rect.h = text_surface->h;
-                    
+
                     SDL_RenderCopy(renderer, text_texture, NULL, &rect);
-                    
+
                     _sk_complete_render(surface, i);
-                    
+
                     SDL_DestroyTexture(text_texture);
                 }
             }
@@ -324,9 +324,9 @@ namespace splashkit_lib
         }
     }
 
-    string system_font_path()
+    std::string system_font_path()
     {
-        string base_fp = base_fs_path();
+        std::string base_fp = base_fs_path();
 
         #if __linux__
             base_fp += "usr/share/fonts";
@@ -345,12 +345,12 @@ namespace splashkit_lib
         _system_font_paths = scan_dir_recursive(system_font_path());
     }
 
-    string sk_find_system_font_path(string name)
+    std::string sk_find_system_font_path(std::string name)
     {
         internal_sk_init();
-        
-        string path, lcpath;
-        for(string dir : _system_font_paths)
+
+        std::string path, lcpath;
+        for(std::string dir : _system_font_paths)
         {
             path = path_from( { dir }, name);
             lcpath = path_from( { dir }, to_lower(name));

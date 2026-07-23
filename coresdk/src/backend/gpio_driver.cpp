@@ -21,7 +21,6 @@
 #endif
 #endif
 
-using namespace std;
 // Use https://abyz.me.uk/rpi/pigpio/pdif2.html for local command reference
 //   Archive Link: https://web.archive.org/web/20240423160241/https://abyz.me.uk/rpi/pigpio/pdif2.html
 //
@@ -30,18 +29,18 @@ using namespace std;
 namespace splashkit_lib
 {
     // // Add map to track items for remote gpio
-    // unordered_map<int, int> r_pin_modes;
-    // unordered_map<int, int> r_pwm_range;
-    // string username;
-    // string ip;
+    // std::unordered_map<int, int> r_pin_modes;
+    // std::unordered_map<int, int> r_pwm_range;
+    // std::string username;
+    // std::string ip;
 
 #ifdef RASPBERRY_PI
     int pi = -1;
     // Add map to track items for RPi GPIO
-    unordered_map<int, int> pin_modes;
-    unordered_map<int, int> pwm_range;
-    unordered_map<int, int> pwm_pulsewidth;
-    unordered_map<int, int> handle_channel;
+    std::unordered_map<int, int> pin_modes;
+    std::unordered_map<int, int> pwm_range;
+    std::unordered_map<int, int> pwm_pulsewidth;
+    std::unordered_map<int, int> handle_channel;
 
     const int BCMpinData[] = {-1, -1, 2, -1, 3, -2, 4, 14, -2, 15, 17, 18, 27, -2, 22, 23, -1, 24, 10, -2, 9, 25, 11, 8, -2, 7, 0, 1, 5, -2, 6, 12, 13, -2, 19, 16, 26, 20, -2, 21};
 
@@ -621,7 +620,7 @@ namespace splashkit_lib
 #endif
 
     // Remote GPIO Functions
-    connection sk_remote_gpio_init(string name, const string &host, unsigned short int port)
+    connection sk_remote_gpio_init(std::string name, const std::string &host, unsigned short int port)
     {
         return open_connection(name, host, port);
     }
@@ -720,7 +719,7 @@ namespace splashkit_lib
             LOG(ERROR) << "Remote GPIO: Connection not open.";
             return false;
         }
-        LOG(INFO) << "Cleaning Pins on Remote Pi Named: " << pi->name << endl;
+        LOG(INFO) << "Cleaning Pins on Remote Pi Named: " << pi->name << std::endl;
         sk_remote_clear_bank_1(pi);
         return close_connection(pi);
     }
@@ -737,7 +736,7 @@ namespace splashkit_lib
         {
             int num_send_bytes = sizeof(cmd);
 
-            vector<char> buffer(num_send_bytes);
+            std::vector<char> buffer(num_send_bytes);
             memcpy(buffer.data(), &cmd, num_send_bytes);
 
             if (sk_send_bytes(&pi->socket, buffer.data(), num_send_bytes))
@@ -788,7 +787,7 @@ namespace splashkit_lib
     // ... (all the way through the last definitions)
     // #define PI_CUSTOM_ERR_999    -3999
 
-    string sk_gpio_error_message(int error_code)
+    std::string sk_gpio_error_message(int error_code)
     {
         switch (error_code)
         {

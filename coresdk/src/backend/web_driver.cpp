@@ -87,7 +87,7 @@ namespace splashkit_lib
         curl_global_cleanup();
     }
 
-    void _init_curl(CURL *curl_handle, const string &host, unsigned short port)
+    void _init_curl(CURL *curl_handle, const std::string &host, unsigned short port)
     {
         // specify URL to get
         curl_easy_setopt(curl_handle, CURLOPT_URL, host.c_str());
@@ -103,7 +103,7 @@ namespace splashkit_lib
         curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
     }
 
-    struct curl_slist *_setup_curl_upload(CURL *curl_handle, const string &body, const vector<string> &headers)
+    struct curl_slist *_setup_curl_upload(CURL *curl_handle, const std::string &body, const std::vector<std::string> &headers)
     {
         // header list
         struct curl_slist *list = NULL;
@@ -156,7 +156,7 @@ namespace splashkit_lib
         char *content_type;
         curl_easy_getinfo(curl_handle, CURLINFO_CONTENT_TYPE, &content_type);
         if (content_type)
-            result->content_type = string(content_type);
+            result->content_type = std::string(content_type);
         else
             result->content_type = "";
 
@@ -168,7 +168,7 @@ namespace splashkit_lib
         return result;
     }
 
-    sk_http_response *sk_http_post(const string &host, unsigned short port, const string &body, const vector<string> &headers)
+    sk_http_response *sk_http_post(const std::string &host, unsigned short port, const std::string &body, const std::vector<std::string> &headers)
     {
         request_stream data_read = { nullptr, 0 };
 
@@ -189,7 +189,7 @@ namespace splashkit_lib
         return _create_response(curl_handle, res, data_read);
     }
 
-    sk_http_response *sk_http_get(const string &host, unsigned short port)
+    sk_http_response *sk_http_get(const std::string &host, unsigned short port)
     {
         request_stream data_read = { nullptr, 0 };
 
@@ -206,7 +206,7 @@ namespace splashkit_lib
         return _create_response(curl_handle, res, data_read);
     }
 
-    sk_http_response *sk_http_put(const string &host, unsigned short port, const string &body)
+    sk_http_response *sk_http_put(const std::string &host, unsigned short port, const std::string &body)
     {
         request_stream data_read = { nullptr, 0 };
 
@@ -248,7 +248,7 @@ namespace splashkit_lib
         return _create_response(curl_handle, res, data_read);
     }
 
-    sk_http_response *sk_http_delete(const string &host, unsigned short port, const string &body)
+    sk_http_response *sk_http_delete(const std::string &host, unsigned short port, const std::string &body)
     {
         request_stream data_read = { nullptr, 0 };
 

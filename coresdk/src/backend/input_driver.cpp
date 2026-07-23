@@ -23,10 +23,10 @@ namespace splashkit_lib
     sk_input_callbacks _input_callbacks = { nullptr };
 
     bool _sk_quit = false;
-    extern map<string, window> _windows;
+    extern std::map<std::string, window> _windows;
 
-    map<SDL_Keycode, key_code> _sdl_key_map;
-    map<key_code, SDL_Keycode> _sk_key_map;
+    std::map<SDL_Keycode, key_code> _sdl_key_map;
+    std::map<key_code, SDL_Keycode> _sk_key_map;
 
     void _init_key_maps()
     {
@@ -385,11 +385,11 @@ namespace splashkit_lib
         window current = window_with_focus();
         if ( not current ) return;
 
-        current->composition = string(text);
+        current->composition = std::string(text);
         current->cursor = cursor;
     }
 
-    void sk_start_reading_text(window wind, double x, double y, double width, double height, string initial_text)
+    void sk_start_reading_text(window wind, double x, double y, double width, double height, std::string initial_text)
     {
         SDL_Rect rect = {
             static_cast<int>(x),
@@ -411,7 +411,7 @@ namespace splashkit_lib
         }
     }
 
-    string sk_end_reading_text()
+    std::string sk_end_reading_text()
     {
         window current = current_window();
         if ( not current ) return "";
@@ -678,160 +678,160 @@ namespace splashkit_lib
         }
         return 0;
     }
-    
+
     int sk_key_pressed(int key_code)
     {
         internal_sk_init();
-        
+
         const Uint8 *keys;
         int key_scancode = SDL_GetScancodeFromKey(key_code);
         int sz;
-        
+
         keys = SDL_GetKeyboardState(&sz);
-        
+
         if ( (! keys) || sz <= key_scancode ) return 0;
-        
+
         if ( keys[key_scancode] == 1 ) return -1;
         else return 0;
     }
-    
-    
-    
+
+
+
     void sk_start_unicode_text_input(int x, int y, int w, int h)
     {
         internal_sk_init();
         SDL_Rect rect = {x,y,w,h};
         SDL_SetTextInputRect(&rect);
-        
+
         SDL_StartTextInput();
     }
-    
+
     void sk_warp_mouse(sk_drawing_surface *surface, int x, int y)
     {
         if ( ! surface || ! surface->_data ) return;
-        
+
         switch (surface->kind)
         {
             case SGDS_Window:
             {
                 sk_window_be * window_be;
                 window_be = static_cast<sk_window_be *>(surface->_data);
-                
+
                 SDL_WarpMouseInWindow(window_be->window, x, y);
                 break;
             }
-                
+
             case SGDS_Bitmap:
                 break;
-                
+
             case SGDS_Unknown:
                 break;
         }
     }
-    
+
     pointer sk_focus_window()
     {
         internal_sk_init();
         return _sk_get_window_with_pointer(SDL_GetMouseFocus());
     }
-    
+
     void sk_window_position(sk_drawing_surface *surface, int *x, int *y)
     {
         if ( ! surface || ! surface->_data ) return;
-        
+
         switch (surface->kind)
         {
             case SGDS_Window:
             {
                 sk_window_be * window_be;
                 window_be = static_cast<sk_window_be *>(surface->_data);
-                
+
                 SDL_GetWindowPosition(window_be->window, x, y);
                 break;
             }
-                
+
             case SGDS_Bitmap:
                 break;
-                
+
             case SGDS_Unknown:
                 break;
         }
     }
-    
+
     sk_window_data sk_get_window_event_data(sk_drawing_surface *surface)
     {
         sk_window_data result = { true, 0, 0, 0 };
-        
+
         if ( ! surface || ! surface->_data ) return result;
-        
+
         switch (surface->kind)
         {
             case SGDS_Window:
             {
                 sk_window_be * window_be;
                 window_be = static_cast<sk_window_be *>(surface->_data);
-                
+
                 return window_be->event_data;
             }
-                
+
             default:
                 return result;
         }
     }
-    
+
     void sk_move_window(sk_drawing_surface *surface, int x, int y)
     {
         if ( ! surface || ! surface->_data ) return;
-        
+
         switch (surface->kind)
         {
             case SGDS_Window:
             {
                 sk_window_be * window_be;
                 window_be = static_cast<sk_window_be *>(surface->_data);
-                
+
                 SDL_SetWindowPosition(window_be->window, x, y);
 
                 return;
             }
-                
+
             default: ;
         }
     }
-    
+
     void sk_mouse_position(double &x, double &y)
     {
         int lx = 0, ly = 0;
-        
+
         SDL_GetMouseState(&lx, &ly);
         x = lx;
         y = ly;
     }
-    
+
     void sk_mouse_movement(double &x, double &y)
     {
         int lx = 0, ly = 0;
-        
+
         SDL_GetRelativeMouseState(&lx, &ly);
         x = lx;
         y = ly;
     }
-    
+
     bool sk_mouse_button_down(uint32_t button)
     {
         int state = SDL_GetMouseState(nullptr, nullptr);
         return state & SDL_BUTTON(button);
     }
-    
+
     bool sk_show_mouse(int visible)
     {
         if (visible == -1)
             return SDL_ShowCursor(-1) != 0;
         return SDL_ShowCursor(visible ? 1: 0) != 0;
     }
-    
-    string sk_key_name(key_code key)
+
+    std::string sk_key_name(key_code key)
     {
-        return string(SDL_GetKeyName(_sk_key_map[key]));
+        return std::string(SDL_GetKeyName(_sk_key_map[key]));
     }
 }
