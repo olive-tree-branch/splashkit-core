@@ -14,11 +14,7 @@
 #include "text.h"
 #include "utility_functions.h"
 
-#include <vector>
-#include <map>
 #include <iostream>
-using std::vector;
-using std::map;
 
 namespace splashkit_lib
 {
@@ -73,15 +69,15 @@ namespace splashkit_lib
         // Reset event tracking data
         _keyboard_start_process_events();
         _mouse_start_process_events();
-        
+
         sk_process_events();
     }
-    
+
     bool quit_requested()
     {
         return _sk_quit;
     }
-    
+
     void reset_quit()
     {
         _sk_quit = false;

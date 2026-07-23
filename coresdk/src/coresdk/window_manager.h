@@ -14,7 +14,6 @@
 #include "color.h"
 
 #include <string>
-using std::string;
 
 namespace splashkit_lib
 {
@@ -50,7 +49,7 @@ namespace splashkit_lib
      * @param  height  The height of the window
      * @return         A new window
      */
-    window open_window(string caption, int width, int height);
+    window open_window(std::string caption, int width, int height);
 
     /**
      * Closes and frees the graphics window supplied in `wind`.
@@ -76,7 +75,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    void close_window(const string &name);
+    void close_window(const std::string &name);
 
     /**
      * Releases all of the windows which have been loaded.
@@ -96,7 +95,7 @@ namespace splashkit_lib
      *          which has has been loaded.
      *
      */
-    bool has_window(string caption);
+    bool has_window(std::string caption);
 
     /**
      * Returns an opened `window` with the given name `caption`, if a window with
@@ -106,7 +105,7 @@ namespace splashkit_lib
      *
      * @returns Returns a `window` with the name specified by `caption`
      */
-    window window_named(string caption);
+    window window_named(std::string caption);
 
     /**
      * Returns the window that the user currently has selected. This may be
@@ -115,10 +114,10 @@ namespace splashkit_lib
      * @return The window the user has selected
      */
     window window_with_focus();
-    
+
     /**
      * Indicates if the window has focus.
-     * 
+     *
      * @param wind The window
      * @return True if the window has the user's focus
      *
@@ -153,7 +152,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    void set_current_window(const string &name);
+    void set_current_window(const std::string &name);
 
     /**
      * Check if the requested window is the current window.
@@ -165,7 +164,7 @@ namespace splashkit_lib
      * @attribute getter is_current_window
      */
     bool is_current_window(window wind);
-    
+
     /**
      * Closes the window given in `wind`
      *
@@ -191,7 +190,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    bool window_close_requested(const string &name);
+    bool window_close_requested(const std::string &name);
 
     /**
      * Refreshes the window `wind`.
@@ -214,7 +213,7 @@ namespace splashkit_lib
      * @attribute suffix  with_target_fps
      */
     void refresh_window(window wind, unsigned int target_fps);
-    
+
     /**
      * clears a window to the specified color given in `clr`
      *
@@ -245,7 +244,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    int window_width(const string &name);
+    int window_width(const std::string &name);
 
     /**
      * Returns the width of the current window.
@@ -273,7 +272,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    int window_height(const string &name);
+    int window_height(const std::string &name);
 
     /**
      * Returns the height of the current window.
@@ -334,7 +333,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    void move_window_to(const string &name, int x, int y);
+    void move_window_to(const std::string &name, int x, int y);
 
     /**
      * Move the current window to the new location on the displays.
@@ -363,7 +362,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    bool window_is_fullscreen(const string &name);
+    bool window_is_fullscreen(const std::string &name);
 
     /**
      * Is the current window currently fullscreen?
@@ -389,7 +388,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    void window_toggle_fullscreen(const string &name);
+    void window_toggle_fullscreen(const std::string &name);
 
     /**
      * Toggle the fullscreen property of the current window
@@ -415,7 +414,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    bool window_has_border(const string &name);
+    bool window_has_border(const std::string &name);
 
     /**
      * Indicate if the current window has a border.
@@ -441,7 +440,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    void window_toggle_border(const string &name);
+    void window_toggle_border(const std::string &name);
 
     /**
      * Toggle the current window border.
@@ -467,7 +466,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    int window_x(const string &name);
+    int window_x(const std::string &name);
 
     /**
      * The x location of the current window on the displays.
@@ -495,7 +494,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    int window_y(const string &name);
+    int window_y(const std::string &name);
 
     /**
      * The y location of the current window on the displays.
@@ -523,7 +522,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    point_2d window_position(const string &name);
+    point_2d window_position(const std::string &name);
 
     /**
      * The location of the current window.
@@ -531,17 +530,17 @@ namespace splashkit_lib
      * @return     Its location on the displays
      */
     point_2d current_window_position();
-    
+
     /**
      * The caption of the window.
-     * 
+     *
      * @param wind The window
      * @returns The window's caption.
      *
      * @attribute class   window
      * @attribute getter  caption
      */
-    string window_caption(window wind);
+    std::string window_caption(window wind);
 
 }
 #endif /* window_manager_hpp */

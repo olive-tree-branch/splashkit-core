@@ -1,14 +1,12 @@
 #include "logging.h"
 
-using namespace std;
-
 namespace splashkit_lib
 {
     log_level _log_level;
     log_mode _log_mode; // Necessary for telling the logger where to send messages to
-    ofstream custom_log_file;
+    std::ofstream custom_log_file;
 
-    void init_custom_logger(string app_name, bool override_prev_log, log_mode mode)
+    void init_custom_logger(std::string app_name, bool override_prev_log, log_mode mode)
     {
         switch (mode)
         {
@@ -22,22 +20,22 @@ namespace splashkit_lib
         case LOG_FILE_ONLY:
             if (override_prev_log == false) // Default
             {
-                custom_log_file.open(app_name + ".log", ofstream::out | ofstream::app);
+                custom_log_file.open(app_name + ".log", std::ofstream::out | std::ofstream::app);
             }
             else
             {
-                custom_log_file.open(app_name + ".log", ofstream::out);
+                custom_log_file.open(app_name + ".log", std::ofstream::out);
             }
             _log_mode = mode;
             break;
         case LOG_CONSOLE_AND_FILE:
             if (override_prev_log == false) // Default
             {
-                custom_log_file.open(app_name + ".log", ofstream::out | ofstream::app);
+                custom_log_file.open(app_name + ".log", std::ofstream::out | std::ofstream::app);
             }
             else
             {
-                custom_log_file.open(app_name + ".log", ofstream::out);
+                custom_log_file.open(app_name + ".log", std::ofstream::out);
             }
             _log_mode = mode;
             break;
@@ -52,7 +50,7 @@ namespace splashkit_lib
         init_custom_logger("console", true, mode);
     }
 
-    void log(log_level level, string message)
+    void log(log_level level, std::string message)
     {
         switch (level)
         {
@@ -128,7 +126,7 @@ namespace splashkit_lib
 
         auto time = std::chrono::system_clock::now();
         std::time_t c_time = std::chrono::system_clock::to_time_t(time);
-        string str_time = std::ctime(&c_time);
+        std::string str_time = std::ctime(&c_time);
         // Required to remove the new line character ctime decides to add, then we add the log message
         if (_log_mode == LOG_CONSOLE || _log_mode == LOG_CONSOLE_AND_FILE)
         {

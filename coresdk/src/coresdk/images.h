@@ -15,7 +15,6 @@
 #include "physics.h"
 
 #include <string>
-using std::string;
 
 namespace splashkit_lib
 {
@@ -32,11 +31,11 @@ namespace splashkit_lib
      * @attribute class bitmap
      * @attribute constructor true
      */
-    bitmap load_bitmap(string name, string filename);
+    bitmap load_bitmap(std::string name, std::string filename);
 
     /**
      * Lets you test if bitmap value is valid. This will return true when it is a valid bitmap.
-     * 
+     *
      * @param bmp the bitmap to test
      * @returns true when the bitmap is valid.
      */
@@ -49,7 +48,7 @@ namespace splashkit_lib
      * @param  name The name to check
      * @return      True if SplashKit has a bitmap with that name
      */
-    bool has_bitmap(string name);
+    bool has_bitmap(std::string name);
 
     /**
      * Returns the `bitmap` that has been loaded with the specified name,
@@ -60,7 +59,7 @@ namespace splashkit_lib
      * @returns      The bitmap with the name specified, which may refer to nothing
      *              if the bitmap has not been loaded.
      */
-    bitmap bitmap_named(string name);
+    bitmap bitmap_named(std::string name);
 
     /**
      * Frees the bitmap resource.
@@ -82,7 +81,7 @@ namespace splashkit_lib
      * Sets up the collision mask for a bitmap. This enables collision detection between
      * this bitmap and other bitmaps or shapes.
      *
-     * This is automatically called when a bitmap is loaded, and only needs to be 
+     * This is automatically called when a bitmap is loaded, and only needs to be
      * called on bitmaps created using `create_bitmap`, and when a bitmap is
      * changed by drawing onto the bitmap.
      *
@@ -92,7 +91,7 @@ namespace splashkit_lib
      * @attribute method  setup_collision_mask
      */
     void setup_collision_mask(bitmap bmp);
-    
+
     /**
      * Draws the bitmap supplied into `bmp` to the current window.
      * at `x` and `y`.
@@ -215,7 +214,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    void draw_bitmap(string name, double x, double y);
+    void draw_bitmap(std::string name, double x, double y);
 
     /**
      * Searches and draws a bitmap with name `name` to the current window.
@@ -231,7 +230,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named_with_options
      */
-    void draw_bitmap(string name, double x, double y, drawing_options opts);
+    void draw_bitmap(std::string name, double x, double y, drawing_options opts);
 
     /**
      * Creates a new bitmap that you can draw to. Initially the bitmap will
@@ -247,11 +246,11 @@ namespace splashkit_lib
      * @attribute class bitmap
      * @attribute constructor true
      */
-    bitmap create_bitmap(string name, int width, int height);
+    bitmap create_bitmap(std::string name, int width, int height);
 
     /**
      * Returns the filename from which the bitmap was loaded. This will be an empty
-     * string for created bitmaps.
+     * std::string for created bitmaps.
      *
      * @param  bmp The bitmap to get the filename from.
      * @returns     The file name of the bitmap.
@@ -259,7 +258,7 @@ namespace splashkit_lib
      * @attribute class bitmap
      * @attribute getter filename
      */
-    string bitmap_filename(bitmap bmp);
+    std::string bitmap_filename(bitmap bmp);
 
     /**
      * Returns the name of the bitmap was loaded. This is the name you can use to
@@ -271,7 +270,7 @@ namespace splashkit_lib
      * @attribute class bitmap
      * @attribute getter name
      */
-    string bitmap_name(bitmap bmp);
+    std::string bitmap_name(bitmap bmp);
 
     /**
      * Clear the bitmap to the indicated color. This will ensure the entire
@@ -294,7 +293,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    void clear_bitmap(string name, color clr);
+    void clear_bitmap(std::string name, color clr);
 
     /**
      * Returns the width of the bitmap.
@@ -315,7 +314,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  of_bitmap_named
      */
-    int bitmap_width(string name);
+    int bitmap_width(std::string name);
 
     /**
      * Returns the total height of the bitmap. If the bitmap contains cells, you ca
@@ -338,7 +337,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  of_bitmap_named
      */
-    int bitmap_height(string name);
+    int bitmap_height(std::string name);
 
     /**
      * This returns a point that represents the center of the bitmap in local

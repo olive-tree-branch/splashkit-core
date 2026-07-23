@@ -17,15 +17,12 @@
 
 #include "backend_types.h"
 
-using std::ios;
-using std::ofstream;
-
 #ifdef WINDOWS
 #include <Windows.h>
 #endif
 namespace splashkit_lib
 {
-    sk_http_response *make_request(http_method request_type, string uri, unsigned short port, string body, const vector<string> &headers)
+    sk_http_response *make_request(http_method request_type, std::string uri, unsigned short port, std::string body, const std::vector<std::string> &headers)
     {
         sk_http_request request;
 
@@ -41,29 +38,29 @@ namespace splashkit_lib
         return sk_http_make_request(request);
     }
 
-    http_response http_get(const string &url, unsigned short port)
+    http_response http_get(const std::string &url, unsigned short port)
     {
         return make_request(HTTP_GET_METHOD, url, port, "", {});
     }
 
-    http_response http_post(const string &url, unsigned short port, const string &body, const vector<string> &headers)
+    http_response http_post(const std::string &url, unsigned short port, const std::string &body, const std::vector<std::string> &headers)
     {
         return make_request(HTTP_POST_METHOD, url, port, body, headers);
     }
 
-    http_response http_post(const string &url, unsigned short port, string body)
+    http_response http_post(const std::string &url, unsigned short port, std::string body)
     {
         return http_post(url, port, body, {});
     }
 
-    void save_response_to_file(http_response response, string filename)
+    void save_response_to_file(http_response response, std::string filename)
     {
-        ofstream file(filename, ios::binary);
+        std::ofstream file(filename, std::ios::binary);
         file.write(response->message, response->message_size);
         file.close();
     }
 
-    string http_response_to_string(http_response response)
+    std::string http_response_to_string(http_response response)
     {
         if (!VALID_PTR(response, HTTP_RESPONSE_PTR))
         {
@@ -71,10 +68,10 @@ namespace splashkit_lib
             return "";
         }
 
-        return string(response->message);
+        return std::string(response->message);
     }
 
-    bool download_file(const string &name, const string &url, unsigned short port, string &path)
+    bool download_file(const std::string &name, const std::string &url, unsigned short port, std::string &path)
     {
         http_response response = http_get(url, port);
 
@@ -104,20 +101,20 @@ namespace splashkit_lib
         GetTempPath(260, tmppath);
 
         tmpname = strdup(tmppath);
-        string fpath = path_from({tmpname}, fname);
+        std::string fpath = path_from({tmpname}, fname);
         tmpname = strdup(fpath.c_str());
 #endif
         save_response_to_file(response, tmpname);
 
-        path = string(tmpname);
+        path = std::string(tmpname);
         free(tmpname);
 
         return true;
     }
 
-    bitmap download_bitmap(const string &name, const string &url, unsigned short port)
+    bitmap download_bitmap(const std::string &name, const std::string &url, unsigned short port)
     {
-        string path;
+        std::string path;
         if (not download_file(name, url, port, path))
         {
             return nullptr;
@@ -128,9 +125,9 @@ namespace splashkit_lib
         return result;
     }
 
-    font download_font(const string &name, const string &url, unsigned short port)
+    font download_font(const std::string &name, const std::string &url, unsigned short port)
     {
-        string path;
+        std::string path;
         if (not download_file(name, url, port, path))
         {
             return nullptr;
@@ -142,9 +139,9 @@ namespace splashkit_lib
         return result;
     }
 
-    sound_effect download_sound_effect(const string &name, const string &url, unsigned short port)
+    sound_effect download_sound_effect(const std::string &name, const std::string &url, unsigned short port)
     {
-        string path;
+        std::string path;
         if (not download_file(name, url, port, path))
         {
             return nullptr;
@@ -155,9 +152,9 @@ namespace splashkit_lib
         return result;
     }
 
-    music download_music(const string &name, const string &url, unsigned short port)
+    music download_music(const std::string &name, const std::string &url, unsigned short port)
     {
-        string path;
+        std::string path;
         if (not download_file(name, url, port, path))
         {
             return nullptr;

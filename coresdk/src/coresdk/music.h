@@ -7,6 +7,9 @@
 
 #ifndef music_h
 #define music_h
+
+#include <string>
+
 namespace splashkit_lib
 {
     /**
@@ -36,7 +39,7 @@ namespace splashkit_lib
      * @param  filename The filename to load
      * @return          A new music resource
      */
-    music load_music(const string &name, const string &filename);
+    music load_music(const std::string &name, const std::string &filename);
 
     /**
      * Releases the SplashKit resources associated with music.
@@ -60,7 +63,7 @@ namespace splashkit_lib
 
     /**
      * Lets you test if music value is valid. This will return true when it is a valid music.
-     * 
+     *
      * @param m the music source to test
      * @returns true when the music is valid.
      */
@@ -78,7 +81,7 @@ namespace splashkit_lib
      * @returns Returns `true` if there is a music file with the given `name` has
      *          has been loaded.
      */
-    bool has_music(const string &name);
+    bool has_music(const std::string &name);
 
     /**
      * Retrieves a `music` that has been loaded into SplashKit.
@@ -88,7 +91,7 @@ namespace splashkit_lib
      * @returns Returns the `music` that has been loaded with the specified
      *          `name` using `load_music`.
      */
-    music music_named(const string &name);
+    music music_named(const std::string &name);
 
     /**
      * Plays a music file for a specified number of times and playback volume.
@@ -139,7 +142,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named_with_times
      */
-    void play_music(const string &name, int times);
+    void play_music(const std::string &name, int times);
 
     /**
      * Plays the music file that matches the name once at full volume.
@@ -148,7 +151,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    void play_music(const string &name);
+    void play_music(const std::string &name);
 
     /**
      * Fades music up to full volume over a specified number of milliseconds
@@ -188,7 +191,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named_with_times
      */
-    void fade_music_in(const string &name, int times, int ms);
+    void fade_music_in(const std::string &name, int times, int ms);
 
     /**
      * Fades music file matching the name to full volume over a specified number of milliseconds
@@ -198,7 +201,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    void fade_music_in(const string &name, int ms);
+    void fade_music_in(const std::string &name, int ms);
 
     /**
      * Fades music outover a specified number of milliseconds
@@ -242,7 +245,7 @@ namespace splashkit_lib
      * @attribute getter paused
      */
     bool music_paused();
-    
+
     /**
      * Checks whether music is currently playing.
      * @returns Returns true or false value representing whether music is currently playing.
@@ -283,7 +286,7 @@ namespace splashkit_lib
      * @attribute getter  name
      * @attribute self    data
      */
-    string music_name(music data);
+    std::string music_name(music data);
 
     /**
      * Returns the filename the of the music data
@@ -295,6 +298,6 @@ namespace splashkit_lib
      * @attribute getter  filename
      * @attribute self    data
      */
-    string music_filename(music data);
+    std::string music_filename(music data);
 }
 #endif /* music_hpp */

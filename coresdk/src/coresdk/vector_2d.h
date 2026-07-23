@@ -13,7 +13,6 @@
 #include "types.h"
 
 #include <string>
-using std::string;
 
 namespace splashkit_lib
 {
@@ -23,7 +22,7 @@ namespace splashkit_lib
      * @param  v The vector
      * @return   A string representation of the vector
      */
-    string vector_to_string(const vector_2d &v);
+    std::string vector_to_string(const vector_2d &v);
 
     /**
      *  Returns a vector to the indicated point.

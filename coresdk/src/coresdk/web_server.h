@@ -14,9 +14,6 @@
 #include <string>
 #include <vector>
 
-using std::string;
-using std::vector;
-
 namespace splashkit_lib
 {
     /**
@@ -134,7 +131,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  with_status_and_content_type_and_headers
      */
-    void send_response(http_request r, http_status_code code, const string &message, const string &content_type, const vector<string> &headers);
+    void send_response(http_request r, http_status_code code, const std::string &message, const std::string &content_type, const std::vector<std::string> &headers);
 
   /**
      * Sends a message to a given `http_request` with the specified content type.
@@ -150,7 +147,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  with_status_and_content_type
      */
-    void send_response(http_request r, http_status_code code, const string &message, const string &content_type);
+    void send_response(http_request r, http_status_code code, const std::string &message, const std::string &content_type);
 
     /**
      * Sends a message to a given `http_request` with the specified content type.
@@ -165,7 +162,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  with_status
      */
-    void send_response(http_request r, http_status_code code, const string &message);
+    void send_response(http_request r, http_status_code code, const std::string &message);
 
     /**
      * Sends a message to a given `http_request`.
@@ -176,7 +173,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute method send_response
      */
-    void send_response(http_request r, const string &message);
+    void send_response(http_request r, const std::string &message);
 
     /**
      * Send a JSON response to a given `http_request`
@@ -228,7 +225,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute method send_file_response
      */
-    void send_file_response(http_request r, const string &filename, const string &content_type);
+    void send_file_response(http_request r, const std::string &filename, const std::string &content_type);
 
     /**
      * Serves a HTML file to the given `http_request`.
@@ -239,7 +236,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute method send_html_file_response
      */
-    void send_html_file_response(http_request r, const string &filename);
+    void send_html_file_response(http_request r, const std::string &filename);
 
     /**
      * Serves a javascript file to the given `http_request`.
@@ -250,7 +247,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute method send_javascript_file_response
      */
-    void send_javascript_file_response(http_request r, const string &filename);
+    void send_javascript_file_response(http_request r, const std::string &filename);
 
     /**
      * Serves a css file to the given `http_request`.
@@ -261,7 +258,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute method send_css_file_response
      */
-    void send_css_file_response(http_request r, const string &filename);
+    void send_css_file_response(http_request r, const std::string &filename);
 
     /**
      * Returns the server URI of the client request.
@@ -273,7 +270,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute getter uri
      */
-    string request_uri(http_request r);
+    std::string request_uri(http_request r);
 
     /**
      * Returns the URI query string of the client request.
@@ -285,7 +282,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute getter query_string
      */
-    string request_query_string(http_request r);
+    std::string request_query_string(http_request r);
 
     /**
      * Returns the value of a parameter from within the query string, or the supplied default
@@ -300,7 +297,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute method query_parameter
      */
-    string request_query_parameter(http_request r, const string &name, const string &default_value);
+    std::string request_query_parameter(http_request r, const std::string &name, const std::string &default_value);
 
     /**
      * Returns true if the parameter exists in the query string.
@@ -313,7 +310,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute method has_query_parameter
      */
-    bool request_has_query_parameter(http_request r, const string &name);
+    bool request_has_query_parameter(http_request r, const std::string &name);
 
     /**
      * Returns the HTTP method of the client request.
@@ -338,7 +335,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute getter body
      */
-    string request_body(http_request r);
+    std::string request_body(http_request r);
 
 
     /**
@@ -351,7 +348,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute getter headers
      */
-    vector<string> request_headers(http_request r);
+    std::vector<std::string> request_headers(http_request r);
 
 
     /**
@@ -368,7 +365,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute getter uri_stubs
      */
-    vector<string> request_uri_stubs(http_request r);
+    std::vector<std::string> request_uri_stubs(http_request r);
 
     /**
      * Returns an array of strings representing each stub of the URI.
@@ -381,7 +378,7 @@ namespace splashkit_lib
      *
      * @return The array of stubs as strings.
      */
-    vector<string> split_uri_stubs(const string &uri);
+    std::vector<std::string> split_uri_stubs(const std::string &uri);
 
 
     /**
@@ -395,7 +392,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute method is_request_for
      */
-    bool is_request_for(http_request request, http_method method, const string &path);
+    bool is_request_for(http_request request, http_method method, const std::string &path);
 
     /**
      * Checks if a request wants to get a given resource.
@@ -407,7 +404,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute method is_get_request_for
      */
-    bool is_get_request_for(http_request request, const string &path);
+    bool is_get_request_for(http_request request, const std::string &path);
 
     /**
      * Checks if a request wants to create (post) a given resource.
@@ -419,7 +416,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute method is_post_request_for
      */
-    bool is_post_request_for(http_request request, const string &path);
+    bool is_post_request_for(http_request request, const std::string &path);
 
     /**
      * Checks if a request wants to update (put) a given resource.
@@ -431,7 +428,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute method is_put_request_for
      */
-    bool is_put_request_for(http_request request, const string &path);
+    bool is_put_request_for(http_request request, const std::string &path);
 
     /**
      * Checks if a request wants to delete a given resource.
@@ -443,7 +440,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute method is_delete_request_for
      */
-    bool is_delete_request_for(http_request request, const string &path);
+    bool is_delete_request_for(http_request request, const std::string &path);
 
     /**
      * Checks if a request wants to check options for given resource.
@@ -455,7 +452,7 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute method is_options_request_for
      */
-    bool is_options_request_for(http_request request, const string &path);
+    bool is_options_request_for(http_request request, const std::string &path);
 
     /**
      * Checks if a request wants to trace a given resource.
@@ -467,6 +464,6 @@ namespace splashkit_lib
      * @attribute class http_request
      * @attribute method is_trace_request_for
      */
-    bool is_trace_request_for(http_request request, const string &path);
+    bool is_trace_request_for(http_request request, const std::string &path);
 }
 #endif /* web_server_h_ */

@@ -14,7 +14,6 @@
 #include "color.h"
 
 #include <string>
-using std::string;
 
 namespace splashkit_lib
 {
@@ -23,8 +22,8 @@ namespace splashkit_lib
      *
      * @param text The text to write
      */
-    void write(string text);
-    
+    void write(std::string text);
+
     /**
      * Write the passed in data to the terminal.
      *
@@ -33,7 +32,7 @@ namespace splashkit_lib
      * @attribute suffix int
      */
     void write(int data);
-    
+
     /**
      * Write the passed in data to the terminal.
      *
@@ -64,8 +63,8 @@ namespace splashkit_lib
      *
      * @param line The text to write
      */
-    void write_line(string line);
-    
+    void write_line(std::string line);
+
     /**
      * Write the passed in data, then move to the next line/row of the terminal.
      *
@@ -74,7 +73,7 @@ namespace splashkit_lib
      * @attribute suffix int
      */
     void write_line(int data);
-    
+
     /**
      * Write the passed in data, then move to the next line/row of the terminal.
      *
@@ -100,7 +99,7 @@ namespace splashkit_lib
      *
      * @return The text entered by the user.
      */
-    string read_line();
+    std::string read_line();
 
     /**
      * Get a single character input by the user.
@@ -111,7 +110,7 @@ namespace splashkit_lib
 
     /**
      * Checks if there is data waiting to be read by read line or read char.
-     * 
+     *
      * @returns true if there is data waiting to be read.
      */
     bool terminal_has_input();

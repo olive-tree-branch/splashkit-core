@@ -21,35 +21,32 @@
 #include <iostream>
 #include <fstream>
 
-using std::ifstream;
-using std::to_string;
-
 namespace splashkit_lib
 {
     struct bundled_resource
     {
         resource_kind kind;
-        string name;
+        std::string name;
     };
 
     struct resource_bundle
     {
-        string                      name;
-        string                      filename;
-        vector<bundled_resource>    resources;
+        std::string                      name;
+        std::string                      filename;
+        std::vector<bundled_resource>    resources;
     };
 
-    static map<string, resource_bundle> _resource_bundles;
+    static std::map<std::string, resource_bundle> _resource_bundles;
 
 
-    bool has_resource_bundle(const string &name)
+    bool has_resource_bundle(const std::string &name)
     {
         return _resource_bundles.count(name) > 0;
     }
 
-    resource_kind string_to_resource_kind(const string &txt)
+    resource_kind string_to_resource_kind(const std::string &txt)
     {
-        string kind = txt;
+        std::string kind = txt;
         to_upper(kind);
 
         if ( kind == "BUNDLE" ) return BUNDLE_RESOURCE;
@@ -62,7 +59,7 @@ namespace splashkit_lib
         else return OTHER_RESOURCE;
     }
 
-    void load_resource_bundle(const string &name, const string &filename)
+    void load_resource_bundle(const std::string &name, const std::string &filename)
     {
         if ( has_resource_bundle(name) )
         {
@@ -70,7 +67,7 @@ namespace splashkit_lib
             return;
         }
 
-        string path = path_to_resource(filename, BUNDLE_RESOURCE);
+        std::string path = path_to_resource(filename, BUNDLE_RESOURCE);
 
         if ( ! file_exists(path) )
         {
@@ -79,19 +76,19 @@ namespace splashkit_lib
         }
 
         int line_no = 0;
-        string line;
-        ifstream input(path);
+        std::string line;
+        std::ifstream input(path);
 
         resource_bundle result;
 
         // Called on load of each bitmap
-        auto rb_load_bitmap = [&](string line_name, string line_path)
+        auto rb_load_bitmap = [&](std::string line_name, std::string line_path)
         {
             bitmap bmp = load_bitmap(line_name, line_path);
             int num_delim = count_delimiter(line, ',');
             if ( num_delim > 2 and num_delim != 7 )
             {
-                LOG(WARNING) << "Incorrect cell options for bitmap " + line_name + " at " + to_string(line_no) + " of bundle " + name;
+                LOG(WARNING) << "Incorrect cell options for bitmap " + line_name + " at " + std::to_string(line_no) + " of bundle " + name;
                 return;
             }
             else if ( num_delim == 2 ) return;
@@ -108,25 +105,25 @@ namespace splashkit_lib
         auto process_line = [&]()
         {
             resource_kind kind = string_to_resource_kind(extract_delimited(1, line, ','));
-            string line_name = trim(extract_delimited(2, line, ','));
-            string line_path = trim(extract_delimited(3, line, ','));
+            std::string line_name = trim(extract_delimited(2, line, ','));
+            std::string line_path = trim(extract_delimited(3, line, ','));
 
 
             if ( kind == OTHER_RESOURCE )
             {
-                LOG(WARNING) << "Unknown resource type at line " + to_string(line_no) + " of bundle " + name;
+                LOG(WARNING) << "Unknown resource type at line " + std::to_string(line_no) + " of bundle " + name;
                 return;
             }
 
             if ( line_name.length() == 0 )
             {
-                LOG(WARNING) << "Name missing for resource at line " + to_string(line_no) + " of bundle " + name;
+                LOG(WARNING) << "Name missing for resource at line " + std::to_string(line_no) + " of bundle " + name;
                 return;
             }
 
             if ( line_path.length() == 0 && kind != TIMER_RESOURCE )
             {
-                LOG(WARNING) << "Name missing for resource at line " + to_string(line_no) + " of bundle " + name;
+                LOG(WARNING) << "Name missing for resource at line " + std::to_string(line_no) + " of bundle " + name;
                 return;
             }
 
@@ -186,7 +183,7 @@ namespace splashkit_lib
         _resource_bundles[name] = result;
     }
 
-    void free_resource_bundle(const string name)
+    void free_resource_bundle(const std::string name)
     {
         if ( ! has_resource_bundle(name) )
         {

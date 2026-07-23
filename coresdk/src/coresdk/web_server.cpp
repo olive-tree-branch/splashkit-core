@@ -14,8 +14,6 @@
 
 #include <sstream>
 
-using std::stringstream;
-
 namespace splashkit_lib
 {
     web_server start_web_server(unsigned short port)
@@ -87,7 +85,7 @@ namespace splashkit_lib
         r->control.release();
     }
 
-    void send_response(http_request r, http_status_code code, const string &message, const string &content_type, const vector<string> &headers)
+    void send_response(http_request r, http_status_code code, const std::string &message, const std::string &content_type, const std::vector<std::string> &headers)
     {
         if (INVALID_PTR(r, HTTP_REQUEST_PTR))
         {
@@ -119,17 +117,17 @@ namespace splashkit_lib
         delete resp.message;
     }
 
-    void send_response(http_request r, http_status_code code, const string &message, const string &content_type)
+    void send_response(http_request r, http_status_code code, const std::string &message, const std::string &content_type)
     {
       send_response(r, code, message, content_type, {});
     }
 
-    void send_response(http_request r, const string &message)
+    void send_response(http_request r, const std::string &message)
     {
         send_response(r, HTTP_STATUS_OK, message, "text/plain");
     }
 
-    void send_response(http_request r, http_status_code code, const string &message)
+    void send_response(http_request r, http_status_code code, const std::string &message)
     {
         send_response(r, code, message, "text/html");
     }
@@ -149,28 +147,28 @@ namespace splashkit_lib
         send_response(r, HTTP_STATUS_NO_CONTENT, "", "text/plain");
     }
 
-    void send_file_response(http_request r, const string &filename, const string &content_type)
+    void send_file_response(http_request r, const std::string &filename, const std::string &content_type)
     {
-        string file = file_as_string(filename, SERVER_RESOURCE);
+        std::string file = file_as_string(filename, SERVER_RESOURCE);
         send_response(r, HTTP_STATUS_OK, file, content_type);
     }
 
-    void send_javascript_file_response(http_request r, const string &filename)
+    void send_javascript_file_response(http_request r, const std::string &filename)
     {
         send_file_response(r, filename, "text/javascript");
     }
 
-    void send_css_file_response(http_request r, const string &filename)
+    void send_css_file_response(http_request r, const std::string &filename)
     {
         send_file_response(r, filename, "text/css");
     }
 
-    void send_html_file_response(http_request r, const string &filename)
+    void send_html_file_response(http_request r, const std::string &filename)
     {
         send_file_response(r, filename, "text/html");
     }
 
-    string request_uri(http_request r)
+    std::string request_uri(http_request r)
     {
         if (INVALID_PTR(r, HTTP_REQUEST_PTR))
         {
@@ -181,7 +179,7 @@ namespace splashkit_lib
         return r->uri;
     }
 
-    string request_query_string(http_request r)
+    std::string request_query_string(http_request r)
     {
         if (INVALID_PTR(r, HTTP_REQUEST_PTR))
         {
@@ -195,7 +193,7 @@ namespace splashkit_lib
 // From: https://cboard.cprogramming.com/c-programming/13752-how-parse-query_string.html
 #define TO_HEX(Y) (Y>='0'&&Y<='9'?Y-'0':Y-'A'+10)
 
-    string request_query_parameter(http_request r, const string &name, const string &default_value)
+    std::string request_query_parameter(http_request r, const std::string &name, const std::string &default_value)
     {
         if (INVALID_PTR(r, HTTP_REQUEST_PTR))
         {
@@ -203,14 +201,14 @@ namespace splashkit_lib
             return "";
         }
 
-        string query_string = r->query_string;
+        std::string query_string = r->query_string;
 
         size_t idx = query_string.find(name + "=");
 
-        if ( idx == string::npos) return default_value;
+        if ( idx == std::string::npos) return default_value;
 
         auto iter = query_string.begin() + idx + name.length() + 1;
-        stringstream result;
+        std::stringstream result;
 
         while ( iter < query_string.end() )
         {
@@ -238,7 +236,7 @@ namespace splashkit_lib
         return result.str();
     }
 
-    bool request_has_query_parameter(http_request r, const string &name)
+    bool request_has_query_parameter(http_request r, const std::string &name)
     {
         if (INVALID_PTR(r, HTTP_REQUEST_PTR))
         {
@@ -246,7 +244,7 @@ namespace splashkit_lib
             return "";
         }
 
-        return r->query_string.find(name + "=") != string::npos;
+        return r->query_string.find(name + "=") != std::string::npos;
     }
 
 #undef TO_HEX
@@ -262,7 +260,7 @@ namespace splashkit_lib
         return r->method;
     }
 
-    string request_body(http_request r)
+    std::string request_body(http_request r)
     {
         if (INVALID_PTR(r, HTTP_REQUEST_PTR))
         {
@@ -273,7 +271,7 @@ namespace splashkit_lib
         return r->body;
     }
 
-    vector<string> request_headers(http_request r)
+    std::vector<std::string> request_headers(http_request r)
     {
         if (INVALID_PTR(r, HTTP_REQUEST_PTR))
         {
@@ -284,20 +282,20 @@ namespace splashkit_lib
         return r->headers;
     }
 
-    vector<string> request_uri_stubs(http_request r)
+    std::vector<std::string> request_uri_stubs(http_request r)
     {
-        string uri = request_uri(r);
+        std::string uri = request_uri(r);
         return split_uri_stubs(uri);
     }
 
-    vector<string> split_uri_stubs(const string &uri)
+    std::vector<std::string> split_uri_stubs(const std::string &uri)
     {
-        stringstream stubs;
-        string stub;
-        vector<string> result;
+        std::stringstream stubs;
+        std::string stub;
+        std::vector<std::string> result;
 
         // Ensure args are removed if there isn't a / before the ?
-        stubs = (stringstream) uri.substr(0, uri.find('?'));
+        stubs = (std::stringstream) uri.substr(0, uri.find('?'));
 
         while (getline(stubs, stub, '/'))
         {
@@ -313,38 +311,38 @@ namespace splashkit_lib
         return result;
     }
 
-    bool is_request_for(http_request request, http_method method, const string &path)
+    bool is_request_for(http_request request, http_method method, const std::string &path)
     {
         if ( request_method(request) != method ) return false;
         return request_uri(request) == path;
     }
 
-    bool is_get_request_for(http_request request, const string &path)
+    bool is_get_request_for(http_request request, const std::string &path)
     {
         return is_request_for(request, HTTP_GET_METHOD, path);
     }
 
-    bool is_post_request_for(http_request request, const string &path)
+    bool is_post_request_for(http_request request, const std::string &path)
     {
         return is_request_for(request, HTTP_POST_METHOD, path);
     }
 
-    bool is_put_request_for(http_request request, const string &path)
+    bool is_put_request_for(http_request request, const std::string &path)
     {
         return is_request_for(request, HTTP_PUT_METHOD, path);
     }
 
-    bool is_delete_request_for(http_request request, const string &path)
+    bool is_delete_request_for(http_request request, const std::string &path)
     {
         return is_request_for(request, HTTP_DELETE_METHOD, path);
     }
 
-    bool is_options_request_for(http_request request, const string &path)
+    bool is_options_request_for(http_request request, const std::string &path)
     {
         return is_request_for(request, HTTP_OPTIONS_METHOD, path);
     }
 
-    bool is_trace_request_for(http_request request, const string &path)
+    bool is_trace_request_for(http_request request, const std::string &path)
     {
         return is_request_for(request, HTTP_TRACE_METHOD, path);
     }

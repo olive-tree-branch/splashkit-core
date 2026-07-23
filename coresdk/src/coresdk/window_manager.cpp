@@ -17,28 +17,26 @@
 
 #include <map>
 
-using std::map;
-
 namespace splashkit_lib
 {
     static window _primary_window = nullptr;
     window _current_window = nullptr;
-    map<string, window> _windows;
+    std::map<std::string, window> _windows;
 
     unsigned int number_open_windows()
     {
         return static_cast<unsigned int>(_windows.size());
     }
 
-    window open_window(string caption, int width, int height)
+    window open_window(std::string caption, int width, int height)
     {
         sk_color clr;
-        string real_caption;
+        std::string real_caption;
         int idx;
         window result;
 
         _sk_quit = false;
-        
+
         real_caption = caption;
         idx = 0;
 
@@ -110,7 +108,7 @@ namespace splashkit_lib
 
         sk_set_icon(&wind->image.surface, &bmp->image.surface);
     }
-    
+
     //TODO: From graphics... need to rework...
     void delay_for_target_fps(unsigned int target_fps);
 
@@ -124,7 +122,7 @@ namespace splashkit_lib
 
         sk_refresh_window(&wind->image.surface);
     }
-    
+
     void refresh_window(window wind, unsigned int target_fps)
     {
         refresh_window(wind);
@@ -170,7 +168,7 @@ namespace splashkit_lib
         delete(wind);
     }
 
-    void close_window(const string &name)
+    void close_window(const std::string &name)
     {
         close_window(window_named(name));
     }
@@ -186,12 +184,12 @@ namespace splashkit_lib
         _sk_destroy_initial_window();
     }
 
-    bool has_window(string caption)
+    bool has_window(std::string caption)
     {
         return _windows.count(caption) > 0;
     }
 
-    window window_named(string caption)
+    window window_named(std::string caption)
     {
         if (has_window(caption))
             return _windows[caption];
@@ -211,7 +209,7 @@ namespace splashkit_lib
 
         return current_window();
     }
-    
+
     bool window_has_focus(window wind)
     {
         if ( INVALID_PTR(wind, WINDOW_PTR))
@@ -219,7 +217,7 @@ namespace splashkit_lib
             LOG(WARNING) << "Attempting to check window focus for an invalid window value";
             return false;
         }
-        
+
         return sk_get_window_event_data(&wind->image.surface).has_focus;
     }
 
@@ -239,11 +237,11 @@ namespace splashkit_lib
         _current_window = wind;
     }
 
-    void set_current_window(const string &name)
+    void set_current_window(const std::string &name)
     {
         set_current_window(window_named(name));
     }
-    
+
     bool is_current_window(window wind)
     {
         return wind == _current_window;
@@ -252,7 +250,7 @@ namespace splashkit_lib
     bool window_close_requested(window wind)
     {
         if ( quit_requested() ) return true;
-        
+
         if (INVALID_PTR(wind, WINDOW_PTR))
         {
             LOG(WARNING) << "Attempting to check if invalid window closed";
@@ -262,7 +260,7 @@ namespace splashkit_lib
         return sk_get_window_event_data(&wind->image.surface).close_requested;
     }
 
-    bool window_close_requested(const string &name)
+    bool window_close_requested(const std::string &name)
     {
         return window_close_requested(window_named(name));
     }
@@ -278,7 +276,7 @@ namespace splashkit_lib
         return wind->image.surface.width;
     }
 
-    int window_width(const string &name)
+    int window_width(const std::string &name)
     {
         return window_width(window_named(name));
     }
@@ -299,7 +297,7 @@ namespace splashkit_lib
         return wind->image.surface.height;
     }
 
-    int window_height(const string &name)
+    int window_height(const std::string &name)
     {
         return window_height(window_named(name));
     }
@@ -336,7 +334,7 @@ namespace splashkit_lib
         sk_move_window(&wind->image.surface, x, y);
     }
 
-    void move_window_to(const string &name, int x, int y)
+    void move_window_to(const std::string &name, int x, int y)
     {
         move_window_to(window_named(name), x, y);
     }
@@ -357,7 +355,7 @@ namespace splashkit_lib
         return wnd->fullscreen;
     }
 
-    bool window_is_fullscreen(const string &name)
+    bool window_is_fullscreen(const std::string &name)
     {
         return window_is_fullscreen(window_named(name));
     }
@@ -384,7 +382,7 @@ namespace splashkit_lib
         }
     }
 
-    void window_toggle_fullscreen(const string &name)
+    void window_toggle_fullscreen(const std::string &name)
     {
         window_toggle_fullscreen(window_named(name));
     }
@@ -405,7 +403,7 @@ namespace splashkit_lib
         return wnd->border;
     }
 
-    bool window_has_border(const string &name)
+    bool window_has_border(const std::string &name)
     {
         return window_has_border(window_named(name));
     }
@@ -427,7 +425,7 @@ namespace splashkit_lib
         sk_show_border(&wnd->image.surface, wnd->border);
     }
 
-    void window_toggle_border(const string &name)
+    void window_toggle_border(const std::string &name)
     {
         window_toggle_border(window_named(name));
     }
@@ -452,7 +450,7 @@ namespace splashkit_lib
         return x;
     }
 
-    int window_x(const string &name)
+    int window_x(const std::string &name)
     {
         return window_x(window_named(name));
     }
@@ -477,7 +475,7 @@ namespace splashkit_lib
         return y;
     }
 
-    int window_y(const string &name)
+    int window_y(const std::string &name)
     {
         return window_y(window_named(name));
     }
@@ -502,7 +500,7 @@ namespace splashkit_lib
         return point_at(x, y);
     }
 
-    point_2d window_position(const string &name)
+    point_2d window_position(const std::string &name)
     {
         return window_position(window_named(name));
     }
@@ -512,15 +510,15 @@ namespace splashkit_lib
         return window_position(_current_window);
     }
 
-    string window_caption(window wind)
+    std::string window_caption(window wind)
     {
         if ( INVALID_PTR(wind, WINDOW_PTR))
         {
             LOG(WARNING) << "Attempting to get caption of invalid window";
             return "";
         }
-        
+
         return wind->caption;
     }
-    
+
 }

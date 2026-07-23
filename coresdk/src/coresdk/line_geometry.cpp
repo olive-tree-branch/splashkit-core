@@ -102,11 +102,11 @@ namespace splashkit_lib
             return point_at(
                             l.start_point.x + u * (l.end_point.x - l.start_point.x),
                             l.start_point.y + u * (l.end_point.y - l.start_point.y));
-            
+
         } //  else NOT (u < EPS) or (u > 1)
     }
 
-    point_2d closest_point_on_lines(const point_2d from_pt, const vector<line> &lines, int &line_idx)
+    point_2d closest_point_on_lines(const point_2d from_pt, const std::vector<line> &lines, int &line_idx)
     {
         line_idx = -1;
         point_2d result = point_at_origin();
@@ -131,9 +131,9 @@ namespace splashkit_lib
         return result;
     }
 
-    vector<line> lines_from(const triangle &t)
+    std::vector<line> lines_from(const triangle &t)
     {
-        vector<line> result;
+        std::vector<line> result;
 
         result.push_back(line_from(t.points[0], t.points[1]));
         result.push_back(line_from(t.points[1], t.points[2]));
@@ -142,9 +142,9 @@ namespace splashkit_lib
         return result;
     }
 
-    vector<line> lines_from(const rectangle &rect)
+    std::vector<line> lines_from(const rectangle &rect)
     {
-        vector<line> result;
+        std::vector<line> result;
         result.push_back(line_from(rect.x, rect.y, rect.x + rect.width, rect.y));
         result.push_back(line_from(rect.x, rect.y, rect.x, rect.y + rect.height));
         result.push_back(line_from(rect.x + rect.width, rect.y, rect.x + rect.width, rect.y + rect.height));
@@ -178,7 +178,7 @@ namespace splashkit_lib
         {
             return true;
         }
-        
+
         return line_intersects_lines(l, lines_from(rect));
     }
 
@@ -195,12 +195,12 @@ namespace splashkit_lib
         return vector_normal(vector_from_line(l));
     }
 
-    string line_to_string(const line &ln)
+    std::string line_to_string(const line &ln)
     {
         return "Line from " + point_to_string(ln.start_point) + " to " + point_to_string(ln.end_point);
     }
 
-    bool line_intersects_lines(const line &l, const vector<line> &lines)
+    bool line_intersects_lines(const line &l, const std::vector<line> &lines)
     {
         int i;
         point_2d pt;

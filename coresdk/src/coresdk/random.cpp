@@ -25,16 +25,16 @@ namespace splashkit_lib
     int rnd(int ubound)
     {
         if (ubound <= 0) return 0;
-        
+
         if (_do_seed)
         {
             _do_seed = false;
             srand((unsigned)time(0));
         }
-        
+
         return rand() % ubound;
     }
-    
+
     int rnd(int min, int max)
     {
         if (min > max)
@@ -44,14 +44,14 @@ namespace splashkit_lib
         }
 
         if (min == max) return min;
-        
+
         if (_do_seed)
         {
             _do_seed = false;
             srand((unsigned)time(0));
         }
-        
-        int range = abs(max - min) + 1;
+
+        int range = std::abs(max - min) + 1;
         return min + (rand() % range);
     }
 }

@@ -11,57 +11,51 @@
 #include <iostream>
 #include <map>
 #include <limits>
-
-using std::map;
-using std::pair;
-using std::cout;
-using std::to_string;
-using std::endl;
-using std::cin;
+#include <utility>
 
 namespace splashkit_lib
 {
-    void write(string text)
+    void write(std::string text)
     {
-        cout << text;
-        cout.flush();
+        std::cout << text;
+        std::cout.flush();
     }
-    
+
     void write(int data)
     {
-        write(to_string(data));
+        write(std::to_string(data));
     }
 
     void write(char data)
     {
-        write(string("") + data);
+        write(std::string("") + data);
     }
-    
+
     void write(double data)
     {
-        write(to_string(data));
+        write(std::to_string(data));
     }
 
     void write_line()
     {
-        cout << endl;
-        cout.flush();
+        std::cout << std::endl;
+        std::cout.flush();
     }
 
-    void write_line(string line)
+    void write_line(std::string line)
     {
-        cout << line << endl;
-        cout.flush();
+        std::cout << line << std::endl;
+        std::cout.flush();
     }
-    
+
     void write_line(int data)
     {
-        write_line(to_string(data));
+        write_line(std::to_string(data));
     }
-    
+
     void write_line(double data)
     {
-        write_line(to_string(data));
+        write_line(std::to_string(data));
     }
 
     void write_line(char data)
@@ -69,11 +63,11 @@ namespace splashkit_lib
         write_line(std::string(1, data));
     }
 
-    string read_line()
+    std::string read_line()
     {
-        string result;
-        cin.clear(); 
-        cin.sync();
+        std::string result;
+        std::cin.clear();
+        std::cin.sync();
         getline(std::cin, result);
         return result;
     }
@@ -81,15 +75,15 @@ namespace splashkit_lib
     char read_char()
     {
         char result = 0;
-        cin.clear();  
-        cin.sync();
-        cin >> result;
-        cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
+        std::cin.clear();
+        std::cin.sync();
+        std::cin >> result;
+        std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
         return result;
     }
 
     bool terminal_has_input()
     {
-        return cin.gcount() > 0;
+        return std::cin.gcount() > 0;
     }
 }

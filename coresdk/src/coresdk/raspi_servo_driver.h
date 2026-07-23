@@ -50,11 +50,11 @@ namespace splashkit_lib
 
   /**
    * Returns true if a servo with this name is already open.
-   * 
+   *
    * @param name  Your identifier for this servo.
    * @returns     true if the servo is open, false otherwise.
    */
-  bool has_servo_device(const string &name);
+  bool has_servo_device(const std::string &name);
 
   /**
    * Look up an already‐opened servo by name.
@@ -62,27 +62,27 @@ namespace splashkit_lib
    * @param name  Your identifier for this servo.
    * @returns A valid servo_device, or nullptr if not found.
    */
-  servo_device servo_named(const string &name);
+  servo_device servo_named(const std::string &name);
 
   /**
    * Open (and initialize) a servo on the given board pin.
-   * 
+   *
    * @param name         Your identifier for this servo.
    * @param control_pin  Board‐numbered GPIO pin for the servo signal line.
    * @returns            A valid servo_device, or nullptr on failure.
-   * 
+   *
    * @attribute class       servo_device
    * @attribute constructor  true
    */
-  servo_device open_servo(const string &name, gpio_pin control_pin);
+  servo_device open_servo(const std::string &name, gpio_pin control_pin);
 
   /**
    * Convenience: map an angle (0…180°) into the 500…2500 µs range.
    * This is a linear mapping, so it may not be accurate for all servos.
-   * 
+   *
    * @param dev  The servo device to control.
    * @param angle_degrees  The angle in degrees (0…180).
-   * 
+   *
    * @attribute class       servo_device
    * @attribute self        dev
    * @attribute method      set_angle
@@ -92,9 +92,9 @@ namespace splashkit_lib
   /**
    * Stop sending pulses (servo will hold last position or drift).
    * This is a convenience function that sets the pulse width to 0.
-   * 
+   *
    * @param dev  The servo device to control.
-   * 
+   *
    * @attribute class       servo_device
    * @attribute self        dev
    * @attribute method      stop
@@ -120,7 +120,7 @@ namespace splashkit_lib
    *
    * @attribute suffix  named
    */
-  void close_servo(const string &name);
+  void close_servo(const std::string &name);
 
   /**
    * Close *all* servos.

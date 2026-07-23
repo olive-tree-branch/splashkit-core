@@ -11,6 +11,7 @@
 #include "types.h"
 #include "window_manager.h"
 #include "images.h"
+#include <string>
 
 namespace splashkit_lib
 {
@@ -56,7 +57,7 @@ namespace splashkit_lib
      * @param  pt The point details
      * @return    A string representation of the point
      */
-    string point_to_string(const point_2d &pt);
+    std::string point_to_string(const point_2d &pt);
 
     /**
      *  Returns a random point on the current window.
@@ -70,7 +71,7 @@ namespace splashkit_lib
      *
      * @param  wind The window
      * @return      A point within the bounds of the window
-     * 
+     *
      * @attribute class   window
      * @attribute method  random_point
      */
@@ -104,7 +105,7 @@ namespace splashkit_lib
 
     /**
      * Returns true if the point is within the bounds of a Rectangle.
-     * 
+     *
      * @param ptx the x value of the point
      * @param pty the y value of the point
      * @param rect_x x value of the rectangle
@@ -137,14 +138,14 @@ namespace splashkit_lib
 
     /**
      * Return true if the point is in the circle.
-     * 
+     *
      * @param ptx the x value of the point
      * @param pty the y value of the point
      * @param cx the x value of the centre of the circle
      * @param cy the y value of the centre of the circle
      * @param radius the radius of the circle
      * @returns True when the point is in the circle, otherwise it returns false.
-     * 
+     *
      * @attribute suffix  with_values
      */
     bool point_in_circle(double ptx, double pty, double cx, double cy, double radius);

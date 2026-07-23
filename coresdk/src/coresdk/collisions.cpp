@@ -17,8 +17,6 @@
 #include "graphics.h"
 #include "utils.h"
 
-using std::function;
-
 namespace splashkit_lib
 {
     const vector_2d _DIRECTION_TOP = vector_to(0.0, -1.0);
@@ -41,7 +39,7 @@ namespace splashkit_lib
         const matrix_2d &matrix1,
         double w2, double h2,
         const matrix_2d &matrix2,
-        function<bool(int, int, int, int)> end_fn)
+        std::function<bool(int, int, int, int)> end_fn)
     {
         bool a_is_1;
         double h_a, w_a;
@@ -410,7 +408,7 @@ namespace splashkit_lib
 
     vector_2d _rectangle_rectangle_collision_direction(const rectangle &collider, const rectangle &collidee)
     {
-        vector<line> collider_lines = lines_from(collider);
+        std::vector<line> collider_lines = lines_from(collider);
         line collider_top_edge = collider_lines[0];
         line collider_left_edge = collider_lines[1];
         line collider_right_edge = collider_lines[2];

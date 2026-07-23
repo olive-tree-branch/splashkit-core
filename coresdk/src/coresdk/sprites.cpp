@@ -22,24 +22,19 @@
 #include <map>
 #include <vector>
 
-using std::map;
-using std::vector;
-using std::to_string;
-using std::swap;
-
 namespace splashkit_lib
 {
     timer _sprite_timer = nullptr;
-    vector<sprite_event_handler *> _global_sprite_event_handlers;
+    std::vector<sprite_event_handler *> _global_sprite_event_handlers;
 
-    map<string, sprite> _sprites;
+    std::map<std::string, sprite> _sprites;
 
     // Sprite pack data
 #define INITIAL_PACK_NAME "default"
-    map<string, vector<void *>> _sprite_packs;
-    string _current_pack = INITIAL_PACK_NAME;
+    std::map<std::string, std::vector<void *>> _sprite_packs;
+    std::string _current_pack = INITIAL_PACK_NAME;
 
-    vector<void *> &current_pack()
+    std::vector<void *> &current_pack()
     {
         return _sprite_packs[_current_pack];
     }
@@ -51,14 +46,14 @@ namespace splashkit_lib
     struct _sprite_data
     {
         pointer_identifier  id;
-        string name;                          // The name of the sprite for resource management
+        std::string name;                          // The name of the sprite for resource management
 
-        vector<bitmap>      layers;           // Layers of the sprites
-        map<string, int>    layer_names;
-        vector<int>         visible_layers;   // The indexes of the visible layers
-        vector<vector_2d>   layer_offsets;    // Offsets from drawing the layers
+        std::vector<bitmap>      layers;           // Layers of the sprites
+        std::map<std::string, int>    layer_names;
+        std::vector<int>         visible_layers;   // The indexes of the visible layers
+        std::vector<vector_2d>   layer_offsets;    // Offsets from drawing the layers
 
-        map<string, float>  values;           // Values associated with this sprite
+        std::map<std::string, float>  values;           // Values associated with this sprite
 
 
         animation           animation_info;   // The data used to animate this sprite
@@ -82,9 +77,9 @@ namespace splashkit_lib
 
         bool                announced_animation_end; // Used to avoid multiple announcements of an end of an animation
 
-        vector<sprite_event_handler *> evts;    // The call backs listening for sprite events
+        std::vector<sprite_event_handler *> evts;    // The call backs listening for sprite events
 
-        vector<void *>      &pack;              // Points the the SpritePack that contains this sprite
+        std::vector<void *>      &pack;              // Points the the SpritePack that contains this sprite
 
         _sprite_data() : pack( current_pack() )
         {
@@ -143,12 +138,12 @@ namespace splashkit_lib
         return create_sprite(layer, nullptr);
     }
 
-    sprite create_sprite(const string &bitmap_name)
+    sprite create_sprite(const std::string &bitmap_name)
     {
         return create_sprite(bitmap_named(bitmap_name), nullptr);
     }
 
-    sprite create_sprite(const string &bitmap_name, const string &animation_name)
+    sprite create_sprite(const std::string &bitmap_name, const std::string &animation_name)
     {
         return create_sprite(bitmap_named(bitmap_name), animation_script_named(animation_name));
     }
@@ -158,14 +153,14 @@ namespace splashkit_lib
         return create_sprite("sprite", layer, ani);
     }
 
-    sprite create_sprite(const string &name, bitmap layer)
+    sprite create_sprite(const std::string &name, bitmap layer)
     {
         return create_sprite(name, layer, nullptr);
     }
 
-    sprite create_sprite(const string &name, bitmap layer, animation_script ani)
+    sprite create_sprite(const std::string &name, bitmap layer, animation_script ani)
     {
-        string sn;
+        std::string sn;
         int idx;
 
         // Find a unique name for this sprite
@@ -174,7 +169,7 @@ namespace splashkit_lib
 
         while (has_sprite(sn))
         {
-            sn = name + to_string(idx);
+            sn = name + std::to_string(idx);
             idx += 1;
         }
 
@@ -238,7 +233,7 @@ namespace splashkit_lib
         return result;
     }
 
-    string sprite_name(sprite s)
+    std::string sprite_name(sprite s)
     {
         if ( INVALID_PTR(s, SPRITE_PTR) )
         {
@@ -295,12 +290,12 @@ namespace splashkit_lib
     // Sprite fetching functions
     //-----------------------------------------------------------------------------
 
-    bool has_sprite(const string &name)
+    bool has_sprite(const std::string &name)
     {
         return _sprites.count(name) > 0;
     }
 
-    sprite sprite_named(const string &name)
+    sprite sprite_named(const std::string &name)
     {
         if( (has_sprite(name)) )
             return _sprites[name];
@@ -312,7 +307,7 @@ namespace splashkit_lib
     // Sprite layer code
     //-----------------------------------------------------------------------------
 
-    int sprite_add_layer(sprite s, bitmap new_layer, const string &layer_names)
+    int sprite_add_layer(sprite s, bitmap new_layer, const std::string &layer_names)
     {
         if( INVALID_PTR(new_layer, BITMAP_PTR) )
         {
@@ -334,7 +329,7 @@ namespace splashkit_lib
         return result;
     }
 
-    bool sprite_has_layer(sprite s, const string &name)
+    bool sprite_has_layer(sprite s, const std::string &name)
     {
         if ( INVALID_PTR(s, SPRITE_PTR) )
         {
@@ -360,7 +355,7 @@ namespace splashkit_lib
         }
     }
 
-    bitmap sprite_layer(sprite s, const string &name)
+    bitmap sprite_layer(sprite s, const std::string &name)
     {
         if ( not sprite_has_layer(s, name) )
         {
@@ -382,7 +377,7 @@ namespace splashkit_lib
         return s->layers[idx];
     }
 
-    int sprite_layer_index(sprite s, const string &name)
+    int sprite_layer_index(sprite s, const std::string &name)
     {
         if( not sprite_has_layer(s, name) )
             return -1;
@@ -390,7 +385,7 @@ namespace splashkit_lib
             return s->layer_names[name];
     }
 
-    string sprite_layer_name(sprite s, int idx)
+    std::string sprite_layer_name(sprite s, int idx)
     {
         if ( sprite_has_layer(s, idx) )
         {
@@ -398,7 +393,7 @@ namespace splashkit_lib
         }
         else
         {
-            string result = "";
+            std::string result = "";
             if ( not key_of_value(s->layer_names, idx, result) )
             {
                 LOG(WARNING) << "Sprite has invalid state. Please report this issue to the SplashKit dev team.";
@@ -407,7 +402,7 @@ namespace splashkit_lib
         }
     }
 
-    int sprite_show_layer(sprite s, const string &name)
+    int sprite_show_layer(sprite s, const std::string &name)
     {
         if ( not sprite_has_layer(s, name) )
             return -1;
@@ -430,7 +425,7 @@ namespace splashkit_lib
         return static_cast<int>(s->visible_layers.size() - 1);
     }
 
-    void sprite_hide_layer(sprite s, const string &name)
+    void sprite_hide_layer(sprite s, const std::string &name)
     {
         if ( not sprite_has_layer(s, name) )
             return;
@@ -446,7 +441,7 @@ namespace splashkit_lib
         erase_from_vector(s->visible_layers, id);
     }
 
-    void sprite_toggle_layer_visible(sprite s, const string &name)
+    void sprite_toggle_layer_visible(sprite s, const std::string &name)
     {
         if ( not sprite_has_layer(s, name) )
             return;
@@ -502,7 +497,7 @@ namespace splashkit_lib
             return s->visible_layers[idx];
     }
 
-    vector_2d sprite_layer_offset(sprite s, const string &name)
+    vector_2d sprite_layer_offset(sprite s, const std::string &name)
     {
         if ( not sprite_has_layer(s, name) ) return vector_to(0,0);
         else return sprite_layer_offset(s, s->layer_names[name]);
@@ -514,7 +509,7 @@ namespace splashkit_lib
         else return s->layer_offsets[idx];
     }
 
-    void sprite_set_layer_offset(sprite s, const string &name, const vector_2d &value)
+    void sprite_set_layer_offset(sprite s, const std::string &name, const vector_2d &value)
     {
         if ( not sprite_has_layer(s, name) ) return;
         sprite_set_layer_offset(s, s->layer_names[name], value);
@@ -527,7 +522,7 @@ namespace splashkit_lib
         s->layer_offsets[idx] = value;
     }
 
-    int sprite_visible_index_of_layer(sprite s, const string &name)
+    int sprite_visible_index_of_layer(sprite s, const std::string &name)
     {
         if ( not sprite_has_layer(s, name) ) return -1;
         else return sprite_visible_index_of_layer(s, s->layer_names[name]);
@@ -560,7 +555,7 @@ namespace splashkit_lib
         if( not sprite_has_visible_layer(s, visible_layer) ) return;
 
         if ( visible_layer < s->visible_layers.size() - 1 )
-            swap(s->visible_layers[visible_layer], s->visible_layers[visible_layer + 1]);
+            std::swap(s->visible_layers[visible_layer], s->visible_layers[visible_layer + 1]);
     }
 
     void sprite_bring_layer_forward(sprite s, int visible_layer)
@@ -568,7 +563,7 @@ namespace splashkit_lib
         if( not sprite_has_visible_layer(s, visible_layer) ) return;
 
         if ( visible_layer > 0 )
-            swap(s->visible_layers[visible_layer], s->visible_layers[visible_layer - 1]);
+            std::swap(s->visible_layers[visible_layer], s->visible_layers[visible_layer - 1]);
     }
 
     void sprite_bring_layer_to_front(sprite s, int visible_layer)
@@ -579,7 +574,7 @@ namespace splashkit_lib
             move_range(s->visible_layers, sprite_visible_index_of_layer(s, visible_layer), 1, 0 );
     }
 
-    rectangle sprite_layer_rectangle(sprite s, const string &name)
+    rectangle sprite_layer_rectangle(sprite s, const std::string &name)
     {
         if ( not sprite_has_layer(s, name) )
             return rectangle_from(0,0,0,0);
@@ -600,7 +595,7 @@ namespace splashkit_lib
         return sprite_layer_circle(s, 0);
     }
 
-    circle sprite_layer_circle(sprite s, const string &name)
+    circle sprite_layer_circle(sprite s, const std::string &name)
     {
         if ( not sprite_has_layer(s, name) ) return circle_at(0,0,0);
         else return sprite_layer_circle(s, s->layer_names[name]);
@@ -614,7 +609,7 @@ namespace splashkit_lib
             return bitmap_cell_circle(s->layers[idx], sprite_center_point(s), sprite_scale(s));
     }
 
-    int sprite_layer_height(sprite s, const string &name)
+    int sprite_layer_height(sprite s, const std::string &name)
     {
         if ( not sprite_has_layer(s, name) )
             return 0;
@@ -630,7 +625,7 @@ namespace splashkit_lib
             return bitmap_cell_height(s->layers[idx]);
     }
 
-    int sprite_layer_width(sprite s, const string &name)
+    int sprite_layer_width(sprite s, const std::string &name)
     {
         if ( not sprite_has_layer(s, name) )
             return 0;
@@ -689,12 +684,12 @@ namespace splashkit_lib
         if (not sprite_animation_has_ended(s)) s->announced_animation_end = false;
     }
 
-    void sprite_start_animation(sprite s, const string &named)
+    void sprite_start_animation(sprite s, const std::string &named)
     {
         sprite_start_animation(s, named, true);
     }
 
-    void sprite_start_animation(sprite s, const string &named, bool with_sound)
+    void sprite_start_animation(sprite s, const std::string &named, bool with_sound)
     {
 
         if ( INVALID_PTR(s, SPRITE_PTR) )
@@ -734,7 +729,7 @@ namespace splashkit_lib
         if ( INVALID_PTR(s->script, ANIMATION_SCRIPT_PTR)) return;
         if ( (idx < 0) or (idx >= animation_count(s->script)))
         {
-            LOG(WARNING) << "Unable to create animation no. " + to_string(idx) + " for sprite " + s->name + " from script " + animation_script_name(s->script);
+            LOG(WARNING) << "Unable to create animation no. " + std::to_string(idx) + " for sprite " + s->name + " from script " + animation_script_name(s->script);
             return;
         }
 
@@ -747,7 +742,7 @@ namespace splashkit_lib
             s->announced_animation_end = false;
     }
 
-    string sprite_animation_name(sprite s)
+    std::string sprite_animation_name(sprite s)
     {
         if ( VALID_PTR(s, SPRITE_PTR) )
             return animation_name(s->animation_info);
@@ -1337,7 +1332,7 @@ namespace splashkit_lib
         {
             if (value < 0)
             {
-                value = 360 + (value + abs((long long)(trunc(value / 360) * 360)));
+                value = 360 + (value + std::abs((long long)(trunc(value / 360) * 360)));
             }
 
             if (value >= 360)
@@ -1380,7 +1375,7 @@ namespace splashkit_lib
         return static_cast<int>(s->values.size());
     }
 
-    bool sprite_has_value(sprite s, string name)
+    bool sprite_has_value(sprite s, std::string name)
     {
         if ( INVALID_PTR(s, SPRITE_PTR) )
         {
@@ -1391,7 +1386,7 @@ namespace splashkit_lib
         return s->values.count(name) > 0;
     }
 
-    float sprite_value(sprite s, const string &name)
+    float sprite_value(sprite s, const std::string &name)
     {
         if ( not sprite_has_value(s, name) )
         {
@@ -1400,12 +1395,12 @@ namespace splashkit_lib
         return s->values[name];
     }
 
-    void sprite_add_value(sprite s, const string &name)
+    void sprite_add_value(sprite s, const std::string &name)
     {
         sprite_add_value(s, name, 0);
     }
 
-    void sprite_add_value(sprite s, const string &name, float init_val)
+    void sprite_add_value(sprite s, const std::string &name, float init_val)
     {
         if ( INVALID_PTR(s, SPRITE_PTR) )
         {
@@ -1418,7 +1413,7 @@ namespace splashkit_lib
         s->values[name] = init_val;
     }
 
-    void sprite_set_value(sprite s, const string &name, float val)
+    void sprite_set_value(sprite s, const std::string &name, float val)
     {
         if ( not sprite_has_value(s, name) )
         {
@@ -1480,7 +1475,7 @@ namespace splashkit_lib
         free_sprite(static_cast<sprite>(s));
     }
 
-    void _call_for_all_sprites(vector<void *> &sprites, sprite_function *fn)
+    void _call_for_all_sprites(std::vector<void *> &sprites, sprite_function *fn)
     {
         for(void *s : sprites)
         {
@@ -1488,10 +1483,10 @@ namespace splashkit_lib
         }
     }
 
-    void _call_for_all_sprites(vector<void *> &sprites, sprite_float_function *fn, float val)
+    void _call_for_all_sprites(std::vector<void *> &sprites, sprite_float_function *fn, float val)
     {
         // use a local copy so changes to the sprite pack do not effect loop
-        vector<void *> local_copy = sprites;
+        std::vector<void *> local_copy = sprites;
         for(void *s : local_copy)
         {
             fn(s, val);
@@ -1523,13 +1518,13 @@ namespace splashkit_lib
         update_all_sprites(1.0);
     }
 
-    bool has_sprite_pack(const string &name)
+    bool has_sprite_pack(const std::string &name)
     {
         return _sprite_packs.count(name) > 0;
     }
 
 
-    void create_sprite_pack(const string &name)
+    void create_sprite_pack(const std::string &name)
     {
         if ( not has_sprite_pack(name) )
         {
@@ -1541,12 +1536,12 @@ namespace splashkit_lib
         }
     }
 
-    string current_sprite_pack()
+    std::string current_sprite_pack()
     {
         return _current_pack;
     }
 
-    void select_sprite_pack(const string &name)
+    void select_sprite_pack(const std::string &name)
     {
         if ( has_sprite_pack(name) )
             _current_pack = name;
@@ -1554,12 +1549,12 @@ namespace splashkit_lib
             LOG(WARNING) << "No sprite_pack named " + name + " to select.";
     }
 
-    void free_sprite_pack(const string &name)
+    void free_sprite_pack(const std::string &name)
     {
         if  (not has_sprite_pack(name)) return;
 
         // TODO: Temporarily do not call due to 70c30d4
-        vector<void *> &pack = _sprite_packs[name];
+        std::vector<void *> &pack = _sprite_packs[name];
         _call_for_all_sprites(pack, &_free_sprite);
         if (name == _current_pack)
         {
@@ -1575,7 +1570,7 @@ namespace splashkit_lib
 
         for(size_t i = 0; i < sz; i++)
         {
-            string name = _sprite_packs.begin()->first;
+            std::string name = _sprite_packs.begin()->first;
             free_sprite_pack(name);
         }
 

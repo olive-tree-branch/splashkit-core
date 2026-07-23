@@ -12,7 +12,6 @@
 #include "matrix_2d.h"
 
 #include <vector>
-using std::vector;
 
 namespace splashkit_lib
 {
@@ -77,12 +76,12 @@ namespace splashkit_lib
      * Returns a quad from the passed in line and width.
      * The quad will be a rectangle with the line as the diagonal,
      * and the width as the width of the rectangle.
-     * 
+     *
      * @param line_origin    The origin of the line
      * @param line_end       The end of the line
      * @param width          The width of the quad
      * @return               A quad that represents the line with the given width
-     * 
+     *
      * @attribute suffix  from_line
      */
     quad quad_from(const point_2d& line_origin, const point_2d& line_end, double width);
@@ -99,7 +98,7 @@ namespace splashkit_lib
 
     /**
      * Detects if a ray intersects a quad.
-     * 
+     *
      * @param origin        The starting point of the ray
      * @param heading       The direction of the ray as a vector
      * @param q             The quad to check for intersection
@@ -113,7 +112,7 @@ namespace splashkit_lib
      * distance from the ray's origin to the intersection point. If the ray's `origin`
      * is contained within the quad, `hit_point` is set to the `origin` and `hit_distance`
      * is set to 0. If no intersection is found, `hit_point` and `hit_distance` are not modified.
-     * 
+     *
      * @param origin        The starting point of the ray
      * @param heading       The direction of the ray as a vector
      * @param q             The quad to check for intersection
@@ -121,7 +120,7 @@ namespace splashkit_lib
      * @param hit_distance  The double to set to the distance from the ray's origin to
      *                      the intersection point
      * @returns             True if the ray intersects the quad, false otherwise
-     * 
+     *
      * @attribute suffix    with_hit_point_and_distance
      */
     bool quad_ray_intersection(const point_2d &origin, const vector_2d &heading, const quad &q, point_2d &hit_point, double &hit_distance);
@@ -141,7 +140,7 @@ namespace splashkit_lib
      * @param q The quad
      * @return  A vector with the two triangles from the quad.
      */
-    vector<triangle> triangles_from(const quad &q);
+    std::vector<triangle> triangles_from(const quad &q);
 
 }
 #endif /* quad_geometry_h */

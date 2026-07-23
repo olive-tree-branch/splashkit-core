@@ -90,7 +90,7 @@ namespace splashkit_lib
      *                 already, then the name will be changed to generate a
      *                 unique filename.
      */
-    void take_screenshot(const string &basename);
+    void take_screenshot(const std::string &basename);
 
     /**
      *  Saves a screenshot of the current window to a bitmap file. The file will
@@ -106,7 +106,7 @@ namespace splashkit_lib
      * @attribute method  take_screenshot
      * @attribute self    wind
      */
-    void take_screenshot(window wind, const string &basename);
+    void take_screenshot(window wind, const std::string &basename);
 
     /**
      * Save the bitmap to the user's desktop.
@@ -116,7 +116,7 @@ namespace splashkit_lib
      *                 already, then the name will be changed to generate a
      *                 unique filename.
      */
-    void save_bitmap(bitmap bmp, const string &basename);
+    void save_bitmap(bitmap bmp, const std::string &basename);
 
     /**
      * Returns the number of physical displays attached to the computer.
@@ -142,7 +142,7 @@ namespace splashkit_lib
      * @attribute class display
      * @attribute getter name
      */
-    string display_name(display disp);
+    std::string display_name(display disp);
 
     /**
      * Return the width of the display in pixels, read from the system details.

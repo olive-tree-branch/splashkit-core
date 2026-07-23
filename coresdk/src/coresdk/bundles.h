@@ -17,7 +17,6 @@
 #define bundles_h
 
 #include <string>
-using std::string;
 
 namespace splashkit_lib
 {
@@ -48,7 +47,7 @@ namespace splashkit_lib
      *    ANIM,WalkingScript,kermit.txt
      *    ```
      *
-     * -  To load a **bitmap** use the format: 
+     * -  To load a **bitmap** use the format:
      *
      *    ```
      *    BMP,name,filename
@@ -114,7 +113,7 @@ namespace splashkit_lib
      * @param name      The name of the bundle when it is loaded.
      * @param filename  The filename to load.
      */
-    void load_resource_bundle(const string &name, const string &filename);
+    void load_resource_bundle(const std::string &name, const std::string &filename);
 
     /**
      * Returns true when the named resource bundle has already been loaded.
@@ -122,7 +121,7 @@ namespace splashkit_lib
      * @param name  The name of the resource bundle.
      * @returns     True when the bundle is already loaded.
      */
-    bool has_resource_bundle(const string &name);
+    bool has_resource_bundle(const std::string &name);
 
     /**
      * When you are finished with the resources in a bundle, you can free them all
@@ -131,7 +130,7 @@ namespace splashkit_lib
      *
      * @param name  The name of the resource bundle to be freed
      */
-    void free_resource_bundle(const string name);
+    void free_resource_bundle(const std::string name);
 
     void free_all_resource_bundles();
 

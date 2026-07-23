@@ -20,8 +20,6 @@
 
 #include <cmath>
 
-using std::abs;
-
 namespace splashkit_lib
 {
 
@@ -35,7 +33,7 @@ namespace splashkit_lib
 
         if (surface)
         {
-            sk_draw_circle(surface, clr, x, y, abs(radius));
+            sk_draw_circle(surface, clr, x, y, std::abs(radius));
         }
     }
 
@@ -73,7 +71,7 @@ namespace splashkit_lib
         xy_from_opts(opts, x, y);
 
         if (surface)
-            sk_fill_circle(surface, clr, x, y, abs(radius));
+            sk_fill_circle(surface, clr, x, y, std::abs(radius));
     }
 
     void fill_circle(color clr, double x, double y, double radius)
@@ -100,42 +98,42 @@ namespace splashkit_lib
     {
         fill_circle(clr, c.center.x, c.center.y, c.radius, option_defaults());
     }
-    
+
     void draw_circle_on_window(window destination, color clr, double x, double y, double radius, drawing_options opts)
     {
         draw_circle(clr, x, y, radius, option_draw_to(destination, opts));
     }
-    
+
     void draw_circle_on_window(window destination, color clr, double x, double y, double radius)
     {
         draw_circle(clr, x, y, radius, option_draw_to(destination));
     }
-    
+
     void draw_circle_on_bitmap(bitmap destination, color clr, double x, double y, double radius, drawing_options opts)
     {
         draw_circle(clr, x, y, radius, option_draw_to(destination, opts));
     }
-    
+
     void draw_circle_on_bitmap(bitmap destination, color clr, double x, double y, double radius)
     {
         draw_circle(clr, x, y, radius, option_draw_to(destination));
     }
-    
+
     void fill_circle_on_window(window destination, color clr, double x, double y, double radius, drawing_options opts)
     {
         fill_circle(clr, x, y, radius, option_draw_to(destination, opts));
     }
-    
+
     void fill_circle_on_window(window destination, color clr, double x, double y, double radius)
     {
         fill_circle(clr, x, y, radius, option_draw_to(destination));
     }
-    
+
     void fill_circle_on_bitmap(bitmap destination, color clr, double x, double y, double radius, drawing_options opts)
     {
         fill_circle(clr, x, y, radius, option_draw_to(destination, opts));
     }
-    
+
     void fill_circle_on_bitmap(bitmap destination, color clr, double x, double y, double radius)
     {
         fill_circle(clr, x, y, radius, option_draw_to(destination));

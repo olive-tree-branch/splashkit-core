@@ -487,7 +487,7 @@ namespace splashkit_lib
         sk_interface_style_set_font(fnt);
     }
 
-    void set_interface_font(const string& fnt)
+    void set_interface_font(const std::string& fnt)
     {
         set_interface_font(font_named(fnt));
     }
@@ -513,7 +513,7 @@ namespace splashkit_lib
             return container_stack.back().label_width;
     }
 
-    bool start_panel(const string& name, rectangle initial_rectangle)
+    bool start_panel(const std::string& name, rectangle initial_rectangle)
     {
         _interface_sanity_check();
 
@@ -524,14 +524,14 @@ namespace splashkit_lib
         return open;
     }
 
-    void end_panel(const string& name)
+    void end_panel(const std::string& name)
     {
         _interface_sanity_check();
 
         _pop_container_stack(panel_type::panel, name);
     }
 
-    bool start_popup(const string& name)
+    bool start_popup(const std::string& name)
     {
         _interface_sanity_check();
 
@@ -545,14 +545,14 @@ namespace splashkit_lib
         return open;
     }
 
-    void end_popup(const string& name)
+    void end_popup(const std::string& name)
     {
         _interface_sanity_check();
 
         _pop_container_stack(panel_type::popup, name);
     }
 
-    void start_inset(const string& name, int height)
+    void start_inset(const std::string& name, int height)
     {
         _interface_sanity_check();
 
@@ -562,7 +562,7 @@ namespace splashkit_lib
         _push_container_stack(true, panel_type::inset, name);
     }
 
-    void start_inset(const string& name, const rectangle& rect)
+    void start_inset(const std::string& name, const rectangle& rect)
     {
         _interface_sanity_check();
 
@@ -572,14 +572,14 @@ namespace splashkit_lib
         _push_container_stack(true, panel_type::inset, name);
     }
 
-    void end_inset(const string& name)
+    void end_inset(const std::string& name)
     {
         _interface_sanity_check();
 
         _pop_container_stack(panel_type::inset, name);
     }
 
-    bool start_treenode(const string& name)
+    bool start_treenode(const std::string& name)
     {
         _interface_sanity_check();
 
@@ -590,14 +590,14 @@ namespace splashkit_lib
         return open;
     }
 
-    void end_treenode(const string& name)
+    void end_treenode(const std::string& name)
     {
         _interface_sanity_check();
 
         _pop_container_stack(panel_type::treenode, name);
     }
 
-    void open_popup(const string& name)
+    void open_popup(const std::string& name)
     {
         _interface_sanity_check();
 
@@ -730,7 +730,7 @@ namespace splashkit_lib
         _pop_container_stack(panel_type::column, "");
     }
 
-    bool header(const string& label_text)
+    bool header(const std::string& label_text)
     {
         _interface_sanity_check();
 
@@ -739,7 +739,7 @@ namespace splashkit_lib
         return open;
     }
 
-    void label_element(const string& text)
+    void label_element(const std::string& text)
     {
         _interface_sanity_check();
 
@@ -748,7 +748,7 @@ namespace splashkit_lib
         _update_text_style();
     }
 
-    void label_element(const string& text, const rectangle& rect)
+    void label_element(const std::string& text, const rectangle& rect)
     {
         _interface_sanity_check();
 
@@ -757,7 +757,7 @@ namespace splashkit_lib
         label_element(text);
     }
 
-    void paragraph(const string& text, const rectangle& rect)
+    void paragraph(const std::string& text, const rectangle& rect)
     {
         _interface_sanity_check();
 
@@ -765,7 +765,7 @@ namespace splashkit_lib
         paragraph(text);
     }
 
-    void paragraph(const string& text)
+    void paragraph(const std::string& text)
     {
         _interface_sanity_check();
 
@@ -774,7 +774,7 @@ namespace splashkit_lib
         _update_text_style();
     }
 
-    bool button(const string& label_text, const string& text)
+    bool button(const std::string& label_text, const std::string& text)
     {
         _interface_sanity_check();
 
@@ -789,7 +789,7 @@ namespace splashkit_lib
         return res;
     }
 
-    bool button(const string& text, const rectangle& rect)
+    bool button(const std::string& text, const rectangle& rect)
     {
         _interface_sanity_check();
 
@@ -797,7 +797,7 @@ namespace splashkit_lib
         return button(text);
     }
 
-    bool button(const string& text)
+    bool button(const std::string& text)
     {
         _interface_sanity_check();
 
@@ -889,7 +889,7 @@ namespace splashkit_lib
         return bitmap_button(bmp, option_defaults());
     }
 
-    bool bitmap_button(const string& label_text, bitmap bmp, drawing_options opts)
+    bool bitmap_button(const std::string& label_text, bitmap bmp, drawing_options opts)
     {
         _interface_sanity_check();
 
@@ -905,7 +905,7 @@ namespace splashkit_lib
         return res;
     }
 
-    bool bitmap_button(const string& label_text, bitmap bmp)
+    bool bitmap_button(const std::string& label_text, bitmap bmp)
     {
         return bitmap_button(label_text, bmp, option_defaults());
     }
@@ -920,7 +920,7 @@ namespace splashkit_lib
         return bitmap_button(bmp, rect, option_defaults());
     }
 
-    bool checkbox(const string& label_text, const string& text, const bool& value)
+    bool checkbox(const std::string& label_text, const std::string& text, const bool& value)
     {
         _interface_sanity_check();
 
@@ -935,7 +935,7 @@ namespace splashkit_lib
         return res;
     }
 
-    bool checkbox(const string& text, const bool& value)
+    bool checkbox(const std::string& text, const bool& value)
     {
         _interface_sanity_check();
 
@@ -946,7 +946,7 @@ namespace splashkit_lib
         return res;
     }
 
-    bool checkbox(const string& text, const bool& value, const rectangle& rect)
+    bool checkbox(const std::string& text, const bool& value, const rectangle& rect)
     {
         _interface_sanity_check();
 
@@ -954,7 +954,7 @@ namespace splashkit_lib
         return checkbox(text, value);
     }
 
-    float slider(const string& label_text, const float& value, float min_value, float max_value)
+    float slider(const std::string& label_text, const float& value, float min_value, float max_value)
     {
         _interface_sanity_check();
 
@@ -1046,7 +1046,7 @@ namespace splashkit_lib
         return temp_value;
     }
 
-    color color_slider(const string& label_text, const color& clr)
+    color color_slider(const std::string& label_text, const color& clr)
     {
         _interface_sanity_check();
 
@@ -1074,7 +1074,7 @@ namespace splashkit_lib
         return _color_slider(clr, false);
     }
 
-    color hsb_color_slider(const string& label_text, const color& clr)
+    color hsb_color_slider(const std::string& label_text, const color& clr)
     {
         _interface_sanity_check();
 
@@ -1102,7 +1102,7 @@ namespace splashkit_lib
         return _color_slider(clr, true);
     }
 
-    float number_box(const string& label_text, const float& value, float step)
+    float number_box(const std::string& label_text, const float& value, float step)
     {
         _interface_sanity_check();
 
@@ -1132,12 +1132,12 @@ namespace splashkit_lib
         return number_box(value, step);
     }
 
-    std::string text_box(const string& label_text, const std::string& value)
+    std::string text_box(const std::string& label_text, const std::string& value)
     {
         return text_box(label_text, value, false);
     }
 
-    std::string text_box(const string& label_text, const std::string& value, bool show_label)
+    std::string text_box(const std::string& label_text, const std::string& value, bool show_label)
     {
         _interface_sanity_check();
 
@@ -1159,7 +1159,7 @@ namespace splashkit_lib
         return res;
     }
 
-    std::string text_box(const string& label_text, const string& value, const rectangle& rect)
+    std::string text_box(const std::string& label_text, const std::string& value, const rectangle& rect)
     {
         _interface_sanity_check();
 

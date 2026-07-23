@@ -33,23 +33,23 @@
 namespace splashkit_lib
 {
     // Free notifiers are called when resources are deleted.
-    static vector<free_notifier *> _free_notifiers;
+    static std::vector<free_notifier *> _free_notifiers;
 
     static bool _has_resources_path = false;
-    static string _resources_path = "";
+    static std::string _resources_path = "";
 
-    void set_resources_path(const string &path)
+    void set_resources_path(const std::string &path)
     {
-        //    cout << "Setting path to: " << path << endl;
+        //    std::cout << "Setting path to: " << path << std::endl;
         _has_resources_path = true;
         _resources_path = path;
     }
 
     /// Try to set the resource path by exploring sub directories and parent
     /// directories of the supplied path.
-    bool _try_set_resource_path(string path)
+    bool _try_set_resource_path(std::string path)
     {
-        string tmpPath;
+        std::string tmpPath;
 
         // test in current location: cwd
         tmpPath = path_from({path, "Resources"});
@@ -88,7 +88,7 @@ namespace splashkit_lib
 
     void _guess_resources_path()
     {
-        string path;
+        std::string path;
         char cwd[PATH_MAX];
 
 #ifdef __APPLE__
@@ -124,7 +124,7 @@ namespace splashkit_lib
                         CFRelease(cfStringRef);
 
                         // Default bundle location
-                        path = string(bndlPath) + "/Contents/MacOS";
+                        path = std::string(bndlPath) + "/Contents/MacOS";
                         if (_try_set_resource_path(path))
                         {
                             return;
@@ -155,16 +155,16 @@ namespace splashkit_lib
         }
     }
 
-    string path_to_resources()
+    std::string path_to_resources()
     {
         if (!_has_resources_path)
             _guess_resources_path();
         return _resources_path;
     }
 
-    string path_to_resources(resource_kind kind)
+    std::string path_to_resources(resource_kind kind)
     {
-        string path = path_to_resources();
+        std::string path = path_to_resources();
 
         switch (kind)
         {
@@ -192,7 +192,7 @@ namespace splashkit_lib
         }
     }
 
-    string path_to_resource(const string &filename, resource_kind kind)
+    std::string path_to_resource(const std::string &filename, resource_kind kind)
     {
         return path_from({path_to_resources(kind)}, filename);
     }

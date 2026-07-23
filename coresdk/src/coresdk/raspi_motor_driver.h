@@ -49,23 +49,23 @@ namespace splashkit_lib
 
     /**
      * Checks if a motor device with the given name is already opened.
-     * 
+     *
      * @param name  Identifier for the motor driver.
      * @returns     true if open, false otherwise.
      */
-    bool has_motor_device(const string &name);
+    bool has_motor_device(const std::string &name);
 
     /**
      * Retrieves an existing motor device handle by name.
-     * 
+     *
      * @param name  Identifier for the motor driver.
      * @returns     motor_device pointer or nullptr.
      */
-    motor_device motor_named(const string &name);
+    motor_device motor_named(const std::string &name);
 
     /**
      * Opens a motor device with the specified parameters.
-     * 
+     *
      * @param name      Identifier for the motor driver.
      * @param type      Type of motor driver (e.g., L298N).
      * @param in1_pin   GPIO pin for IN1.
@@ -73,11 +73,11 @@ namespace splashkit_lib
      * @param en_pin    GPIO pin for ENA.
      * @returns         A valid motor_device on success, or nullptr on failure.
      */
-    motor_device open_motor(const string &name, motor_driver_type type, gpio_pin in1_pin, gpio_pin in2_pin, gpio_pin en_pin);
+    motor_device open_motor(const std::string &name, motor_driver_type type, gpio_pin in1_pin, gpio_pin in2_pin, gpio_pin en_pin);
 
     /**
      * Sets the motor rotation direction.
-     * 
+     *
      * @param dev       The motor device handle.
      * @param dir       Desired rotation direction.
      */
@@ -85,7 +85,7 @@ namespace splashkit_lib
 
     /**
      * Sets the PWM speed of the motor (0-1).
-     * 
+     *
      * @param dev       The motor device handle.
      * @param speed     Duty cycle speed (0..1).
      */
@@ -93,26 +93,26 @@ namespace splashkit_lib
 
     /**
      * Stops the motor immediately (brake).
-     * 
+     *
      * @param dev       The motor device handle.
      */
     void stop_motor(motor_device dev);
 
     /**
      * Closes and frees resources for a motor device.
-     * 
+     *
      * @param dev       The motor device handle.
      */
     void close_motor(motor_device dev);
 
     /**
      * Closes and frees a motor device by name.
-     * 
+     *
      * @param name      Name of the motor device.
-     * 
+     *
      * @attribute suffix  named
      */
-    void close_motor(const string &name);
+    void close_motor(const std::string &name);
 
     /**
      * Closes all opened motor devices.

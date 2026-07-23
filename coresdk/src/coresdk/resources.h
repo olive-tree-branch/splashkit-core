@@ -12,7 +12,6 @@
 #define resources_hpp
 
 #include <string>
-using std::string;
 
 namespace splashkit_lib
 {
@@ -75,7 +74,7 @@ namespace splashkit_lib
      *
      * @param path The file path to the SplashKit Resources folder.
      */
-    void set_resources_path(const string &path);
+    void set_resources_path(const std::string &path);
 
     /**
      * Returns the path to the resources folder for the SplashKit program. This
@@ -84,7 +83,7 @@ namespace splashkit_lib
      *
      * @return Path to SplashKit Resources folder.
      */
-    string path_to_resources();
+    std::string path_to_resources();
 
     /**
      * Returns the path to the folder containing a given resource kind. This is
@@ -95,7 +94,7 @@ namespace splashkit_lib
      *
      * @attribute suffix for_kind
      */
-    string path_to_resources(resource_kind kind);
+    std::string path_to_resources(resource_kind kind);
 
     /**
      * Gets the path to a give file of a certain resource kind.
@@ -104,7 +103,7 @@ namespace splashkit_lib
      * @param  kind     The kind of resource you are loading.
      * @return          The full path to the resource.
      */
-    string path_to_resource(const string &filename, resource_kind kind);
+    std::string path_to_resource(const std::string &filename, resource_kind kind);
 
     /**
      * Register a function to be called when any resource is freed.

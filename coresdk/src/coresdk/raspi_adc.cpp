@@ -11,9 +11,6 @@
 #include <string>
 #include <map>
 
-using std::map;
-using std::string;
-
 namespace splashkit_lib
 {
     // Internal structure for the ADC device.
@@ -25,11 +22,11 @@ namespace splashkit_lib
         int bus;               // I2C bus number
         int address;           // I2C address for the ADC device
         adc_type type;         // ADC type (e.g., ADS7830, PCF8591, etc.)
-        string name;           // Device name
+        std::string name;           // Device name
     };
 
     // Static map to manage loaded ADC devices (keyed by name)
-    static map<string, adc_device> _adc_devices;
+    static std::map<std::string, adc_device> _adc_devices;
 
     // a function to return address based on pin number of ads7830
     int _get_ads7830_pin_address(adc_pin pin)
@@ -75,12 +72,12 @@ namespace splashkit_lib
         }
     }
 
-    bool has_adc_device(const string &name)
+    bool has_adc_device(const std::string &name)
     {
         return _adc_devices.count(name) > 0;
     }
 
-    adc_device adc_device_named(const string &name)
+    adc_device adc_device_named(const std::string &name)
     {
         if (has_adc_device(name))
             return _adc_devices[name];
@@ -91,7 +88,7 @@ namespace splashkit_lib
         }
     }
 
-    adc_device _load_adc_device(const string &name, int bus, int address, adc_type type)
+    adc_device _load_adc_device(const std::string &name, int bus, int address, adc_type type)
     {
 #ifdef RASPBERRY_PI
         if (has_adc_device(name))
@@ -152,7 +149,7 @@ namespace splashkit_lib
 #endif
     }
 
-    adc_device open_adc(const string &name, int bus, int address, adc_type type_of_adc)
+    adc_device open_adc(const std::string &name, int bus, int address, adc_type type_of_adc)
     {
 #ifdef RASPBERRY_PI
         // Check if the device is already loaded
@@ -172,7 +169,7 @@ namespace splashkit_lib
 
     // Open an ADC device with default parameters (bus 1, address 0x48)
     // ADC functions
-    adc_device open_adc(const string &name, adc_type type_of_adc)
+    adc_device open_adc(const std::string &name, adc_type type_of_adc)
     {
 #ifdef RASPBERRY_PI
         if (type_of_adc != ADS7830 && type_of_adc != PCF8591)
@@ -290,7 +287,7 @@ namespace splashkit_lib
     }
 
     // Overload: read ADC value by providing the ADC device name.
-    int read_adc(const string &name, adc_pin channel)
+    int read_adc(const std::string &name, adc_pin channel)
     {
 #ifdef RASPBERRY_PI
         adc_device dev = adc_device_named(name);
@@ -299,7 +296,7 @@ namespace splashkit_lib
             LOG(ERROR) << "ADC device \"" << name << "\" not found.";
             return -1;
         }
-        
+
         return read_adc(dev, channel);
 #else
         LOG(ERROR) << "ADC not supported on this platform";
@@ -342,7 +339,7 @@ namespace splashkit_lib
     }
 
     // Overload: close an ADC device using its name.
-    void close_adc(const string &name)
+    void close_adc(const std::string &name)
     {
 #ifdef RASPBERRY_PI
         adc_device dev = adc_device_named(name);

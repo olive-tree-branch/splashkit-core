@@ -82,9 +82,9 @@ namespace splashkit_lib
         }
     }
 
-    vector<triangle> triangles_from(const quad &q)
+    std::vector<triangle> triangles_from(const quad &q)
     {
-        vector<triangle> result;
+        std::vector<triangle> result;
 
         result.push_back(triangle_from(q.points[0], q.points[1], q.points[2]));
         result.push_back(triangle_from(q.points[2], q.points[3], q.points[1]));
@@ -102,14 +102,14 @@ namespace splashkit_lib
     bool quad_ray_intersection(const point_2d &origin, const vector_2d &heading, const quad &q, point_2d &hit_point, double &hit_distance)
     {
         vector_2d unit_heading = unit_vector(heading);
-        
+
         // check whether unit heading is a zero vector
         if (vector_magnitude_squared(unit_heading) < __DBL_EPSILON__)
         {
             return false;
         }
-        
-        vector<triangle> tris = triangles_from(q);
+
+        std::vector<triangle> tris = triangles_from(q);
 
         bool result = false;
         double closest_distance = __DBL_MAX__;
@@ -136,8 +136,8 @@ namespace splashkit_lib
 
     bool quads_intersect(const quad &q1, const quad &q2)
     {
-        vector<triangle> q1_triangles = triangles_from(q1);
-        vector<triangle> q2_triangles = triangles_from(q2);
+        std::vector<triangle> q1_triangles = triangles_from(q1);
+        std::vector<triangle> q2_triangles = triangles_from(q2);
 
         for (triangle t1 : q1_triangles)
         {

@@ -16,26 +16,26 @@ namespace splashkit_lib
   struct _servo_data
   {
     pointer_identifier id;
-    string name;
+    std::string name;
     gpio_pin pin;
   };
 
-  static std::map<string, servo_device> _servo_devices;
+  static std::map<std::string, servo_device> _servo_devices;
   static const unsigned MIN_PW = 500;  // µs at 0°
   static const unsigned MAX_PW = 2500; // µs at 180°
 
-  bool has_servo_device(const string &name)
+  bool has_servo_device(const std::string &name)
   {
     return _servo_devices.count(name) > 0;
   }
 
-  servo_device servo_named(const string &name)
+  servo_device servo_named(const std::string &name)
   {
     auto it = _servo_devices.find(name);
     return (it != _servo_devices.end()) ? it->second : nullptr;
   }
 
-  servo_device open_servo(const string &name, gpio_pin control_pin)
+  servo_device open_servo(const std::string &name, gpio_pin control_pin)
   {
 #ifdef RASPBERRY_PI
     if (has_servo_device(name))
@@ -107,7 +107,7 @@ namespace splashkit_lib
 #endif
   }
 
-  void close_servo(const string &name)
+  void close_servo(const std::string &name)
   {
 #ifdef RASPBERRY_PI
     auto dev = servo_named(name);

@@ -97,9 +97,9 @@ namespace splashkit_lib
         return result;
     }
 
-    std::vector<string> split(const std::string &text, char delimiter)
+    std::vector<std::string> split(const std::string &text, char delimiter)
     {
-        std::vector<string> result;
+        std::vector<std::string> result;
         std::string::size_type start = 0;
         std::string::size_type end = text.find(delimiter);
         while (end != std::string::npos)
@@ -493,7 +493,7 @@ namespace splashkit_lib
         {
             return 0;
         }
-        return abs(number1 * number2) / greatest_common_divisor(number1, number2);
+        return std::abs(number1 * number2) / greatest_common_divisor(number1, number2);
     }
 
 }

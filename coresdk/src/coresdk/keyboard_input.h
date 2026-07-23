@@ -10,8 +10,6 @@
 #include <algorithm>
 #include <string>
 
-using std::string;
-
 namespace splashkit_lib
 {
 #ifdef HELP_KEY
@@ -343,7 +341,7 @@ namespace splashkit_lib
      * @param  key The key to get the name of
      * @returns     The name of the key
      */
-    string key_name(key_code key);
+    std::string key_name(key_code key);
 
     /**
      *  Returns false when the key requested is being held down. This is updated

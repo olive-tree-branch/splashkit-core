@@ -23,9 +23,6 @@
 
 #include "types.h"
 
-using std::string;
-using std::vector;
-
 namespace splashkit_lib
 {
 
@@ -78,7 +75,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  from_string
      */
-    json create_json(string json_string);
+    json create_json(std::string json_string);
 
     /**
      * Frees the SplashKit resources associated with the `json` object.
@@ -109,7 +106,7 @@ namespace splashkit_lib
      * @attribute static json
      * @attribute method to_file
      */
-    void json_to_file(json j, const string& filename);
+    void json_to_file(json j, const std::string& filename);
 
     /**
      * Reads a `json` object from a JSON string stored in `Resources/json/filename`
@@ -122,7 +119,7 @@ namespace splashkit_lib
      * @attribute static json
      * @attribute method from_file
      */
-    json json_from_file(const string& filename);
+    json json_from_file(const std::string& filename);
 
     /**
      * Converts and returns the `json` object as a `string`.
@@ -134,7 +131,7 @@ namespace splashkit_lib
      * @attribute static json
      * @attribute method to_json_string
      */
-    string json_to_string(json j);
+    std::string json_to_string(json j);
 
     /**
      * Reads a `json` object from a `string` in the JSON format.
@@ -146,7 +143,7 @@ namespace splashkit_lib
      * @attribute static json
      * @attribute method from_json_string
      */
-    json json_from_string(const string &j_string);
+    json json_from_string(const std::string &j_string);
 
     /**
      * Adds a `string` value to the `json` object for the given `string` key.
@@ -159,7 +156,7 @@ namespace splashkit_lib
      * @attribute method add_string
      * @attribute self j
      */
-    void json_set_string(json j, string key, string value);
+    void json_set_string(json j, std::string key, std::string value);
 
     /**
      * Adds a `float` value to the `json` object for the given `string` key.
@@ -174,7 +171,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  float
      */
-    void json_set_number(json j, string key, float value);
+    void json_set_number(json j, std::string key, float value);
 
     /**
      * Adds a `double` value to the `json` object for the given `string` key.
@@ -189,7 +186,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  double
      */
-    void json_set_number(json j, string key, double value);
+    void json_set_number(json j, std::string key, double value);
 
     /**
      * Adds an `int` value to the `json` object for the given `string` key.
@@ -204,7 +201,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  integer
      */
-    void json_set_number(json j, string key, int value);
+    void json_set_number(json j, std::string key, int value);
 
     /**
      * Adds a `bool` value to the `json` object for the given `string` key.
@@ -217,7 +214,7 @@ namespace splashkit_lib
      * @attribute method add_bool
      * @attribute self j
      */
-    void json_set_bool(json j, string key, bool value);
+    void json_set_bool(json j, std::string key, bool value);
 
     /**
      * Adds a `json` object to the `json` object for the given `string` key.
@@ -230,7 +227,7 @@ namespace splashkit_lib
      * @attribute method add_object
      * @attribute self j
      */
-    void json_set_object(json j, string key, json obj);
+    void json_set_object(json j, std::string key, json obj);
 
     /**
      * Adds an array of `string` values to the `json` object for
@@ -245,7 +242,7 @@ namespace splashkit_lib
      * @attribute suffix of_string
      * @attribute self j
      */
-    void json_set_array(json j, string key, vector<string> value);
+    void json_set_array(json j, std::string key, std::vector<std::string> value);
 
     /**
      * Adds an array of `double` values to the `json` object for
@@ -260,7 +257,7 @@ namespace splashkit_lib
      * @attribute suffix of_double
      * @attribute self j
      */
-    void json_set_array(json j, string key, vector<double> value);
+    void json_set_array(json j, std::string key, std::vector<double> value);
 
     /**
      * Adds an array of `bool` values to the `json` object for
@@ -275,7 +272,7 @@ namespace splashkit_lib
      * @attribute suffix of_bool
      * @attribute self j
      */
-    void json_set_array(json j, string key, vector<bool> value);
+    void json_set_array(json j, std::string key, std::vector<bool> value);
 
     /**
      * Adds an array of `json` object values to the `json` object for
@@ -290,7 +287,7 @@ namespace splashkit_lib
      * @attribute suffix of_json
      * @attribute self j
      */
-    void json_set_array(json j, string key, vector<json> value);
+    void json_set_array(json j, std::string key, std::vector<json> value);
 
     /**
      * Reads a `float` value from the `json` object for the given `string` key.
@@ -304,7 +301,7 @@ namespace splashkit_lib
      * @attribute method read_number
      * @attribute self j
      */
-    float json_read_number(json j, string key);
+    float json_read_number(json j, std::string key);
 
     /**
      * Reads a `integer` value from the `json` object for the given `string` key.
@@ -318,7 +315,7 @@ namespace splashkit_lib
      * @attribute method read_integer
      * @attribute self j
      */
-    int json_read_number_as_int(json j, string key);
+    int json_read_number_as_int(json j, std::string key);
 
     /**
      * Reads a `double` value from the `json` object for the given `string` key.
@@ -332,7 +329,7 @@ namespace splashkit_lib
      * @attribute method read_double
      * @attribute self j
      */
-    double json_read_number_as_double(json j, string key);
+    double json_read_number_as_double(json j, std::string key);
 
     /**
      * Reads a `string` value from the `json` object for the given `string` key.
@@ -346,7 +343,7 @@ namespace splashkit_lib
      * @attribute method read_string
      * @attribute self j
      */
-    string json_read_string(json j, string key);
+    std::string json_read_string(json j, std::string key);
 
     /**
      * Reads a `bool` value from the `json` object for the given `string` key.
@@ -360,7 +357,7 @@ namespace splashkit_lib
      * @attribute method read_bool
      * @attribute self j
      */
-    bool json_read_bool(json j, string key);
+    bool json_read_bool(json j, std::string key);
 
     /**
      * Reads a `json` object value from the `json` object for the given `string` key.
@@ -374,7 +371,7 @@ namespace splashkit_lib
      * @attribute method read_object
      * @attribute self j
      */
-    json json_read_object(json j, string key);
+    json json_read_object(json j, std::string key);
 
     /**
      * Reads an array of `double` values from the `json` object for
@@ -389,7 +386,7 @@ namespace splashkit_lib
      * @attribute suffix of_double
      * @attribute self j
      */
-    void json_read_array(json j, string key, vector<double> &out_result);
+    void json_read_array(json j, std::string key, std::vector<double> &out_result);
 
     /**
      * Reads an array of `json` object values from the `json` object for
@@ -404,7 +401,7 @@ namespace splashkit_lib
      * @attribute suffix of_json
      * @attribute self j
      */
-    void json_read_array(json j, string key, vector<json> &out_result);
+    void json_read_array(json j, std::string key, std::vector<json> &out_result);
 
     /**
      * Reads an array of `string` values from the `json` object for
@@ -419,7 +416,7 @@ namespace splashkit_lib
      * @attribute suffix of_string
      * @attribute self j
      */
-    void json_read_array(json j, string key, vector<string> &out_result);
+    void json_read_array(json j, std::string key, std::vector<std::string> &out_result);
 
     /**
      * Reads an array of `bool` values from the `json` object for
@@ -434,7 +431,7 @@ namespace splashkit_lib
      * @attribute suffix of_bool
      * @attribute self j
      */
-    void json_read_array(json j, string key, vector<bool> &out_result);
+    void json_read_array(json j, std::string key, std::vector<bool> &out_result);
 
     /**
      * Checks if the `json` object contains the given `string` key.
@@ -448,7 +445,7 @@ namespace splashkit_lib
      * @attribute method has_key
      * @attribute self j
      */
-    bool json_has_key(json j, string key);
+    bool json_has_key(json j, std::string key);
 
     /**
      * Returns the count of keys in the top-level `json` object.

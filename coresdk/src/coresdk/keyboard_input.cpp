@@ -14,18 +14,15 @@
 #include <vector>
 #include <map>
 
-using std::vector;
-using std::map;
-
 namespace splashkit_lib
 {
-    static map<key_code, bool> _keys_down;
-    static map<key_code, bool> _keys_just_typed; // i.e. those that have just gone down
-    static map<key_code, bool> _keys_released; // i.e. those that have just gone up
+    static std::map<key_code, bool> _keys_down;
+    static std::map<key_code, bool> _keys_just_typed; // i.e. those that have just gone down
+    static std::map<key_code, bool> _keys_released; // i.e. those that have just gone up
 
-    static vector<key_callback *> _on_key_down;
-    static vector<key_callback *> _on_key_up;
-    static vector<key_callback *> _on_key_typed;
+    static std::vector<key_callback *> _on_key_down;
+    static std::vector<key_callback *> _on_key_up;
+    static std::vector<key_callback *> _on_key_typed;
 
     void register_callback_on_key_down(key_callback *callback)
     {
@@ -57,7 +54,7 @@ namespace splashkit_lib
         _on_key_typed.erase(std::remove(_on_key_typed.begin(), _on_key_typed.end(), callback), _on_key_typed.end());
     }
 
-    void _raise_key_event(vector<key_callback *> &list, key_code code)
+    void _raise_key_event(std::vector<key_callback *> &list, key_code code)
     {
         for(auto callback: list )
         {
@@ -102,12 +99,12 @@ namespace splashkit_lib
     {
         return _keys_just_typed.count(key) > 0 and _keys_just_typed[key] ;
     }
-    
+
     bool key_released(key_code key)
     {
         return _keys_released.count(key) > 0 and _keys_released[key] ;
     }
-    
+
     bool any_key_pressed()
     {
         if (_keys_down.size() > 0)
@@ -119,12 +116,12 @@ namespace splashkit_lib
             return false;
         }
     }
-    
-    string key_name(key_code key)
+
+    std::string key_name(key_code key)
     {
         return sk_key_name(key);
     }
-    
+
     bool key_up(key_code key)
     {
         return not key_down(key);

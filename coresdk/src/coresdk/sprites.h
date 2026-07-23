@@ -126,7 +126,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  with_bitmap_named
      */
-    sprite create_sprite(const string &bitmap_name);
+    sprite create_sprite(const std::string &bitmap_name);
 
     /**
      * Creates a sprite. The bitmap_name is used to indicate the bitmap the sprite
@@ -143,7 +143,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  with_bitmap_and_animation_named
      */
-    sprite create_sprite(const string &bitmap_name, const string &animation_name);
+    sprite create_sprite(const std::string &bitmap_name, const std::string &animation_name);
 
     /**
      * Creates a sprite for the passed in bitmap image. The sprite will use the
@@ -181,7 +181,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    sprite create_sprite(const string &name, bitmap layer);
+    sprite create_sprite(const std::string &name, bitmap layer);
 
     /**
      * Creates a sprite for the passed in bitmap image. The sprite will use the cell
@@ -199,7 +199,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named_with_animation
      */
-    sprite create_sprite(const string &name, bitmap layer, animation_script ani);
+    sprite create_sprite(const std::string &name, bitmap layer, animation_script ani);
 
     /**
      * Free the resources associated with a sprite.
@@ -223,7 +223,7 @@ namespace splashkit_lib
      * @param name  The name of the sprite to locate.
      * @returns     True if you have created a sprite with this name.
      */
-    bool has_sprite(const string &name);
+    bool has_sprite(const std::string &name);
 
     /**
      * Returns the `sprite` with the specified name.
@@ -231,7 +231,7 @@ namespace splashkit_lib
      * @param name  The name of the sprite to locate.
      * @returns     The sprite with that name.
      */
-    sprite sprite_named(const string &name);
+    sprite sprite_named(const std::string &name);
 
     /**
      * Releases all of the sprites that have been loaded.
@@ -298,7 +298,7 @@ namespace splashkit_lib
      * @attribute method  add_layer
      * @attribute self    s
      */
-    int sprite_add_layer(sprite s, bitmap new_layer, const string &layer_name);
+    int sprite_add_layer(sprite s, bitmap new_layer, const std::string &layer_name);
 
     /**
      * Returns the bitmap of the indicated layer of the sprite.
@@ -312,7 +312,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    bitmap sprite_layer(sprite s, const string &name);
+    bitmap sprite_layer(sprite s, const std::string &name);
 
     /**
      * Returns the bitmap of the indicated layer of the sprite.
@@ -339,7 +339,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute method Index_of_layer
      */
-    int sprite_layer_index(sprite s, const string &name);
+    int sprite_layer_index(sprite s, const std::string &name);
 
     /**
      * Returns the name of the specified layer.
@@ -351,7 +351,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute method layer_name
      */
-    string sprite_layer_name(sprite s, int idx);
+    std::string sprite_layer_name(sprite s, int idx);
 
     /**
      * Show the specified layer of the sprite.
@@ -364,7 +364,7 @@ namespace splashkit_lib
      * @attribute method show_layer
      * @attribute suffix named
      */
-    int sprite_show_layer(sprite s, const string &name);
+    int sprite_show_layer(sprite s, const std::string &name);
 
     /**
      * Show the specified layer of the sprite.
@@ -388,7 +388,7 @@ namespace splashkit_lib
      * @attribute method hide_layer
      * @attribute suffix named
      */
-    void sprite_hide_layer(sprite s, const string &name);
+    void sprite_hide_layer(sprite s, const std::string &name);
 
     /**
      * Hide the specified layer of the sprite.
@@ -411,7 +411,7 @@ namespace splashkit_lib
      * @attribute method toggle_layer_visible
      * @attribute suffix named
      */
-    void sprite_toggle_layer_visible(sprite s, const string &name);
+    void sprite_toggle_layer_visible(sprite s, const std::string &name);
 
     /**
      * Toggle the visibility of the specified layer of the sprite.
@@ -435,7 +435,7 @@ namespace splashkit_lib
      * @attribute method visible_index_of_layer
      * @attribute suffix named
      */
-    int sprite_visible_index_of_layer(sprite s, const string &name);
+    int sprite_visible_index_of_layer(sprite s, const std::string &name);
 
     /**
      * Returns the index (z-order) of the sprite's layer.
@@ -496,7 +496,7 @@ namespace splashkit_lib
      * @attribute method layer_offset
      * @attribute suffix named
      */
-    vector_2d sprite_layer_offset(sprite s, const string &name);
+    vector_2d sprite_layer_offset(sprite s, const std::string &name);
 
     /**
      * Gets the offset of the specified layer.
@@ -522,7 +522,7 @@ namespace splashkit_lib
      * @attribute method set_layer_offset
      * @attribute suffix named
      */
-    void sprite_set_layer_offset(sprite s, const string &name, const vector_2d &value);
+    void sprite_set_layer_offset(sprite s, const std::string &name, const vector_2d &value);
 
     /**
      * Sets the offset of the specified layer.
@@ -605,7 +605,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    rectangle sprite_layer_rectangle(sprite s, const string &name);
+    rectangle sprite_layer_rectangle(sprite s, const std::string &name);
 
     /**
      * Gets a rectangle that surrounds the indicated layer.
@@ -644,7 +644,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    circle sprite_layer_circle(sprite s, const string &name);
+    circle sprite_layer_circle(sprite s, const std::string &name);
 
     /**
      * Gets a circle in the bounds of the indicated layer.
@@ -737,7 +737,7 @@ namespace splashkit_lib
      * @attribute method start_animation
      * @attribute suffix named
      */
-    void sprite_start_animation(sprite s, const string &named);
+    void sprite_start_animation(sprite s, const std::string &named);
 
     /**
      * Start playing an animation from the sprite's animation template.
@@ -753,7 +753,7 @@ namespace splashkit_lib
      * @attribute method start_animation
      * @attribute suffix named_with_sound
      */
-    void sprite_start_animation(sprite s, const string &named, bool with_sound);
+    void sprite_start_animation(sprite s, const std::string &named, bool with_sound);
 
     /**
      * Start playing an animation from the sprite's animation template.
@@ -793,7 +793,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute method animation_name
      */
-    string sprite_animation_name(sprite s);
+    std::string sprite_animation_name(sprite s);
 
     //---------------------------------------------------------------------------
     // sprite Update code
@@ -1169,7 +1169,7 @@ namespace splashkit_lib
      * @attribute method layer_height
      * @attribute suffix named
      */
-    int sprite_layer_height(sprite s, const string &name);
+    int sprite_layer_height(sprite s, const std::string &name);
 
     /**
      * The height of a given layer of the sprite (aligned to the Y axis).
@@ -1205,7 +1205,7 @@ namespace splashkit_lib
      * @attribute method layer_width
      * @attribute suffix named
      */
-    int sprite_layer_width(sprite s, const string &name);
+    int sprite_layer_width(sprite s, const std::string &name);
 
     /**
      * The width of a given layer of the sprite (aligned to the X axis).
@@ -1722,7 +1722,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute method value
      */
-    float sprite_value(sprite s, const string &name);
+    float sprite_value(sprite s, const std::string &name);
 
     /**
      * Adds a new kind of value to the sprite
@@ -1733,7 +1733,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute method add_value
      */
-    void sprite_add_value(sprite s, const string &name);
+    void sprite_add_value(sprite s, const std::string &name);
 
     /**
      * Adds a new kind of value to the sprite, setting the initial value
@@ -1747,7 +1747,7 @@ namespace splashkit_lib
      * @attribute method add_value
      * @attribute suffix with_default
      */
-    void sprite_add_value(sprite s, const string &name, float init_val);
+    void sprite_add_value(sprite s, const std::string &name, float init_val);
 
     /**
      * Assigns a value to the sprite.
@@ -1760,7 +1760,7 @@ namespace splashkit_lib
      * @attribute method set_value
      * @attribute suffix named
      */
-    void sprite_set_value(sprite s, const string &name, float val);
+    void sprite_set_value(sprite s, const std::string &name, float val);
 
     /**
      * Indicates if the sprite has a value with the given name.
@@ -1769,7 +1769,7 @@ namespace splashkit_lib
      * @param name  The name of the value to check.
      * @returns     True if the sprite has a value with that name.
      */
-    bool sprite_has_value(sprite s, string name);
+    bool sprite_has_value(sprite s, std::string name);
 
     //---------------------------------------------------------------------------
     // sprite name
@@ -1785,7 +1785,7 @@ namespace splashkit_lib
      * @attribute class sprite
      * @attribute getter name
      */
-    string sprite_name(sprite s);
+    std::string sprite_name(sprite s);
 
     //---------------------------------------------------------------------------
     // sprite Packs
@@ -1836,14 +1836,14 @@ namespace splashkit_lib
      *
      * @param name The name of the new sprite pack.
      */
-    void create_sprite_pack(const string &name);
+    void create_sprite_pack(const std::string &name);
 
     /**
      * Frees the sprite pack and all of its sprites.
      *
      * @param name The name of the sprite pack to destroy.
      */
-    void free_sprite_pack(const string &name);
+    void free_sprite_pack(const std::string &name);
 
     /**
      * Indicates if a given sprite_pack has already been created.
@@ -1851,7 +1851,7 @@ namespace splashkit_lib
      * @param name The name for the sprite pack.
      * @returns True if a sprite pack exists with the indicated name.
      */
-    bool has_sprite_pack(const string &name);
+    bool has_sprite_pack(const std::string &name);
 
     /**
      * Selects the named sprite_pack (if it has been created). The
@@ -1860,13 +1860,13 @@ namespace splashkit_lib
      *
      * @param name The name of the sprite pack to select.
      */
-    void select_sprite_pack(const string &name);
+    void select_sprite_pack(const std::string &name);
 
     /**
      * Returns the name of the currently selected sprite_pack.
      *
      * @returns The name of the current sprite pack.
      */
-    string current_sprite_pack();
+    std::string current_sprite_pack();
 }
 #endif /* sprites_h */

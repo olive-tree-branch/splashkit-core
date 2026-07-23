@@ -15,9 +15,6 @@
 #include <iomanip>
 #include <sstream>
 
-using std::stringstream;
-using std::endl;
-
 namespace splashkit_lib
 {
     matrix_2d identity_matrix()
@@ -155,10 +152,10 @@ namespace splashkit_lib
         return result;
     }
 
-    string matrix_to_string(const matrix_2d &matrix)
+    std::string matrix_to_string(const matrix_2d &matrix)
     {
-        stringstream result;
-        result << " ------------------------------" << endl;
+        std::stringstream result;
+        result << " ------------------------------" << std::endl;
 
         for (int i = 0; i < 3; i++)
         {
@@ -167,7 +164,7 @@ namespace splashkit_lib
             {
                 result << ' ' << std::setw( 8 ) << std::setprecision( 3 ) << matrix.elements[i][j] << ' ';
             }
-            result << '|' << endl;
+            result << '|' << std::endl;
         }
         result << " ------------------------------";
         return result.str();

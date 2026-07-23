@@ -13,8 +13,6 @@
 #include <sstream>
 #include <cmath>
 
-using std::ostringstream;
-
 namespace splashkit_lib
 {
     rectangle rectangle_from(double x, double y, double width, double height)
@@ -133,9 +131,9 @@ namespace splashkit_lib
         return result;
     }
 
-    string rectangle_to_string(const rectangle &rect)
+    std::string rectangle_to_string(const rectangle &rect)
     {
-        ostringstream result;
+        std::ostringstream result;
 
         result << "Rect @" << rect.x << "," << rect.y << " " << rect.width << "x" << rect.height;
 
@@ -161,7 +159,7 @@ namespace splashkit_lib
     {
         rectangle intersect = intersection(rect1, rect2);
 
-        return (abs((long long)intersect.width) + abs((long long)intersect.height)) != 0;
+        return (std::abs((long long)intersect.width) + std::abs((long long)intersect.height)) != 0;
     }
 
     double rectangle_top(const rectangle &rect)
@@ -169,19 +167,19 @@ namespace splashkit_lib
         if ( rect.height >= 0.0) return rect.y;
         else return rect.y + rect.height;
     }
-    
+
     double rectangle_bottom(const rectangle &rect)
     {
         if ( rect.height >= 0.0) return rect.y + rect.height;
         else return rect.y;
     }
-    
+
     double rectangle_left(const rectangle &rect)
     {
         if ( rect.width >= 0.0) return rect.x;
         else return rect.x + rect.width;
     }
-    
+
     double rectangle_right(const rectangle &rect)
     {
         if ( rect.width >= 0.0) return rect.x + rect.width;
@@ -234,13 +232,13 @@ namespace splashkit_lib
     bool rectangle_ray_intersection(const point_2d &origin, const vector_2d &heading, const rectangle &rect, point_2d &hit_point, double &hit_distance)
     {
         vector_2d unit_heading = unit_vector(heading);
-        
+
         // check whether unit heading is a zero vector
         if (vector_magnitude_squared(unit_heading) < __DBL_EPSILON__)
         {
             return false;
         }
-        
+
         if (point_in_rectangle(origin, rect))
         {
             hit_point = origin;
@@ -282,7 +280,7 @@ namespace splashkit_lib
         {
             return true;
         }
-        
+
         point_2d closest = closest_point_on_rect_from_circle(c, rect);
         return point_in_circle(closest, c);
     }

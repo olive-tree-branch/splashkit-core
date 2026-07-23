@@ -13,13 +13,8 @@
 
 #include <string>
 #include <vector>
-#include <map>
 
 #include "types.h"
-
-using std::string;
-using std::vector;
-using std::map;
 
 namespace splashkit_lib
 {
@@ -83,7 +78,7 @@ namespace splashkit_lib
      *
      * @attribute suffix with_port_and_protocol
      */
-    server_socket create_server(const string &name, unsigned short int port, connection_type protocol);
+    server_socket create_server(const std::string &name, unsigned short int port, connection_type protocol);
 
     /**
      * Creates a new TCP server that can accept connections from other programs.
@@ -97,7 +92,7 @@ namespace splashkit_lib
      *
      * @attribute suffix with_port
      */
-    server_socket create_server(const string &name, unsigned short int port);
+    server_socket create_server(const std::string &name, unsigned short int port);
 
     /**
      * Gets the server with the indicated name.
@@ -105,7 +100,7 @@ namespace splashkit_lib
      * @param  name The name of the server to get
      * @return      The server
      */
-    server_socket server_named(const string &name);
+    server_socket server_named(const std::string &name);
 
     /**
      * Closes the server, all connections with clients will be shut and
@@ -128,7 +123,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    bool close_server(const string &name);
+    bool close_server(const std::string &name);
 
     /**
      * Close all of the servers that are currently open.
@@ -143,7 +138,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    bool server_has_new_connection(const string &name);
+    bool server_has_new_connection(const std::string &name);
 
     /**
      * Checks of there are new connections waiting for a server.
@@ -155,7 +150,7 @@ namespace splashkit_lib
      * @attribute getter has_new_connections
      */
     bool server_has_new_connection(server_socket server);
-    
+
     /**
      * Get the number of new connections made to the server.
      * The count will increase as the server accepts new connections.
@@ -169,7 +164,7 @@ namespace splashkit_lib
      * @attribute getter new_connection_count
      */
     int new_connection_count(server_socket server);
-    
+
     /**
      * Get the oldest new connections made to the server, and
      * reduces the new connection count by 1.
@@ -181,7 +176,7 @@ namespace splashkit_lib
      * @attribute method fetch_new_connection
      */
     connection fetch_new_connection(server_socket server);
-    
+
     /**
      * Allows you to reset the new connection count to 0.
      * (The connections are kept)
@@ -208,7 +203,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    unsigned int connection_count(const string &name);
+    unsigned int connection_count(const std::string &name);
 
     /**
      * Returns the number of clients connected to a server.
@@ -227,7 +222,7 @@ namespace splashkit_lib
      * @param  name The name of the server to check
      * @return      True if there is a server with that name
      */
-    bool has_server(const string &name);
+    bool has_server(const std::string &name);
 
     /**
      * Accept new connections for all servers.
@@ -266,7 +261,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    connection last_connection(const string &name);
+    connection last_connection(const std::string &name);
 
     // Connection functions
 
@@ -284,7 +279,7 @@ namespace splashkit_lib
      *
      * @attribute suffix with_protocol
      */
-    connection open_connection(const string &name, const string &host, unsigned short int port, connection_type protocol);
+    connection open_connection(const std::string &name, const std::string &host, unsigned short int port, connection_type protocol);
 
     /**
      * Opens a TCP connection to a server using the supplied details.
@@ -297,7 +292,7 @@ namespace splashkit_lib
      * @attribute class       connection
      * @attribute constructor true
      */
-    connection open_connection(const string &name, const string &host, unsigned short int port);
+    connection open_connection(const std::string &name, const std::string &host, unsigned short int port);
 
     /**
      * Get a connection from the server.
@@ -308,7 +303,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    connection retrieve_connection(const string &name, int idx);
+    connection retrieve_connection(const std::string &name, int idx);
 
     /**
      * Get a connection from the server.
@@ -348,7 +343,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    bool close_connection(const string &name);
+    bool close_connection(const std::string &name);
 
     /**
      * Fetch the connection with the indicated name.
@@ -356,7 +351,7 @@ namespace splashkit_lib
      * @param  name The name of the connection to fetch
      * @return      The connection with that name
      */
-    connection connection_named(const string &name);
+    connection connection_named(const std::string &name);
 
     /**
      * Does the connection with the supplied name exist?
@@ -364,7 +359,7 @@ namespace splashkit_lib
      * @param  name The name of the connection to check.
      * @return      True if there is a connection with the supplied name
      */
-    bool has_connection(const string &name);
+    bool has_connection(const std::string &name);
 
     /**
      * Gets the ip address of the connection with the supplied name.
@@ -374,7 +369,7 @@ namespace splashkit_lib
      *
      * @attribute suffix from_name
      */
-    unsigned int connection_ip(const string &name);
+    unsigned int connection_ip(const std::string &name);
 
     /**
      * Gets the ip address of the passed in connection.
@@ -406,7 +401,7 @@ namespace splashkit_lib
      *
      * @attribute suffix from_name
      */
-    bool is_connection_open(const string &name);
+    bool is_connection_open(const std::string &name);
 
     /**
      * Gets the port of the connection.
@@ -427,7 +422,7 @@ namespace splashkit_lib
      *
      * @attribute suffix from_name
      */
-    unsigned short int connection_port(const string &name);
+    unsigned short int connection_port(const std::string &name);
 
     /**
      * Attempt to reconnect the connection.
@@ -436,7 +431,7 @@ namespace splashkit_lib
      *
      * @attribute suffix from_name
      */
-    void reconnect(const string &name);
+    void reconnect(const std::string &name);
 
     /**
      * Attempt to reconnect the connection.
@@ -478,7 +473,7 @@ namespace splashkit_lib
      *
      * @attribute suffix to_all
      */
-    void broadcast_message(const string &a_msg);
+    void broadcast_message(const std::string &a_msg);
 
     /**
      * Broadcast a message to all connections of a server.
@@ -488,7 +483,7 @@ namespace splashkit_lib
      *
      * @attribute suffix to_server_named
      */
-    void broadcast_message(const string &a_msg, const string &name);
+    void broadcast_message(const std::string &a_msg, const std::string &name);
 
     /**
      * Broadcast a message to all connections of a server.
@@ -500,7 +495,7 @@ namespace splashkit_lib
      * @attribute method broadcast_message
      * @attribute self svr
      */
-    void broadcast_message(const string &a_msg, server_socket svr);
+    void broadcast_message(const std::string &a_msg, server_socket svr);
 
     /**
      * Check network activity, looking for new connections and messages.
@@ -538,7 +533,7 @@ namespace splashkit_lib
      *
      * @attribute suffix from_name
      */
-    void clear_messages(const string &name);
+    void clear_messages(const std::string &name);
 
     /**
      * Closes the message.
@@ -594,7 +589,7 @@ namespace splashkit_lib
      *
      * @attribute suffix on_name
      */
-    bool has_messages(const string &name);
+    bool has_messages(const std::string &name);
 
     /**
      * Returns the number of messages on a connection.
@@ -617,7 +612,7 @@ namespace splashkit_lib
      *
      * @attribute suffix from_name
      */
-    unsigned int message_count(const string &name);
+    unsigned int message_count(const std::string &name);
 
     /**
      * Returns the number of messages on a server.
@@ -653,7 +648,7 @@ namespace splashkit_lib
      *
      * @attribute suffix from_name
      */
-    message read_message(const string &name);
+    message read_message(const std::string &name);
 
     /**
      * Read a message from the network (from a server or connection).
@@ -684,7 +679,7 @@ namespace splashkit_lib
      * @attribute class message
      * @attribute getter data
      */
-    string message_data(message msg);
+    std::string message_data(message msg);
 
     /**
      * Gets the body of a message as a list of bytes.
@@ -695,7 +690,7 @@ namespace splashkit_lib
      * @attribute class message
      * @attribute getter data_bytes
      */
-    vector<int8_t> message_data_bytes(message msg);
+    std::vector<int8_t> message_data_bytes(message msg);
 
     /**
      * Returns the host who made the message.
@@ -706,7 +701,7 @@ namespace splashkit_lib
      * @attribute class message
      * @attribute getter host
      */
-    string message_host(message msg);
+    std::string message_host(message msg);
 
     /**
      * Returns the port used to send a message.
@@ -741,7 +736,7 @@ namespace splashkit_lib
      *
      * @attribute suffix from_connection
      */
-    string read_message_data(connection a_connection);
+    std::string read_message_data(connection a_connection);
 
     /**
      * Read message data from a server.
@@ -754,7 +749,7 @@ namespace splashkit_lib
      *
      * @attribute suffix from_server
      */
-    string read_message_data(server_socket svr);
+    std::string read_message_data(server_socket svr);
 
     /**
      * Read message data from a connection or server.
@@ -764,7 +759,7 @@ namespace splashkit_lib
      *
      * @attribute suffix from_name
      */
-    string read_message_data(const string &name);
+    std::string read_message_data(const std::string &name);
 
     /**
      * Send a message to the connection.
@@ -779,7 +774,7 @@ namespace splashkit_lib
      *
      * @attribute suffix connection
      */
-    bool send_message_to(const string &a_msg, connection a_connection);
+    bool send_message_to(const std::string &a_msg, connection a_connection);
 
     /**
      * Send a message to the connection with the given name.
@@ -790,7 +785,7 @@ namespace splashkit_lib
      *
      * @attribute suffix name
      */
-    bool send_message_to(const string &a_msg, const string &name);
+    bool send_message_to(const std::string &a_msg, const std::string &name);
 
     /**
      * Returns the connection that sent a message.
@@ -808,7 +803,7 @@ namespace splashkit_lib
      * @param  port The port
      * @return      The name SplashKit would use for this connection
      */
-    string name_for_connection(const string host, const unsigned int port);
+    std::string name_for_connection(const std::string host, const unsigned int port);
 
     /**
      * @brief Converts a hexadecimal ipv4 string to standard ipv4 address string x.x.x.x
@@ -821,7 +816,7 @@ namespace splashkit_lib
      *
      * @returns standard ipv4 address using format X.X.X.X
      */
-    string hex_str_to_ipv4(const string &a_hex);
+    std::string hex_str_to_ipv4(const std::string &a_hex);
 
     /**
      * @brief Converts a hexadecimal string to a decimal string
@@ -833,7 +828,7 @@ namespace splashkit_lib
      *
      * @returns decimal representation of supplied hex string
      */
-    string hex_to_dec_string(const string &a_hex);
+    std::string hex_to_dec_string(const std::string &a_hex);
 
     /**
      * @brief Converts a decimal integer into a hexadecimal string
@@ -845,7 +840,7 @@ namespace splashkit_lib
      *
      * @return hexadecimal representation of the supplied decimal integer
      */
-    string dec_to_hex(unsigned int a_dec);
+    std::string dec_to_hex(unsigned int a_dec);
 
     /**
      * @brief Converts an ipv4 address string to hex representation
@@ -857,7 +852,7 @@ namespace splashkit_lib
      *
      * @return hexadecimal representation of ipc4 string
      */
-    string ipv4_to_hex(const string& a_ip);
+    std::string ipv4_to_hex(const std::string& a_ip);
 
     /**
      * @brief Encodes ipv4 string into single integer
@@ -869,7 +864,7 @@ namespace splashkit_lib
      *
      * @returns encoded ipv4 string
      */
-    unsigned int ipv4_to_dec(const string &a_ip);
+    unsigned int ipv4_to_dec(const std::string &a_ip);
 
     /**
      * @brief Decodes an integer into its ipv4 address representation
@@ -881,7 +876,7 @@ namespace splashkit_lib
      *
      * @returns ipv4 address string in X.X.X.X format
      */
-    string dec_to_ipv4(unsigned int ip);
+    std::string dec_to_ipv4(unsigned int ip);
 
     /**
      * @brief Returns the ipv4 string for the current computer's ip
@@ -890,15 +885,15 @@ namespace splashkit_lib
      *
      * @return ipv4 address string in X.X.X.X format
      */
-    string my_ip();
+    std::string my_ip();
 
     /**
      * @brief Validates if a given string represents a valid IPv4 address.
-     * 
+     *
      * @param ip The string containing the IP address to validate
      * @return bool Returns true if the string is a valid IPv4 address, false otherwise
      */
-    bool is_valid_ipv4(const string &ip);
+    bool is_valid_ipv4(const std::string &ip);
 
     /**
      * @brief Checks if a MAC address is valid
@@ -909,7 +904,7 @@ namespace splashkit_lib
      *
      * @return true if the MAC address is valid
      */
-    bool is_valid_mac(const string &mac_address);
+    bool is_valid_mac(const std::string &mac_address);
 
     /**
      * @brief Converts a MAC address string to its hexadecimal representation
@@ -921,7 +916,7 @@ namespace splashkit_lib
      *
      * @return hexadecimal representation of MAC address as a string
      */
-    string mac_to_hex(const string &mac_address);
+    std::string mac_to_hex(const std::string &mac_address);
 
     /**
      * @brief Converts a hexadecimal string to a MAC address
@@ -933,6 +928,6 @@ namespace splashkit_lib
      *
      * @return MAC address as a string in the format XX:XX:XX:XX:XX:XX
      */
-    string hex_to_mac(const string &hex_str);
+    std::string hex_to_mac(const std::string &hex_str);
 }
 #endif //SPLASHKIT_NETWORKING_H

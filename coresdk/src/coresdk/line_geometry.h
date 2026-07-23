@@ -11,7 +11,6 @@
 #include "types.h"
 
 #include <vector>
-using std::vector;
 
 namespace splashkit_lib
 {
@@ -83,7 +82,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  triangle
      */
-    vector<line> lines_from(const triangle &t);
+    std::vector<line> lines_from(const triangle &t);
 
     /**
      * Returns an array of lines from a supplied rectangle.
@@ -93,7 +92,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  rectangle
      */
-    vector<line> lines_from(const rectangle &rect);
+    std::vector<line> lines_from(const rectangle &rect);
 
     /**
      * Returns the point at which two lines would intersect. This point may lie
@@ -125,7 +124,7 @@ namespace splashkit_lib
      * @return         The point on one of the lines that is the closest point
      *                 on these lines to the `from pt`.
      */
-    point_2d closest_point_on_lines(const point_2d from_pt, const vector<line> &lines, int &line_idx);
+    point_2d closest_point_on_lines(const point_2d from_pt, const std::vector<line> &lines, int &line_idx);
 
     /**
      * Returns true if the two lines intersect.
@@ -176,7 +175,7 @@ namespace splashkit_lib
      * @param  ln The line
      * @return    A text description of the line
      */
-    string line_to_string(const line &ln);
+    std::string line_to_string(const line &ln);
 
     /**
      * Returns true if the line intersects any of the lines.
@@ -185,7 +184,7 @@ namespace splashkit_lib
      * @param  lines The lines to check against
      * @return       True if `line` intersects any of the lines in `lines`
      */
-    bool line_intersects_lines(const line &l, const vector<line> &lines);
+    bool line_intersects_lines(const line &l, const std::vector<line> &lines);
 
 
 }

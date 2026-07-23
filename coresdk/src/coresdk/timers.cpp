@@ -14,11 +14,9 @@
 
 #include <map>
 
-using std::map;
-
 namespace splashkit_lib
 {
-    static map<string, timer> _timers;
+    static std::map<std::string, timer> _timers;
 
     struct _timer_data
     {
@@ -27,10 +25,10 @@ namespace splashkit_lib
         unsigned int paused_ticks;
         bool paused;
         bool started;
-        string name;
+        std::string name;
     };
 
-    timer create_timer(string name)
+    timer create_timer(std::string name)
     {
         if (has_timer(name)) return timer_named(name);
 
@@ -76,14 +74,14 @@ namespace splashkit_lib
         FREE_ALL_FROM_MAP(_timers, TIMER_PTR, free_timer);
     }
 
-    timer timer_named(string name)
+    timer timer_named(std::string name)
     {
         if (not has_timer(name)) return nullptr;
 
         return _timers[to_lower(name)];
     }
 
-    bool has_timer(string name)
+    bool has_timer(std::string name)
     {
         return _timers.count(to_lower(name)) > 0;
     }
@@ -101,7 +99,7 @@ namespace splashkit_lib
         to_start->start_ticks = sk_get_ticks();
     }
 
-    void start_timer(string name)
+    void start_timer(std::string name)
     {
         start_timer(timer_named(name));
     }
@@ -118,7 +116,7 @@ namespace splashkit_lib
         to_stop->paused = false;
     }
 
-    void stop_timer(string name)
+    void stop_timer(std::string name)
     {
         stop_timer(timer_named(name));
     }
@@ -138,7 +136,7 @@ namespace splashkit_lib
         }
     }
 
-    void pause_timer(string name)
+    void pause_timer(std::string name)
     {
         pause_timer(timer_named(name));
     }
@@ -159,7 +157,7 @@ namespace splashkit_lib
         }
     }
 
-    void resume_timer(string name)
+    void resume_timer(std::string name)
     {
         resume_timer(timer_named(name));
     }
@@ -176,7 +174,7 @@ namespace splashkit_lib
         tmr->paused_ticks = 0;
     }
 
-    void reset_timer(string name)
+    void reset_timer(std::string name)
     {
         reset_timer(timer_named(name));
     }
@@ -200,7 +198,7 @@ namespace splashkit_lib
         return 0;
     }
 
-    unsigned int timer_ticks(string name)
+    unsigned int timer_ticks(std::string name)
     {
         return timer_ticks(timer_named(name));
     }
@@ -216,7 +214,7 @@ namespace splashkit_lib
         return to_get->paused;
     }
 
-    bool timer_paused(string name)
+    bool timer_paused(std::string name)
     {
         return timer_paused(timer_named(name));
     }
@@ -232,7 +230,7 @@ namespace splashkit_lib
         return to_get->started;
     }
 
-    bool timer_started(string name)
+    bool timer_started(std::string name)
     {
         return timer_started(timer_named(name));
     }

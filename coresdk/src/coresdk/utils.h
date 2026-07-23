@@ -46,7 +46,7 @@ namespace splashkit_lib
      *
      * @returns The file loaded into a string.
      */
-    string file_as_string(string filename, resource_kind kind);
+    std::string file_as_string(std::string filename, resource_kind kind);
 
     /**
      * Display a dialog to the screen with a message for the user.
@@ -56,6 +56,6 @@ namespace splashkit_lib
      * @param output_font The font for the dialog text
      * @param font_size   The size of the font for the dialog text
      */
-    void display_dialog(const string &title, const string &msg, font output_font, int font_size);
+    void display_dialog(const std::string &title, const std::string &msg, font output_font, int font_size);
 }
 #endif /* utils_hpp */

@@ -15,10 +15,6 @@
 
 #include "utility_functions.h"
 
-using std::ostringstream;
-using std::hex;
-using std::stringstream;
-
 namespace splashkit_lib
 {
     typedef unsigned char byte;
@@ -169,11 +165,11 @@ namespace splashkit_lib
         h = h / 360.0;
     }
 
-    string color_to_string(color c)
+    std::string color_to_string(color c)
     {
-        ostringstream result;
+        std::ostringstream result;
 
-        result << '#' << hex << std::setfill ('0');
+        result << '#' << std::hex << std::setfill ('0');
         result << std::setw(2) << static_cast<int>(red_of(c));
         result << std::setw(2) << static_cast<int>(green_of(c));
         result << std::setw(2) << static_cast<int>(blue_of(c));
@@ -182,7 +178,7 @@ namespace splashkit_lib
         return result.str();
     }
 
-    color string_to_color(string str)
+    color string_to_color(std::string str)
     {
         if (str[0] != '#' || not ( str.length() == 7 || str.length() == 9 ))
         {
@@ -195,8 +191,8 @@ namespace splashkit_lib
 
         str.erase(str.begin());     // Remove the #
 
-        stringstream ss;
-        ss << hex << str;
+        std::stringstream ss;
+        ss << std::hex << str;
         ss >> clr_int;
 
         r = static_cast<byte>(clr_int >> 24);

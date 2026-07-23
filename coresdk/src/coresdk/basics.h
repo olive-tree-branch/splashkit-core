@@ -14,12 +14,9 @@
 #include <string>
 #include <vector>
 
-using std::string;
-using std::vector;
-
 namespace splashkit_lib
 {
-    
+
     /**
      * Return a new string that removes the spaces from the start and end of
      * the input string.
@@ -28,7 +25,7 @@ namespace splashkit_lib
      * @return      A new string with the contents of `text`, after removing spaces
      *                from the start and end.
      */
-    string trim(const string &text);
+    std::string trim(const std::string &text);
 
     /**
      * Return a lowercase version of the passed in string.
@@ -36,7 +33,7 @@ namespace splashkit_lib
      * @param  text The text to convert.
      * @return      A lower case version of the passed in text.
      */
-    string to_lowercase(const string &text);
+    std::string to_lowercase(const std::string& text);
 
     /**
      * Return a UPPERCASE version of the passed in string.
@@ -44,7 +41,7 @@ namespace splashkit_lib
      * @param  text The text to convert.
      * @return      An upper case version of the passed in text.
      */
-    string to_uppercase(const string &text);
+    std::string to_uppercase(const std::string &text);
 
     /**
      * Checks if a string contains an integer value.
@@ -53,7 +50,7 @@ namespace splashkit_lib
      * @return      True if the text contains a whole number (and only a whole
      *                   number).
      */
-    bool is_integer(const string &text);
+    bool is_integer(const std::string &text);
 
     /**
      * Checks if a string contains a number.
@@ -61,7 +58,7 @@ namespace splashkit_lib
      * @param  text The text to check.
      * @return      True if the text contains a number (and only a number).
      */
-    bool is_double(const string &text);
+    bool is_double(const std::string &text);
 
     /**
      * Checks if a string contains a number.
@@ -69,7 +66,7 @@ namespace splashkit_lib
      * @param  text The text to check.
      * @return      True if the text contains a number (and only a number).
      */
-    bool is_number(const string &text);
+    bool is_number(const std::string &text);
 
     /**
      * Convert the passed in string into an integer. This can fail in an error if
@@ -79,7 +76,7 @@ namespace splashkit_lib
      * @param  text The text to convert.
      * @return      The integer value read from the text.
      */
-    int convert_to_integer(const string &text);
+    int convert_to_integer(const std::string &text);
 
     /**
      * Convert the passed in string into a double. This can fail in an error if
@@ -89,7 +86,7 @@ namespace splashkit_lib
      * @param  text The text to convert.
      * @return      The double value read from the text.
      */
-    double convert_to_double(const string &text);
+    double convert_to_double(const std::string &text);
 
         /**
      * Returns the length of a string in characters.
@@ -97,44 +94,44 @@ namespace splashkit_lib
      * @param text      The text to get the length of
      * @returns         The number of characters in the string.
      */
-    int length_of(const string &text);
+    int length_of(const std::string &text);
 
     /**
      * Returns true if the string contains the substring.
-     * 
+     *
      * @param text      The text to search
      * @param subtext   The substring to search for
      * @returns         True if the substring is found in the text.
      */
-    bool contains(const string &text, const string &subtext);
+    bool contains(const std::string &text, const std::string &subtext);
 
     /**
      * Returns the index of the first occurrence of the substring in the text.
-     * 
+     *
      * @param text      The text to search
      * @param subtext   The substring to search for
      * @returns         The index of the first occurrence of the substring in the text, or -1 if the substring is not found.
      */
-    int index_of(const string &text, const string &subtext);
+    int index_of(const std::string &text, const std::string &subtext);
 
     /**
      * Replace all occurrences of a substring in a string with another string.
-     * 
+     *
      * @param text      The text to search
      * @param substr    The substring to find and replace
      * @param new_text  The string to replace the substring with
      * @returns         The text with all occurrences of the substring replaced with the new text.
      */
-    string replace_all(const string &text, const string &substr, const string &new_text);
+    std::string replace_all(const std::string &text, const std::string &substr, const std::string &new_text);
 
     /**
      * Split a string into an array of strings based on a delimiter.
-     * 
+     *
      * @param text      The text to split
      * @param delimiter The character to split the text on
      * @returns         An array of strings
      */
-    vector<string> split(const string &text, char delimiter);
+    std::vector<std::string> split(const std::string &text, char delimiter);
 
     /**
      * @brief Checks if a string is a valid binary string
@@ -145,7 +142,7 @@ namespace splashkit_lib
      *
      * @returns True if the string is a valid binary string, false otherwise
      */
-    bool is_binary(const string &bin_str);
+    bool is_binary(const std::string &bin_str);
 
     /**
      * @brief Checks if a string is a valid hexadecimal string
@@ -157,7 +154,7 @@ namespace splashkit_lib
      *
      * @returns True if the string is a valid hexadecimal string, false otherwise
      */
-    bool is_hex(const string &hex_str);
+    bool is_hex(const std::string &hex_str);
 
     /**
      * @brief Checks if a string is a valid octal string
@@ -168,8 +165,8 @@ namespace splashkit_lib
      *
      * @returns True if the string is a valid octal string, false otherwise
      */
-    bool is_octal(const string &octal_str);
-    
+    bool is_octal(const std::string &octal_str);
+
     /**
      * @brief Converts a decimal (unsigned integer) to a binary string
      *
@@ -180,7 +177,7 @@ namespace splashkit_lib
      *
      * @returns Binary string representation of the decimal
      */
-    string dec_to_bin(unsigned int dec);
+    std::string dec_to_bin(unsigned int dec);
 
     /**
      * @brief Converts a binary string to a decimal (unsigned integer)
@@ -192,7 +189,7 @@ namespace splashkit_lib
      *
      * @returns Decimal (unsigned integer) representation of the binary string, or 0 if the string is not a valid binary string
      */
-    unsigned int bin_to_dec(const string &bin);
+    unsigned int bin_to_dec(const std::string &bin);
 
     /**
      * @brief Converts a hexadecimal string to a binary string
@@ -204,7 +201,7 @@ namespace splashkit_lib
      *
      * @returns Binary string representation of the hexadecimal string, or an empty string if the string is not a valid hexadecimal string
      */
-    string hex_to_bin(const string &hex_str);
+    std::string hex_to_bin(const std::string &hex_str);
 
     /**
      * @brief Converts a binary string to a hexadecimal string
@@ -216,7 +213,7 @@ namespace splashkit_lib
      *
      * @returns Hexadecimal string representation of the binary string, or an empty string if the string is not a valid binary string
      */
-    string bin_to_hex(const string &bin_str);
+    std::string bin_to_hex(const std::string &bin_str);
 
     /**
      * @brief Converts a decimal (unsigned integer) to an octal string
@@ -228,7 +225,7 @@ namespace splashkit_lib
      *
      * @returns Octal string representation of the decimal value, or "0" if the value is 0
      */
-    string dec_to_oct(unsigned int decimal_value);
+    std::string dec_to_oct(unsigned int decimal_value);
 
     /**
      * @brief Converts an octal string to a decimal (unsigned integer)
@@ -240,7 +237,7 @@ namespace splashkit_lib
      *
      * @returns Decimal (unsigned integer) representation of the octal string, or 0 if the string is not a valid octal string
      */
-    unsigned int oct_to_dec(const string &octal_string);
+    unsigned int oct_to_dec(const std::string &octal_string);
 
     /**
      * @brief Converts an octal string to a binary string
@@ -252,7 +249,7 @@ namespace splashkit_lib
      *
      * @returns Binary string representation of the octal string, or an empty string if the string is not a valid octal string
      */
-    string oct_to_bin(const string &octal_str);
+    std::string oct_to_bin(const std::string &octal_str);
 
     /**
      * @brief Converts a binary string to an octal string
@@ -264,7 +261,7 @@ namespace splashkit_lib
      *
      * @returns Octal string representation of the binary string, or an empty string if the string is not a valid binary string
      */
-    string bin_to_oct(const string &bin_str);
+    std::string bin_to_oct(const std::string &bin_str);
 
     /**
      * @brief Converts a hexadecimal string to an octal string
@@ -276,16 +273,16 @@ namespace splashkit_lib
      *
      * @returns Octal string representation of the hexadecimal string, or an empty string if the string is not a valid hexadecimal string
      */
-    string hex_to_oct(const string &hex_str);
+    std::string hex_to_oct(const std::string &hex_str);
 
     /**
      * @brief Convert a hexadecimal string to its numeric value.
-     * 
+     *
      * @param hex_string the data to convert
-     * 
+     *
      * @return unsigned int the numeric value of the hex string
      */
-    unsigned int hex_to_dec(const string &hex_string);
+    unsigned int hex_to_dec(const std::string &hex_string);
 
     /**
      * @brief Converts an octal string to a hexadecimal string
@@ -297,7 +294,7 @@ namespace splashkit_lib
      *
      * @returns Hexadecimal string representation of the octal string, or an empty string if the string is not a valid octal string
      */
-    string oct_to_hex(const string &oct_str);
+    std::string oct_to_hex(const std::string &oct_str);
 
     /**
      * @brief Encodes a string to Base64 format
@@ -309,7 +306,7 @@ namespace splashkit_lib
      *
      * @returns Base64 encoded string
      */
-    string base64_encode(const string &input);
+    std::string base64_encode(const std::string &input);
 
     /**
      * @brief Decodes a Base64 encoded string
@@ -321,7 +318,7 @@ namespace splashkit_lib
      *
      * @returns Decoded original string
      */
-    string base64_decode(const string &input);
+    std::string base64_decode(const std::string &input);
 
     /**
      * @brief Calculates the square root of a number

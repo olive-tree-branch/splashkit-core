@@ -18,8 +18,6 @@
 
 #include <cmath>
 
-using std::to_string;
-
 // Used in checking point similarities
 #define SMALL 1.4
 namespace splashkit_lib
@@ -47,9 +45,9 @@ namespace splashkit_lib
         return point_offset_by(point_at_origin(), offset);
     }
 
-    string point_to_string(const point_2d &pt)
+    std::string point_to_string(const point_2d &pt)
     {
-        return "(" + to_string((int)nearbyint(pt.x)) + "," + to_string((int)nearbyint(pt.y)) + ")";
+        return "(" + std::to_string((int)nearbyint(pt.x)) + "," + std::to_string((int)nearbyint(pt.y)) + ")";
     }
 
     point_2d random_screen_point()
@@ -223,17 +221,17 @@ namespace splashkit_lib
             oa = o / a;
             rads = atan(oa);
             result = rad_to_deg(rads);
-            
+
             if(pt2.x < pt1.x)
             {
                 if (pt2.y < pt1.y) result = result - 180;
                 else result = result + 180;
             }
-            
+
             return result;
         }
     }
-    
+
     /**
      *  Returns the distance between two points.
      */
@@ -247,5 +245,5 @@ namespace splashkit_lib
     {
         return point_point_distance(pt, closest_point_on_line(pt, l));
     }
-    
+
 }

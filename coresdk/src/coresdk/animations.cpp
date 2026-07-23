@@ -122,7 +122,7 @@ namespace splashkit_lib
     //
     //        if (count_delimiter(data, ',') != 3)
     //        {
-    //            LOG(WARNING) << "Error at line " + to_string(line_no) + " in animation " + filename + ". A frame must have 4 values separated as id,cell,dur,next");
+    //            LOG(WARNING) << "Error at line " + std::to_string(line_no) + " in animation " + filename + ". A frame must have 4 values separated as id,cell,dur,next");
     //            return false;
     //        }
     //
@@ -524,9 +524,7 @@ namespace splashkit_lib
 
         if (it != script->anim_objs.end())
         {
-            using std::swap;
-
-            swap(*it, script->anim_objs.back());
+            std::swap(*it, script->anim_objs.back());
             script->anim_objs.pop_back();
         }
         else

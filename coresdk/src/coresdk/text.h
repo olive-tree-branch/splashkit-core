@@ -15,7 +15,6 @@
 #include "drawing_options.h"
 
 #include <string>
-using std::string;
 
 namespace splashkit_lib
 {
@@ -51,7 +50,7 @@ namespace splashkit_lib
      *
      * @attribute suffix    name_as_string
      */
-    void set_font_style(const string &name, font_style style);
+    void set_font_style(const std::string &name, font_style style);
 
     /**
      * @brief Gets the font style for given `font`.
@@ -75,7 +74,7 @@ namespace splashkit_lib
      *
      * @returns Returns the current `font_style` for the `font`.
      */
-    font_style get_font_style(const string &name);
+    font_style get_font_style(const std::string &name);
 
     /**
      * @brief Loads a new font from a file.
@@ -88,7 +87,7 @@ namespace splashkit_lib
      *
      * @returns Returns a new `font` object.
      */
-    font load_font(const string &name, const string &filename);
+    font load_font(const std::string &name, const std::string &filename);
 
     /**
      * @brief Searches for and (if found) returns a default system font. Otherwise defaults to the in-built font.
@@ -139,7 +138,7 @@ namespace splashkit_lib
      *
      * @attribute suffix    name_as_string
      */
-    void font_load_size(const string &name, int font_size);
+    void font_load_size(const std::string &name, int font_size);
 
     /**
      * @brief Checks if the supplied `font` has been loaded.
@@ -159,7 +158,7 @@ namespace splashkit_lib
      *
      * @returns Returns whether there is a loaded font with the supplied name.
      */
-    bool has_font(string name);
+    bool has_font(std::string name);
 
     /**
      * @brief Checks if the supplied `font` has the supplied size.
@@ -185,7 +184,7 @@ namespace splashkit_lib
      *
      * @returns Returns true if there is a font with the supplied name that has the supplied size.
      */
-    bool font_has_size(const string &name, int font_size);
+    bool font_has_size(const std::string &name, int font_size);
 
     /**
      * @brief Finds a loaded font that has the supplied name and returns it.
@@ -194,7 +193,7 @@ namespace splashkit_lib
      *
      * @returns Returns the font that has the supplied name.
      */
-    font font_named(string name);
+    font font_named(std::string name);
 
     /**
      * @brief Draws the text string provided to the screen with the supplied color, font, size at x and y to the current window.
@@ -209,7 +208,7 @@ namespace splashkit_lib
      *
      * @attribute suffix    with_options
      */
-    void draw_text(const string &text, const color &clr, font fnt, int font_size, double x, double y, const drawing_options &opts);
+    void draw_text(const std::string &text, const color &clr, font fnt, int font_size, double x, double y, const drawing_options &opts);
 
     /**
      * @brief Draws the text string provided to the screen with the supplied color, font, size at x and y to the current window.
@@ -221,7 +220,7 @@ namespace splashkit_lib
      * @param x             The x location to draw the text.
      * @param y             The y location to draw the text.
      */
-    void draw_text(const string &text, const color &clr, font fnt, int font_size, double x, double y);
+    void draw_text(const std::string &text, const color &clr, font fnt, int font_size, double x, double y);
 
     /**
      * @brief Draws the text string provided to the screen with the supplied color, font and size at x and y to the current window.
@@ -236,7 +235,7 @@ namespace splashkit_lib
      *
      * @attribute suffix    with_options_font_as_string
      */
-    void draw_text(const string &text, const color &clr, const string &fnt, int font_size, double x, double y, const drawing_options &opts);
+    void draw_text(const std::string &text, const color &clr, const std::string &fnt, int font_size, double x, double y, const drawing_options &opts);
 
     /**
      * @brief Draws the text string provided to the screen with the supplied color, font and size at x and y to the current window.
@@ -250,7 +249,7 @@ namespace splashkit_lib
      *
      * @attribute suffix    font_as_string
      */
-    void draw_text(const string &text, const color &clr, const string &fnt, int font_size, double x, double y);
+    void draw_text(const std::string &text, const color &clr, const std::string &fnt, int font_size, double x, double y);
 
     /**
      * @brief Draws the text string provided to the screen with the supplied color at x and y to the current window.
@@ -263,7 +262,7 @@ namespace splashkit_lib
      *
      * @attribute suffix    no_font_no_size_with_options
      */
-    void draw_text(const string &text, const color &clr, double x, double y, const drawing_options &opts);
+    void draw_text(const std::string &text, const color &clr, double x, double y, const drawing_options &opts);
 
     /**
      * @brief Draws the text string provided to the screen with the supplied color at x and y to the current window.
@@ -275,7 +274,7 @@ namespace splashkit_lib
      *
      * @attribute suffix    no_font_no_size
      */
-    void draw_text(const string &text, const color &clr, double x, double y);
+    void draw_text(const std::string &text, const color &clr, double x, double y);
 
     /**
      * @brief Draws the text string provided to the window with the supplied color, font, size at x and y.
@@ -293,8 +292,8 @@ namespace splashkit_lib
      * @attribute class     window
      * @attribute method    draw_text
      */
-    void draw_text_on_window(window wnd, const string &text, const color &clr, font fnt, int font_size, double x, double y, const drawing_options &opts);
-    
+    void draw_text_on_window(window wnd, const std::string &text, const color &clr, font fnt, int font_size, double x, double y, const drawing_options &opts);
+
     /**
      * @brief Draws the text string provided to the window with the supplied color, font, size at x and y.
      *
@@ -309,8 +308,8 @@ namespace splashkit_lib
      * @attribute class     window
      * @attribute method    draw_text
      */
-    void draw_text_on_window(window wnd, const string &text, const color &clr, font fnt, int font_size, double x, double y);
-    
+    void draw_text_on_window(window wnd, const std::string &text, const color &clr, font fnt, int font_size, double x, double y);
+
     /**
      * @brief Draws the text string provided to the window with the supplied color, font and size at x and y.
      *
@@ -327,8 +326,8 @@ namespace splashkit_lib
      * @attribute class     window
      * @attribute method    draw_text
      */
-    void draw_text_on_window(window wnd, const string &text, const color &clr, const string &fnt, int font_size, double x, double y, const drawing_options &opts);
-    
+    void draw_text_on_window(window wnd, const std::string &text, const color &clr, const std::string &fnt, int font_size, double x, double y, const drawing_options &opts);
+
     /**
      * @brief Draws the text string provided to the screen with the supplied color, font and size at x and y to the current window.
      *
@@ -344,8 +343,8 @@ namespace splashkit_lib
      * @attribute class     window
      * @attribute method    draw_text
      */
-    void draw_text_on_window(window wnd, const string &text, const color &clr, const string &fnt, int font_size, double x, double y);
-    
+    void draw_text_on_window(window wnd, const std::string &text, const color &clr, const std::string &fnt, int font_size, double x, double y);
+
     /**
      * @brief Draws the text string provided to the window with the supplied color at x and y.
      *
@@ -360,8 +359,8 @@ namespace splashkit_lib
      * @attribute class     window
      * @attribute method    draw_text
      */
-    void draw_text_on_window(window wnd, const string &text, const color &clr, double x, double y, const drawing_options &opts);
-    
+    void draw_text_on_window(window wnd, const std::string &text, const color &clr, double x, double y, const drawing_options &opts);
+
     /**
      * @brief Draws the text string provided to the screen with the supplied color at x and y to the current window.
      *
@@ -375,8 +374,8 @@ namespace splashkit_lib
      * @attribute class     window
      * @attribute method    draw_text
      */
-    void draw_text_on_window(window wnd, const string &text, const color &clr, double x, double y);
-    
+    void draw_text_on_window(window wnd, const std::string &text, const color &clr, double x, double y);
+
     /**
      * @brief Draws the text string provided to the bitmap with the supplied color, font, size at x and y.
      *
@@ -393,8 +392,8 @@ namespace splashkit_lib
      * @attribute class     bitmap
      * @attribute method    draw_text
      */
-    void draw_text_on_bitmap(bitmap bmp, const string &text, const color &clr, font fnt, int font_size, double x, double y, const drawing_options &opts);
-    
+    void draw_text_on_bitmap(bitmap bmp, const std::string &text, const color &clr, font fnt, int font_size, double x, double y, const drawing_options &opts);
+
     /**
      * @brief Draws the text string provided to the bitmap with the supplied color, font, size at x and y.
      *
@@ -409,8 +408,8 @@ namespace splashkit_lib
      * @attribute class     bitmap
      * @attribute method    draw_text
      */
-    void draw_text_on_bitmap(bitmap bmp, const string &text, const color &clr, font fnt, int font_size, double x, double y);
-    
+    void draw_text_on_bitmap(bitmap bmp, const std::string &text, const color &clr, font fnt, int font_size, double x, double y);
+
     /**
      * @brief Draws the text string provided to the bitmap with the supplied color, font and size at x and y.
      *
@@ -427,8 +426,8 @@ namespace splashkit_lib
      * @attribute class     bitmap
      * @attribute method    draw_text
      */
-    void draw_text_on_bitmap(bitmap bmp, const string &text, const color &clr, const string &fnt, int font_size, double x, double y, const drawing_options &opts);
-    
+    void draw_text_on_bitmap(bitmap bmp, const std::string &text, const color &clr, const std::string &fnt, int font_size, double x, double y, const drawing_options &opts);
+
     /**
      * @brief Draws the text string provided to the screen with the supplied color, font and size at x and y to the current bitmap.
      *
@@ -444,8 +443,8 @@ namespace splashkit_lib
      * @attribute class     bitmap
      * @attribute method    draw_text
      */
-    void draw_text_on_bitmap(bitmap bmp, const string &text, const color &clr, const string &fnt, int font_size, double x, double y);
-    
+    void draw_text_on_bitmap(bitmap bmp, const std::string &text, const color &clr, const std::string &fnt, int font_size, double x, double y);
+
     /**
      * @brief Draws the text string provided to the bitmap with the supplied color at x and y.
      *
@@ -460,8 +459,8 @@ namespace splashkit_lib
      * @attribute class     bitmap
      * @attribute method    draw_text
      */
-    void draw_text_on_bitmap(bitmap bmp, const string &text, const color &clr, double x, double y, const drawing_options &opts);
-    
+    void draw_text_on_bitmap(bitmap bmp, const std::string &text, const color &clr, double x, double y, const drawing_options &opts);
+
     /**
      * @brief Draws the text string provided to the screen with the supplied color at x and y.
      *
@@ -475,7 +474,7 @@ namespace splashkit_lib
      * @attribute class     bitmap
      * @attribute method    draw_text
      */
-    void draw_text_on_bitmap(bitmap bmp, const string &text, const color &clr, double x, double y);
+    void draw_text_on_bitmap(bitmap bmp, const std::string &text, const color &clr, double x, double y);
 
     /**
      * @brief Returns the width of the supplied text string.
@@ -489,7 +488,7 @@ namespace splashkit_lib
      *
      * @returns Returns the width of the text as an integer.
      */
-    int text_width(const string &text, font fnt, int font_size);
+    int text_width(const std::string &text, font fnt, int font_size);
 
     /**
      * @brief Returns the width of the supplied text string.
@@ -504,7 +503,7 @@ namespace splashkit_lib
      *
      * @returns Returns the width of the text as an integer.
      */
-    int text_width(const string &text, const string& fnt, int font_size);
+    int text_width(const std::string &text, const std::string& fnt, int font_size);
 
     /**
      * @brief Returns the height of the supplied text string.
@@ -518,7 +517,7 @@ namespace splashkit_lib
      *
      * @returns Returns the height of the text as an integer.
      */
-    int text_height(const string &text, font fnt, int font_size);
+    int text_height(const std::string &text, font fnt, int font_size);
 
     /**
      * @brief Returns the height of the supplied text string.
@@ -533,7 +532,7 @@ namespace splashkit_lib
      *
      * @returns Returns the height of the text as an integer.
      */
-    int text_height(const string &text, const string& fnt, int font_size);
+    int text_height(const std::string &text, const std::string& fnt, int font_size);
 }
 
 #endif /* text_hpp */

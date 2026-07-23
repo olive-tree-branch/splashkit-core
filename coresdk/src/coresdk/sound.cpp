@@ -14,32 +14,30 @@
 #include <iostream>
 #include <map>
 
-using std::map;
-
 namespace splashkit_lib
 {
-    static map<string, sound_effect> _sound_effects;
+    static std::map<std::string, sound_effect> _sound_effects;
 
     struct _sound_data
     {
         pointer_identifier id;
         sk_sound_data effect;
-        string filename, name;
+        std::string filename, name;
     };
 #include "sound.h"
 
-    bool has_sound_effect(const string &name)
+    bool has_sound_effect(const std::string &name)
     {
         return _sound_effects.count(name) > 0;
     }
 
-    sound_effect sound_effect_named(const string &name)
+    sound_effect sound_effect_named(const std::string &name)
     {
         if (has_sound_effect(name))
             return _sound_effects[name];
         else
         {
-            string filename = path_to_resource(name, SOUND_RESOURCE);
+            std::string filename = path_to_resource(name, SOUND_RESOURCE);
 
             if ( file_exists(filename) or file_exists(name))
                 return load_sound_effect(name, name);
@@ -47,19 +45,19 @@ namespace splashkit_lib
         }
     }
 
-    string sound_effect_name(sound_effect effect)
+    std::string sound_effect_name(sound_effect effect)
     {
         if (INVALID_PTR(effect, AUDIO_PTR)) return "";
         return effect->name;
     }
 
-    string sound_effect_filename(sound_effect effect)
+    std::string sound_effect_filename(sound_effect effect)
     {
         if (INVALID_PTR(effect, AUDIO_PTR)) return "";
         return effect->filename;
     }
 
-    sound_effect load_sound_effect(const string &name, const string &filename)
+    sound_effect load_sound_effect(const std::string &name, const std::string &filename)
     {
         if ( ! audio_ready() )
         {
@@ -68,7 +66,7 @@ namespace splashkit_lib
         }
         if (has_sound_effect(name)) return sound_effect_named(name);
 
-        string file_path = filename;
+        std::string file_path = filename;
 
         if ( ! file_exists(file_path) )
         {
@@ -168,22 +166,22 @@ namespace splashkit_lib
         play_sound_effect(effect, 1, volume);
     }
 
-    void play_sound_effect(const string &name, int times, double volume)
+    void play_sound_effect(const std::string &name, int times, double volume)
     {
         play_sound_effect(sound_effect_named(name), times, volume);
     }
 
-    void play_sound_effect(const string &name, int times)
+    void play_sound_effect(const std::string &name, int times)
     {
         play_sound_effect(sound_effect_named(name), times, 1.0f);
     }
 
-    void play_sound_effect(const string &name)
+    void play_sound_effect(const std::string &name)
     {
         play_sound_effect(sound_effect_named(name), 1, 1.0f);
     }
 
-    void play_sound_effect(const string &name, double volume)
+    void play_sound_effect(const std::string &name, double volume)
     {
         play_sound_effect(sound_effect_named(name), 1, volume);
     }
@@ -195,7 +193,7 @@ namespace splashkit_lib
         return sk_sound_playing(&effect->effect);
     }
 
-    bool sound_effect_playing(const string &name)
+    bool sound_effect_playing(const std::string &name)
     {
         return sound_effect_playing(sound_effect_named(name));
     }
@@ -206,7 +204,7 @@ namespace splashkit_lib
             sk_stop_sound(&effect->effect);
     }
 
-    void stop_sound_effect(const string &name)
+    void stop_sound_effect(const std::string &name)
     {
         stop_sound_effect(sound_effect_named(name));
     }

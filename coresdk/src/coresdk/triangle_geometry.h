@@ -57,7 +57,7 @@ namespace splashkit_lib
 
     /**
      * Detects if a ray intersects a triangle.
-     * 
+     *
      * @param origin        The starting point of the ray
      * @param heading       The direction of the ray as a vector
      * @param tri           The triangle to check for intersection
@@ -71,7 +71,7 @@ namespace splashkit_lib
      * distance from the ray's origin to the intersection point. If the ray's `origin`
      * is contained within the triangle, `hit_point` is set to the `origin` and `hit_distance`
      * is set to 0. If no intersection is found, `hit_point` and `hit_distance` are not modified.
-     * 
+     *
      * @param origin        The starting point of the ray
      * @param heading       The direction of the ray as a vector
      * @param tri           The triangle to check for intersection
@@ -79,7 +79,7 @@ namespace splashkit_lib
      * @param hit_distance  The double to set to the distance from the ray's origin to
      *                      the intersection point
      * @returns             True if the ray intersects the triangle, false otherwise
-     * 
+     *
      * @attribute suffix    with_hit_point_and_distance
      */
     bool triangle_ray_intersection(const point_2d &origin, const vector_2d &heading, const triangle &tri, point_2d &hit_point, double &hit_distance);
@@ -108,7 +108,7 @@ namespace splashkit_lib
      * @param  tri The triangle
      * @return     A text description of the triangle.
      */
-    string triangle_to_string(const triangle  &tri);
+    std::string triangle_to_string(const triangle  &tri);
 }
 
 #endif /* triangle_geometry_h */

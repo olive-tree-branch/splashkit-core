@@ -13,7 +13,6 @@
 #include "types.h"
 #include "backend_types.h"
 #include <iostream>
-using namespace std;
 
 namespace splashkit_lib
 {
@@ -36,7 +35,7 @@ namespace splashkit_lib
         // https://web.archive.org/web/20240901170108/https://datasheets.raspberrypi.com/rpi4/raspberry-pi-4-datasheet.pdf
         if (bcmPinResult < 2)
         {
-            string extra_text = " Pin is a";
+            std::string extra_text = " Pin is a";
             extra_text += (bcmPinResult >= 0) ? "n EEPROM Pin, using this could corrupt the bootloader." : (bcmPinResult == -1) ? " POWER line."
                                                                                                        : (bcmPinResult == -2)   ? " GROUND line."
                                                                                                                                 : "n Unknown Pin Type.";
@@ -221,7 +220,7 @@ namespace splashkit_lib
 #endif
     }
 
-    string raspi_spi_transfer(int handle, const string &send, int count, int &bytes_transfered)
+    std::string raspi_spi_transfer(int handle, const std::string &send, int count, int &bytes_transfered)
     {
 #ifdef RASPBERRY_PI
         int len = send.size() > count ? count : send.size();
@@ -235,7 +234,7 @@ namespace splashkit_lib
 
         bytes_transfered = sk_spi_transfer(handle, send_buf, recv_buf, len);
 
-        string response(recv_buf);
+        std::string response(recv_buf);
         return response;
 #else
         LOG(ERROR) << "Unable to transfer through SPI - GPIO not supported on this platform";
@@ -479,7 +478,7 @@ namespace splashkit_lib
         return -1;
 #endif
     }
-    
+
     void raspi_set_servo_pulsewidth(gpio_pin pin, int pulsewidth)
     {
 #ifdef RASPBERRY_PI
@@ -505,7 +504,7 @@ namespace splashkit_lib
 #endif
     }
 
-    connection remote_raspi_init(const string &name, const string &host, unsigned short int port)
+    connection remote_raspi_init(const std::string &name, const std::string &host, unsigned short int port)
     {
         return sk_remote_gpio_init(name, host, port);
     }

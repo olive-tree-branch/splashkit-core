@@ -14,13 +14,11 @@
 #include "utility_functions.h"
 #include <cmath>
 
-using std::to_string;
-
 namespace splashkit_lib
 {
-    string vector_to_string(const vector_2d &v)
+    std::string vector_to_string(const vector_2d &v)
     {
-        return "Vec -> " + to_string(v.x) + ":" + to_string(v.y);
+        return "Vec -> " + std::to_string(v.x) + ":" + std::to_string(v.y);
     }
 
     vector_2d vector_to(double x, double y)
@@ -76,7 +74,7 @@ namespace splashkit_lib
 
     bool vectors_equal(const vector_2d &v1, const vector_2d v2)
     {
-        return abs((long long)(v1.x - v2.x)) < EPSEPS and abs((long long)(v1.y - v2.y)) < EPSEPS;
+        return std::abs((long long)(v1.x - v2.x)) < EPSEPS and std::abs((long long)(v1.y - v2.y)) < EPSEPS;
     }
 
     bool vectors_not_equal(const vector_2d &v1, const vector_2d v2)
@@ -146,7 +144,7 @@ namespace splashkit_lib
 
     vector_2d vector_limit(const vector_2d &v, double limit)
     {
-        if ( abs((long long)vector_magnitude(v)) > abs((long long)limit) )
+        if ( std::abs((long long)vector_magnitude(v)) > std::abs((long long)limit) )
         {
             return vector_multiply(unit_vector(v), limit);
         }
@@ -251,7 +249,7 @@ namespace splashkit_lib
     //
     // This internal function is used to calculate the vector and determine if a hit has occurred...
     //
-    vector_2d vector_over_lines_from_circle(const circle &c, const vector<line> lines, const vector_2d &velocity, int &max_idx)
+    vector_2d vector_over_lines_from_circle(const circle &c, const std::vector<line> lines, const vector_2d &velocity, int &max_idx)
     {
         point_2d pt_on_line, pt_on_circle;
         point_2d tmp[4], edge;
@@ -354,9 +352,9 @@ namespace splashkit_lib
         return v_out; //vector_to(ceil(v_out.x), ceil(v_out.y));
     }
 
-    vector<point_2d> points_from(const rectangle &rect)
+    std::vector<point_2d> points_from(const rectangle &rect)
     {
-        vector<point_2d> result;
+        std::vector<point_2d> result;
         result.push_back(point_at(rect.x, rect.y));
         result.push_back(point_at(rect.x + rect.width, rect.y));
         result.push_back(point_at(rect.x, rect.y + rect.height));
@@ -364,20 +362,20 @@ namespace splashkit_lib
         return result;
     }
 
-    vector<point_2d> points_from(const line &l)
+    std::vector<point_2d> points_from(const line &l)
     {
-        vector<point_2d> result;
+        std::vector<point_2d> result;
         result.push_back(l.start_point);
         result.push_back(l.end_point);
         return result;
     }
 
-    vector_2d vector_over_lines_from_lines(const vector<line> &src_lines, const vector<line> &bound_lines, const vector_2d &velocity, int &max_idx)
+    vector_2d vector_over_lines_from_lines(const std::vector<line> &src_lines, const std::vector<line> &bound_lines, const vector_2d &velocity, int &max_idx)
     {
         vector_2d ray, v_out;
         int i, j, k;
         double max_dist;
-        vector<point_2d> ln_points, bound_ln_points;
+        std::vector<point_2d> ln_points, bound_ln_points;
         bool both_did_hit;
 
         // Search from the start_pt for the ray
@@ -468,32 +466,32 @@ namespace splashkit_lib
         int max_idx = 0;
         return vector_over_lines_from_lines(lines_from(src), lines_from(bounds), velocity, max_idx);
     }
-    
+
     vector_2d vector_out_of_circle_from_point(const point_2d &pt, const circle &c, const vector_2d &velocity)
     {
         double dx, dy, cx, cy;
         double a, b, c1, det, t, mv_out;
         point_2d ipt2;
-        
+
         // If the point is not in the radius of the circle, return a zero vector
         if (point_point_distance(pt, center_point(c)) > c.radius)
         {
             return vector_to(0, 0);
         }
-        
+
         // Calculate the determinant (and components) from the center circle and
         // the point+velocity details
         cx = c.center.x;
         cy = c.center.y;
         dx = velocity.x;
         dy = velocity.y;
-        
+
         a = dx * dx + dy * dy;
         b = 2 * (dx * (pt.x - cx) + dy * (pt.y - cy));
         c1 = (pt.x - cx) * (pt.x - cx) + (pt.y - cy) * (pt.y - cy) - c.radius * c.radius;
-        
+
         det = b * b - 4 * a * c1;
-        
+
         // If the determinate is very small, return a zero vector
         if ((det <= 0) or (a == 0))
             return vector_to(0, 0);
@@ -503,18 +501,18 @@ namespace splashkit_lib
             t = (-b - sqrt(det)) / (2 * a);
             ipt2.x = pt.x + t * dx;
             ipt2.y = pt.y + t * dy;
-            
+
             mv_out = point_point_distance(pt, ipt2) + 1.42; // sqrt 2
             return vector_multiply(unit_vector(vector_invert(velocity)), mv_out);
         }
     }
-    
+
     vector_2d vector_out_of_circle_from_circle(const circle &src, const circle &bounds, const vector_2d &velocity)
     {
         circle c = circle_at(center_point(bounds), bounds.radius + src.radius);
         return vector_out_of_circle_from_point(center_point(src), c, velocity);
     }
-    
+
     vector_2d vector_out_of_rect_from_circle(const circle &c, const rectangle &rect, const vector_2d &velocity)
     {
         int max_idx;
@@ -532,7 +530,7 @@ namespace splashkit_lib
         if (pt.y < rect.y) py = rect.y;
         else if (pt.y > (rect.y + rect.height)) py = rect.y + rect.height;
         else py = pt.y;
-        
+
         return vector_to(px - pt.x, py - pt.y);
     }
 

@@ -19,14 +19,14 @@
 #include <map>
 namespace splashkit_lib
 {
-    static map<string, font> _fonts;
+    static std::map<std::string, font> _fonts;
 
     bool has_font(font fnt)
     {
         return VALID_PTR(fnt, FONT_PTR) and _fonts.count(fnt->name) > 0;
     }
 
-    bool has_font(string name)
+    bool has_font(std::string name)
     {
         if ( _fonts.count(name) <= 0 ) return false;
         return has_font(_fonts.find(name)->second);
@@ -46,7 +46,7 @@ namespace splashkit_lib
         return false;
     }
 
-    bool font_has_size(const string &name, int font_size)
+    bool font_has_size(const std::string &name, int font_size)
     {
         return font_has_size(font_named(name), font_size);
     }
@@ -63,12 +63,12 @@ namespace splashkit_lib
         }
     }
 
-    void font_load_size(const string &name, int font_size)
+    void font_load_size(const std::string &name, int font_size)
     {
         return font_load_size(font_named(name), font_size);
     }
 
-    font font_named(string name)
+    font font_named(std::string name)
     {
         if (has_font(name))
         {
@@ -76,7 +76,7 @@ namespace splashkit_lib
         }
         else
         {
-            string filename = path_to_resource(name, FONT_RESOURCE);
+            std::string filename = path_to_resource(name, FONT_RESOURCE);
 
             if ( file_exists(filename) or file_exists(name))
                 return load_font(name, name);
@@ -107,7 +107,7 @@ namespace splashkit_lib
 
     void free_all_fonts()
     {
-        string name;
+        std::string name;
 
         size_t sz = _fonts.size();
 
@@ -140,7 +140,7 @@ namespace splashkit_lib
         }
     }
 
-    void set_font_style(const string &name, font_style style)
+    void set_font_style(const std::string &name, font_style style)
     {
         set_font_style(font_named(name), style);
     }
@@ -159,16 +159,16 @@ namespace splashkit_lib
         return static_cast<font_style>(sk_get_font_style(fnt, font_size));
     }
 
-    font_style get_font_style(const string &name)
+    font_style get_font_style(const std::string &name)
     {
         return get_font_style(font_named(name));
     }
 
-    font load_font(const string &name, const string &filename)
+    font load_font(const std::string &name, const std::string &filename)
     {
         if (has_font(name)) return font_named(name);
 
-        string file_path = filename;
+        std::string file_path = filename;
 
         if ( ! file_exists(file_path) )
         {
@@ -242,7 +242,7 @@ namespace splashkit_lib
         return nullptr;
     }
 
-    void draw_text(const string &text, const color &clr, font fnt, int font_size, double x, double y, const drawing_options &opts)
+    void draw_text(const std::string &text, const color &clr, font fnt, int font_size, double x, double y, const drawing_options &opts)
     {
         if ( fnt != nullptr and INVALID_PTR(fnt, FONT_PTR) )
         {
@@ -257,92 +257,92 @@ namespace splashkit_lib
         sk_draw_text(to_surface_ptr(opts.dest), fnt, font_size, x, y, text.c_str(), clr);
     }
 
-    void draw_text(const string &text, const color &clr, font fnt, int font_size, double x, double y)
+    void draw_text(const std::string &text, const color &clr, font fnt, int font_size, double x, double y)
     {
         draw_text(text, clr, fnt, font_size, x, y, option_defaults());
     }
 
-    void draw_text(const string &text, const color &clr, const string &fnt, int font_size, double x, double y, const drawing_options &opts)
+    void draw_text(const std::string &text, const color &clr, const std::string &fnt, int font_size, double x, double y, const drawing_options &opts)
     {
         draw_text(text, clr, font_named(fnt), font_size, x, y, opts);
     }
 
-    void draw_text(const string &text, const color &clr, const string &fnt, int font_size, double x, double y)
+    void draw_text(const std::string &text, const color &clr, const std::string &fnt, int font_size, double x, double y)
     {
         draw_text(text, clr, font_named(fnt), font_size, x, y, option_defaults());
     }
 
-    void draw_text(const string &text, const color &clr, double x, double y, const drawing_options &opts)
+    void draw_text(const std::string &text, const color &clr, double x, double y, const drawing_options &opts)
     {
         draw_text(text, clr, nullptr, 0, x, y, opts);
     }
 
-    void draw_text(const string &text, const color &clr, double x, double y)
+    void draw_text(const std::string &text, const color &clr, double x, double y)
     {
         draw_text(text, clr, x, y, option_defaults());
     }
 
-    void draw_text_on_window(window wnd, const string &text, const color &clr, font fnt, int font_size, double x, double y, const drawing_options &opts)
+    void draw_text_on_window(window wnd, const std::string &text, const color &clr, font fnt, int font_size, double x, double y, const drawing_options &opts)
     {
         draw_text(text, clr, fnt, font_size, x, y, option_draw_to(wnd, opts));
     }
 
-    void draw_text_on_window(window wnd, const string &text, const color &clr, font fnt, int font_size, double x, double y)
+    void draw_text_on_window(window wnd, const std::string &text, const color &clr, font fnt, int font_size, double x, double y)
     {
         draw_text(text, clr, fnt, font_size, x, y, option_draw_to(wnd));
     }
 
-    void draw_text_on_window(window wnd, const string &text, const color &clr, const string &fnt, int font_size, double x, double y, const drawing_options &opts)
+    void draw_text_on_window(window wnd, const std::string &text, const color &clr, const std::string &fnt, int font_size, double x, double y, const drawing_options &opts)
     {
         draw_text(text, clr, fnt, font_size, x, y, option_draw_to(wnd, opts));
     }
 
-    void draw_text_on_window(window wnd, const string &text, const color &clr, const string &fnt, int font_size, double x, double y)
+    void draw_text_on_window(window wnd, const std::string &text, const color &clr, const std::string &fnt, int font_size, double x, double y)
     {
         draw_text(text, clr, fnt, font_size, x, y, option_draw_to(wnd));
     }
 
-    void draw_text_on_window(window wnd, const string &text, const color &clr, double x, double y, const drawing_options &opts)
+    void draw_text_on_window(window wnd, const std::string &text, const color &clr, double x, double y, const drawing_options &opts)
     {
         draw_text(text, clr, x, y, option_draw_to(wnd, opts));
     }
 
-    void draw_text_on_window(window wnd, const string &text, const color &clr, double x, double y)
+    void draw_text_on_window(window wnd, const std::string &text, const color &clr, double x, double y)
     {
         draw_text(text, clr, x, y, option_draw_to(wnd));
     }
 
-    void draw_text_on_bitmap(bitmap bmp, const string &text, const color &clr, font fnt, int font_size, double x, double y, const drawing_options &opts)
+    void draw_text_on_bitmap(bitmap bmp, const std::string &text, const color &clr, font fnt, int font_size, double x, double y, const drawing_options &opts)
     {
         draw_text(text, clr, fnt, font_size, x, y, option_draw_to(bmp, opts));
     }
 
-    void draw_text_on_bitmap(bitmap bmp, const string &text, const color &clr, font fnt, int font_size, double x, double y)
+    void draw_text_on_bitmap(bitmap bmp, const std::string &text, const color &clr, font fnt, int font_size, double x, double y)
     {
         draw_text(text, clr, fnt, font_size, x, y, option_draw_to(bmp));
     }
 
-    void draw_text_on_bitmap(bitmap bmp, const string &text, const color &clr, const string &fnt, int font_size, double x, double y, const drawing_options &opts)
+    void draw_text_on_bitmap(bitmap bmp, const std::string &text, const color &clr, const std::string &fnt, int font_size, double x, double y, const drawing_options &opts)
     {
         draw_text(text, clr, fnt, font_size, x, y, option_draw_to(bmp, opts));
     }
 
-    void draw_text_on_bitmap(bitmap bmp, const string &text, const color &clr, const string &fnt, int font_size, double x, double y)
+    void draw_text_on_bitmap(bitmap bmp, const std::string &text, const color &clr, const std::string &fnt, int font_size, double x, double y)
     {
         draw_text(text, clr, fnt, font_size, x, y, option_draw_to(bmp));
     }
 
-    void draw_text_on_bitmap(bitmap bmp, const string &text, const color &clr, double x, double y, const drawing_options &opts)
+    void draw_text_on_bitmap(bitmap bmp, const std::string &text, const color &clr, double x, double y, const drawing_options &opts)
     {
         draw_text(text, clr, x, y, option_draw_to(bmp, opts));
     }
 
-    void draw_text_on_bitmap(bitmap bmp, const string &text, const color &clr, double x, double y)
+    void draw_text_on_bitmap(bitmap bmp, const std::string &text, const color &clr, double x, double y)
     {
         draw_text(text, clr, x, y, option_draw_to(bmp));
     }
 
-    int text_width(const string &text, font fnt, int font_size)
+    int text_width(const std::string &text, font fnt, int font_size)
     {
         if ( fnt != nullptr && INVALID_PTR(fnt, FONT_PTR) )
         {
@@ -355,12 +355,12 @@ namespace splashkit_lib
         return w;
     }
 
-    int text_width(const string &text, const string &fnt, int font_size)
+    int text_width(const std::string &text, const std::string &fnt, int font_size)
     {
         return text_width(text, font_named(fnt), font_size);
     }
 
-    int text_height(const string &text, font fnt, int font_size)
+    int text_height(const std::string &text, font fnt, int font_size)
     {
         if ( INVALID_PTR(fnt, FONT_PTR) )
         {
@@ -373,7 +373,7 @@ namespace splashkit_lib
         return h;
     }
 
-    int text_height(const string &text, const string &fnt, int font_size)
+    int text_height(const std::string &text, const std::string &fnt, int font_size)
     {
         return text_height(text, font_named(fnt), font_size);
     }

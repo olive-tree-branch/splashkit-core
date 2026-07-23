@@ -17,9 +17,6 @@
 #include <vector>
 #include <cstdint>
 
-using std::string;
-using std::vector;
-
 namespace splashkit_lib
 {
     /**
@@ -493,7 +490,7 @@ namespace splashkit_lib
      * Motor Movement Directions:
      * @constant MOTOR_FORWARD  Motor moves forward.
      * @constant MOTOR_BACKWARD Motor moves backward.
-     *  
+     *
      * */
       enum motor_direction {
         MOTOR_FORWARD,

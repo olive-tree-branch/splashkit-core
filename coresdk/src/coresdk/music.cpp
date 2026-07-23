@@ -16,7 +16,7 @@
 #include <map>
 namespace splashkit_lib
 {
-    static map<string, music> _music;
+    static std::map<std::string, music> _music;
 
     // While this is the same as sound data..
     // we want the compiler to make them different!
@@ -24,10 +24,10 @@ namespace splashkit_lib
     {
         pointer_identifier id;
         sk_sound_data audio;
-        string filename, name;
+        std::string filename, name;
     };
 
-    music load_music(const string &name, const string &filename)
+    music load_music(const std::string &name, const std::string &filename)
     {
         if ( ! audio_ready() )
         {
@@ -36,7 +36,7 @@ namespace splashkit_lib
         }
         if (has_music(name)) return music_named(name);
 
-        string file_path = filename;
+        std::string file_path = filename;
 
         if ( ! file_exists(file_path) )
         {
@@ -88,7 +88,7 @@ namespace splashkit_lib
 
     void free_all_music()
     {
-        string name;
+        std::string name;
 
         size_t sz = _music.size();
 
@@ -112,18 +112,18 @@ namespace splashkit_lib
         return VALID_PTR(effect, MUSIC_PTR);
     }
 
-    bool has_music(const string &name)
+    bool has_music(const std::string &name)
     {
         return _music.count(name) > 0;
     }
 
-    music music_named(const string &name)
+    music music_named(const std::string &name)
     {
         if (has_music(name))
             return _music[name];
         else
         {
-            string filename = path_to_resource(name, MUSIC_RESOURCE);
+            std::string filename = path_to_resource(name, MUSIC_RESOURCE);
 
             if ( file_exists(filename) or file_exists(name))
                 return load_music(name, name);
@@ -155,12 +155,12 @@ namespace splashkit_lib
         play_music(data, times, 1.0f);
     }
 
-    void play_music(const string &name, int times)
+    void play_music(const std::string &name, int times)
     {
         play_music(music_named(name), times, 1.0f);
     }
 
-    void play_music(const string &name)
+    void play_music(const std::string &name)
     {
         play_music(music_named(name), 1, 1.0f);
     }
@@ -184,12 +184,12 @@ namespace splashkit_lib
         fade_music_in(data, 1, ms);
     }
 
-    void fade_music_in(const string &name, int times, int ms)
+    void fade_music_in(const std::string &name, int times, int ms)
     {
         fade_music_in(music_named(name), times, ms);
     }
 
-    void fade_music_in(const string &name, int ms)
+    void fade_music_in(const std::string &name, int ms)
     {
         fade_music_in(music_named(name), 1, ms);
     }
@@ -234,13 +234,13 @@ namespace splashkit_lib
         return sk_music_vol();
     }
 
-    string music_name(music data)
+    std::string music_name(music data)
     {
         if (INVALID_PTR(data, MUSIC_PTR)) return "";
         return data->name;
     }
 
-    string music_filename(music data)
+    std::string music_filename(music data)
     {
         if (INVALID_PTR(data, MUSIC_PTR)) return "";
         return data->filename;

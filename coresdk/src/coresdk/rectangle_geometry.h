@@ -11,8 +11,6 @@
 #include "types.h"
 #include <string>
 
-using std::string;
-
 namespace splashkit_lib
 {
     /**
@@ -167,7 +165,7 @@ namespace splashkit_lib
      * @param  rect The rectangle
      * @return      A string representation of the rectangle.
      */
-    string rectangle_to_string(const rectangle &rect);
+    std::string rectangle_to_string(const rectangle &rect);
 
     /**
      * Return a rectangle that is inset an amount from a given rectangle.
@@ -180,7 +178,7 @@ namespace splashkit_lib
 
     /**
      * Detects if a ray intersects a rectangle.
-     * 
+     *
      * @param origin        The starting point of the ray
      * @param heading       The direction of the ray as a vector
      * @param rect          The rectangle to check for intersection
@@ -194,7 +192,7 @@ namespace splashkit_lib
      * distance from the ray's origin to the intersection point. If the ray's `origin`
      * is contained within the rectangle, `hit_point` is set to the `origin` and `hit_distance`
      * is set to 0. If no intersection is found, `hit_point` and `hit_distance` are not modified.
-     * 
+     *
      * @param origin        The starting point of the ray
      * @param heading       The direction of the ray as a vector
      * @param rect          The rectangle to check for intersection
@@ -202,7 +200,7 @@ namespace splashkit_lib
      * @param hit_distance  The double to set to the distance from the ray's origin to
      *                      the intersection point
      * @returns             True if the ray intersects the rectangle, false otherwise
-     * 
+     *
      * @attribute suffix    with_hit_point_and_distance
      */
     bool rectangle_ray_intersection(const point_2d &origin, const vector_2d &heading, const rectangle &rect, point_2d &hit_point, double &hit_distance);

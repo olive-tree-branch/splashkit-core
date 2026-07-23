@@ -11,7 +11,6 @@
 #define timers_h
 
 #include <string>
-using std::string;
 
 namespace splashkit_lib
 {
@@ -34,7 +33,7 @@ namespace splashkit_lib
      * @param  name The name of the timer for resource tracking
      * @return      A new timer.
      */
-    timer create_timer(string name);
+    timer create_timer(std::string name);
 
     /**
      * Free the memory used to store this timer.
@@ -59,7 +58,7 @@ namespace splashkit_lib
      * @param  name The name of the timer to fetch
      * @return      Returns the timer fetched from SplashKit
      */
-    timer timer_named(string name);
+    timer timer_named(std::string name);
 
     /**
      * Checks if SplashKit has a timer with the indicated name.
@@ -69,7 +68,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    bool has_timer(string name);
+    bool has_timer(std::string name);
 
     /**
      * Start a timer. The timer will then start recording the time that has passed.
@@ -92,7 +91,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    void start_timer(string name);
+    void start_timer(std::string name);
 
     /**
      * Stop the timer. The time is reset to 0 and you must
@@ -113,7 +112,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    void stop_timer(string name);
+    void stop_timer(std::string name);
 
     /**
      * Pause the timer, getting ticks from a paused timer
@@ -134,7 +133,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    void pause_timer(string name);
+    void pause_timer(std::string name);
 
     /**
      * Resumes a paused timer.
@@ -153,7 +152,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    void resume_timer(string name);
+    void resume_timer(std::string name);
 
     /**
      * Resets the time of a given timer
@@ -172,7 +171,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    void reset_timer(string name);
+    void reset_timer(std::string name);
 
     /**
      * Gets the number of ticks (milliseconds) that have passed since the timer
@@ -201,7 +200,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    unsigned int timer_ticks(string name);
+    unsigned int timer_ticks(std::string name);
 
     /**
      * Indicates if the timer is paused.
@@ -222,7 +221,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    bool timer_paused(string name);
+    bool timer_paused(std::string name);
 
     /**
      * Indicates if the timer is started.
@@ -243,7 +242,7 @@ namespace splashkit_lib
      *
      * @attribute suffix named
      */
-    bool timer_started(string name);
+    bool timer_started(std::string name);
 }
 
 #endif /* timers_hpp */

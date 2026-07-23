@@ -9,7 +9,6 @@
 #define sound_h
 
 #include <string>
-using std::string;
 
 namespace splashkit_lib
 {
@@ -58,7 +57,7 @@ namespace splashkit_lib
      * @attribute class         sound_effect
      * @attribute constructor   true
      */
-    sound_effect load_sound_effect(const string &name, const string &filename);
+    sound_effect load_sound_effect(const std::string &name, const std::string &filename);
 
     /**
      * Determines if SplashKit has a sound effect loaded for the supplied name.
@@ -72,7 +71,7 @@ namespace splashkit_lib
      * @returns Returns `true` if there is a sound effect with the given `name` has
      *          has been loaded.
      */
-    bool has_sound_effect(const string &name);
+    bool has_sound_effect(const std::string &name);
 
     /**
      * Retrieves a `sound_effect` that has been loaded into SplashKit. If the
@@ -85,7 +84,7 @@ namespace splashkit_lib
      * @returns Returns the `sound_effect` that has been loaded with the specified
      *          `name` using `load_sound_effect`.
      */
-    sound_effect sound_effect_named(const string &name);
+    sound_effect sound_effect_named(const std::string &name);
 
     /**
      * Returns the name of the `sound_effect` that has been loaded by SplashKit
@@ -98,7 +97,7 @@ namespace splashkit_lib
      * @attribute getter    name
      * @attribute self      effect
      */
-    string sound_effect_name(sound_effect effect);
+    std::string sound_effect_name(sound_effect effect);
 
     /**
      * Returns the filename of the `sound_effect` that has been loaded by SplashKit
@@ -111,11 +110,11 @@ namespace splashkit_lib
      * @attribute getter    filename
      * @attribute self      effect
      */
-    string sound_effect_filename(sound_effect effect);
+    std::string sound_effect_filename(sound_effect effect);
 
     /**
      * Lets you test if a sound effect is valid. This will return true when it is a valid sound effect.
-     * 
+     *
      * @param effect the effect to test
      * @returns true when the sound effect is valid.
      */
@@ -143,7 +142,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    bool sound_effect_playing(const string &name);
+    bool sound_effect_playing(const std::string &name);
 
     /**
      * Releases the SplashKit resources associated with the sound effect.
@@ -229,7 +228,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named_with_times_and_volume
      */
-    void play_sound_effect(const string &name, int times, double volume);
+    void play_sound_effect(const std::string &name, int times, double volume);
 
     /**
      * Plays a sound effect for a specified number of times at full volume.
@@ -239,7 +238,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named_with_times
      */
-    void play_sound_effect(const string &name, int times);
+    void play_sound_effect(const std::string &name, int times);
 
     /**
      * Plays a sound effect once at full volume.
@@ -248,7 +247,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    void play_sound_effect(const string &name);
+    void play_sound_effect(const std::string &name);
 
     /**
      * Plays a sound effect once at full volume.
@@ -258,7 +257,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named_with_volume
      */
-    void play_sound_effect(const string &name, double volume);
+    void play_sound_effect(const std::string &name, double volume);
 
     /**
      * Stops the `sound_effect` if it is currently playing
@@ -278,7 +277,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    void stop_sound_effect(const string &name);
+    void stop_sound_effect(const std::string &name);
 
     /**
      * Fades out the `sound_effect` over the specified milliseconds.

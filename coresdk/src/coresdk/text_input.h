@@ -42,7 +42,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  with_initial_text
      */
-    void start_reading_text(rectangle rect, string initial_text);
+    void start_reading_text(rectangle rect, std::string initial_text);
 
     /**
      * Start reading text in the window within the bounds of the
@@ -57,7 +57,7 @@ namespace splashkit_lib
      * @attribute method  start_reading_text
      * @attribute self    wind
      */
-    void start_reading_text(window wind, rectangle rect, string initial_text);
+    void start_reading_text(window wind, rectangle rect, std::string initial_text);
 
     /**
      * Draw the text that the user is currently enterring on the current window.
@@ -131,7 +131,7 @@ namespace splashkit_lib
      *
      * @return The user's text entry
      */
-    string text_input();
+    std::string text_input();
 
     /**
      * The text the user has currently enterred on the current window.
@@ -144,6 +144,6 @@ namespace splashkit_lib
      * @attribute method  text_input
      * @attribute self    wind
      */
-    string text_input(window wind);
+    std::string text_input(window wind);
 }
 #endif /* text_input_hpp */

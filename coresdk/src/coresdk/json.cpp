@@ -13,11 +13,9 @@
 #include "core_driver.h"
 #include "utils.h"
 
-using std::ofstream;
-
 namespace splashkit_lib
 {
-    static vector<json> objects;
+    static std::vector<json> objects;
 
     json create_json()
     {
@@ -30,7 +28,7 @@ namespace splashkit_lib
         return j;
     };
 
-    json create_json(string json_string)
+    json create_json(std::string json_string)
     {
         json j = create_json();
         try
@@ -80,7 +78,7 @@ namespace splashkit_lib
         objects.clear();
     }
 
-    string json_to_string(json j)
+    std::string json_to_string(json j)
     {
         if (INVALID_PTR(j, JSON_PTR))
         {
@@ -91,14 +89,14 @@ namespace splashkit_lib
         return j->data.dump(4);
     };
 
-    json json_from_string(const string &j_string)
+    json json_from_string(const std::string &j_string)
     {
         return create_json(j_string);
     }
 
-    json json_from_file(const string &filename)
+    json json_from_file(const std::string &filename)
     {
-        string result = file_as_string(filename, JSON_RESOURCE);
+        std::string result = file_as_string(filename, JSON_RESOURCE);
         if (result.length() == 0)
         {
             LOG(WARNING) << "No input received when trying to open json from file " \
@@ -109,7 +107,7 @@ namespace splashkit_lib
         return json_from_string(result);
     };
 
-    void json_to_file(json j, const string& filename)
+    void json_to_file(json j, const std::string& filename)
     {
         if (INVALID_PTR(j, JSON_PTR))
         {
@@ -117,10 +115,10 @@ namespace splashkit_lib
             return;
         }
 
-        string path = path_to_resource(filename, JSON_RESOURCE);
-        string j_string = json_to_string(j);
+        std::string path = path_to_resource(filename, JSON_RESOURCE);
+        std::string j_string = json_to_string(j);
 
-        ofstream ofs(path);
+        std::ofstream ofs(path);
         if (ofs.is_open())
         {
             ofs << j_string;
@@ -132,54 +130,54 @@ namespace splashkit_lib
         }
     };
 
-    void json_set_string(json j, string key, string value)
+    void json_set_string(json j, std::string key, std::string value)
     {
         sk_json_add_value(j, key, value);
     };
 
-    void json_set_number(json j, string key, float value)
+    void json_set_number(json j, std::string key, float value)
     {
         sk_json_add_value(j, key, value);
     }
 
-    void json_set_number(json j, string key, double value)
+    void json_set_number(json j, std::string key, double value)
     {
         sk_json_add_value(j, key, value);
     }
 
-    void json_set_number(json j, string key, int value)
+    void json_set_number(json j, std::string key, int value)
     {
         sk_json_add_value(j, key, value);
     }
 
-    void json_set_bool(json j, string key, bool value)
+    void json_set_bool(json j, std::string key, bool value)
     {
         sk_json_add_value(j, key, value);
     }
 
-    void json_set_object(json j, string key, json obj)
+    void json_set_object(json j, std::string key, json obj)
     {
         sk_json_add_value(j, key, obj->data);
     }
 
-    void json_set_array(json j, string key, vector<string> value)
+    void json_set_array(json j, std::string key, std::vector<std::string> value)
     {
         sk_json_add_value(j, key, value);
     }
 
-    void json_set_array(json j, string key, vector<double> value)
+    void json_set_array(json j, std::string key, std::vector<double> value)
     {
         sk_json_add_value(j, key, value);
     }
 
-    void json_set_array(json j, string key, vector<bool> value)
+    void json_set_array(json j, std::string key, std::vector<bool> value)
     {
         sk_json_add_value(j, key, value);
     }
 
-    void json_set_array(json j, string key, vector<json> value)
+    void json_set_array(json j, std::string key, std::vector<json> value)
     {
-        vector<backend_json> real;
+        std::vector<backend_json> real;
 
         for (json frontend : value)
         {
@@ -196,32 +194,32 @@ namespace splashkit_lib
         sk_json_add_value(j, key, real);
     }
 
-    string json_read_string(json j, string key)
+    std::string json_read_string(json j, std::string key)
     {
-        return sk_json_read_value<string>(j, key, backend_json::value_t::string);
+        return sk_json_read_value<std::string>(j, key, backend_json::value_t::string);
     }
 
-    float json_read_number(json j, string key)
+    float json_read_number(json j, std::string key)
     {
         return sk_json_read_value<float>(j, key, backend_json::value_t::number_float);
     }
 
-    int json_read_number_as_int(json j, string key)
+    int json_read_number_as_int(json j, std::string key)
     {
         return sk_json_read_value<int>(j, key, backend_json::value_t::number_integer);
     }
 
-    double json_read_number_as_double(json j, string key)
+    double json_read_number_as_double(json j, std::string key)
     {
         return sk_json_read_value<double>(j, key, backend_json::value_t::number_float);
     }
 
-    bool json_read_bool(json j, string key)
+    bool json_read_bool(json j, std::string key)
     {
         return sk_json_read_value<bool>(j, key, backend_json::value_t::boolean);
     }
 
-    json json_read_object(json j, string key)
+    json json_read_object(json j, std::string key)
     {
         auto backend_j = sk_json_read_value<backend_json>(j, key, backend_json::value_t::object);
 
@@ -230,24 +228,24 @@ namespace splashkit_lib
         return result;
     }
 
-    void json_read_array(json j, string key, vector<double>& out)
+    void json_read_array(json j, std::string key, std::vector<double>& out)
     {
         sk_json_read_array(j, key, out);
     }
 
-    void json_read_array(json j, string key, vector<bool>& out)
+    void json_read_array(json j, std::string key, std::vector<bool>& out)
     {
         sk_json_read_array(j, key, out);
     }
 
-    void json_read_array(json j, string key, vector<string>& out)
+    void json_read_array(json j, std::string key, std::vector<std::string>& out)
     {
         sk_json_read_array(j, key, out);
     }
 
-    void json_read_array(json j, string key, vector<json>& out)
+    void json_read_array(json j, std::string key, std::vector<json>& out)
     {
-        vector<backend_json> real;
+        std::vector<backend_json> real;
         sk_json_read_array(j, key, real);
 
         out.clear();
@@ -260,7 +258,7 @@ namespace splashkit_lib
         }
     }
 
-    bool json_has_key(json j, string key)
+    bool json_has_key(json j, std::string key)
     {
         if (INVALID_PTR(j, JSON_PTR))
         {
@@ -285,7 +283,7 @@ namespace splashkit_lib
     json json_from_color(color clr)
     {
         json result = create_json();
-        string color_string = color_to_string(clr);
+        std::string color_string = color_to_string(clr);
         json_set_string(result, "color", color_string);
         return result;
     }
@@ -298,7 +296,7 @@ namespace splashkit_lib
             return COLOR_WHITE;
         }
 
-        string color_string = json_read_string(j, "color");
+        std::string color_string = json_read_string(j, "color");
         return string_to_color(color_string);
     }
 }

@@ -39,7 +39,7 @@ namespace splashkit_lib
      * @param name  The name used to identify the ADC device.
      * @returns     true if an ADC device with the supplied name exists.
      */
-    bool has_adc_device(const string &name);
+    bool has_adc_device(const std::string &name);
 
     /**
      * Retrieve an ADC device that has been loaded.
@@ -47,7 +47,7 @@ namespace splashkit_lib
      * @param name  The name of the ADC device.
      * @returns     The adc_device pointer if found; otherwise, nullptr.
      */
-    adc_device adc_device_named(const string &name);
+    adc_device adc_device_named(const std::string &name);
 
     /**
      * Loads an ADC device on the specified I2C bus at a given address.
@@ -62,7 +62,7 @@ namespace splashkit_lib
      * @attribute constructor true
      * @attribute suffix with_bus
      */
-    adc_device open_adc(const string &name, int bus, int address, adc_type type_of_adc);
+    adc_device open_adc(const std::string &name, int bus, int address, adc_type type_of_adc);
 
     /**
      * Opens an ADC device with the specified name and type. Defaults to bus 1 and address 0x48.
@@ -74,7 +74,7 @@ namespace splashkit_lib
      * @attribute class        adc_device
      * @attribute constructor  true
      */
-    adc_device open_adc(const string &name, adc_type type_of_adc);
+    adc_device open_adc(const std::string &name, adc_type type_of_adc);
 
     /**
      * Reads an 8-bit value from the specified ADC channel on the device.
@@ -98,7 +98,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    int read_adc(const string &name, adc_pin channel);
+    int read_adc(const std::string &name, adc_pin channel);
 
     /**
      * Closes an ADC device given its pointer.
@@ -119,7 +119,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  named
      */
-    void close_adc(const string &name);
+    void close_adc(const std::string &name);
 
     /**
      * Closes all ADC devices that have been opened.

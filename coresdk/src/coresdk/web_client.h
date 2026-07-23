@@ -13,7 +13,6 @@
 #include "text.h"
 
 #include <string>
-using std::string;
 
 namespace splashkit_lib
 {
@@ -34,7 +33,7 @@ namespace splashkit_lib
      * @param  port The port on the server (80 for http, 443 for https)
      * @return      The response with all of the data received
      */
-    http_response http_get(const string &url, unsigned short port);
+    http_response http_get(const std::string &url, unsigned short port);
 
     /**
      * Post the supplied information to the indicated url.
@@ -44,7 +43,7 @@ namespace splashkit_lib
      * @param  body The body of the message to post
      * @return      The response from the server
      */
-    http_response http_post(const string &url, unsigned short port, string body);
+    http_response http_post(const std::string &url, unsigned short port, std::string body);
 
     /**
      * Post the supplied information to the indicated url with the given headers.
@@ -57,7 +56,7 @@ namespace splashkit_lib
      *
      * @attribute suffix  with_headers
      */
-    http_response http_post(const string &url, unsigned short port, const string &body, const vector<string> &headers);
+    http_response http_post(const std::string &url, unsigned short port, const std::string &body, const std::vector<std::string> &headers);
 
     /**
      * Download an image from a web server and load it into SplashKit so that
@@ -68,7 +67,7 @@ namespace splashkit_lib
      * @param  port The port to connect to on the server
      * @return      The bitmap that was loaded
      */
-    bitmap download_bitmap(const string &name, const string &url, unsigned short port);
+    bitmap download_bitmap(const std::string &name, const std::string &url, unsigned short port);
 
     /**
      * Download a font from a web server and load it into SplashKit so that
@@ -79,7 +78,7 @@ namespace splashkit_lib
      * @param  port The port to connect to on the server
      * @return      The font that was loaded
      */
-    font download_font(const string &name, const string &url, unsigned short port);
+    font download_font(const std::string &name, const std::string &url, unsigned short port);
 
     /**
      * Download a sound effect from a web server and load it into SplashKit so
@@ -90,7 +89,7 @@ namespace splashkit_lib
      * @param  port The port to connect to on the server
      * @return      The sound effect that was loaded
      */
-    sound_effect download_sound_effect(const string &name, const string &url, unsigned short port);
+    sound_effect download_sound_effect(const std::string &name, const std::string &url, unsigned short port);
 
     /**
      * Download a music file from a web server and load it into SplashKit so
@@ -101,7 +100,7 @@ namespace splashkit_lib
      * @param  port The port to connect to on the server
      * @return      The music that was loaded
      */
-    music download_music(const string &name, const string &url, unsigned short port);
+    music download_music(const std::string &name, const std::string &url, unsigned short port);
 
     /**
      * Read the HTTP response and convert it to text
@@ -109,7 +108,7 @@ namespace splashkit_lib
      * @param  response The response from the server
      * @return          The data from the response as text
      */
-    string http_response_to_string(http_response response);
+    std::string http_response_to_string(http_response response);
 
     /**
      * Save the HTTP response downloaded into a file.
@@ -117,7 +116,7 @@ namespace splashkit_lib
      * @param response The response from the server
      * @param path     The path to the file where the response should be saved
      */
-    void save_response_to_file(http_response response, string path);
+    void save_response_to_file(http_response response, std::string path);
 
     /**
      * Free the response resource.

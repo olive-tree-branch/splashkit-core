@@ -18,12 +18,9 @@
 
 #include <map>
 
-using std::map;
-using std::to_string;
-
 namespace splashkit_lib
 {
-    extern map<string, window> _windows;
+    extern std::map<std::string, window> _windows;
     extern window _current_window;
 
     static unsigned int _last_update_time = 0;
@@ -42,7 +39,7 @@ namespace splashkit_lib
         unsigned int now = current_ticks();
         unsigned int delta = now - _last_update_time;
         unsigned int delay_time;
-        
+
         //dont sleep if 5ms remaining...
         while ((target_fps > 0) and ((delta + 8) * target_fps < 1000))
         {
@@ -51,10 +48,10 @@ namespace splashkit_lib
             now = current_ticks();
             delta = now - _last_update_time;
         }
-        
+
         _last_update_time = now;
     }
-    
+
     void refresh_screen(unsigned int target_fps)
     {
         refresh_screen();
@@ -81,22 +78,22 @@ namespace splashkit_lib
         return window_height(current_window());
     }
 
-    void _save_surface(image_data &image, string basename)
+    void _save_surface(image_data &image, std::string basename)
     {
-        string path = path_from( {path_to_user_home(), "Desktop"} );
+        std::string path = path_from( {path_to_user_home(), "Desktop"} );
 
         if (not directory_exists(path))
         {
             path = path_to_user_home();
         }
 
-        string filename = basename + ".png";
+        std::string filename = basename + ".png";
 
         int i = 1;
 
         while (file_exists( path_from({path}, filename)))
         {
-            filename = basename + to_string(i) + ".png";
+            filename = basename + std::to_string(i) + ".png";
             i = i + 1;
         }
 
@@ -105,12 +102,12 @@ namespace splashkit_lib
         sk_save_png(&image.surface, path.c_str());
     }
 
-    void take_screenshot(const string &basename)
+    void take_screenshot(const std::string &basename)
     {
         take_screenshot(current_window(), basename);
     }
 
-    void take_screenshot(window wind, const string &basename)
+    void take_screenshot(window wind, const std::string &basename)
     {
         if ( INVALID_PTR(wind, WINDOW_PTR))
         {
@@ -121,7 +118,7 @@ namespace splashkit_lib
         _save_surface(wind->image, basename);
     }
 
-    void save_bitmap(bitmap bmp, const string &basename)
+    void save_bitmap(bitmap bmp, const std::string &basename)
     {
         if ( INVALID_PTR(bmp, BITMAP_PTR))
         {
@@ -161,7 +158,7 @@ namespace splashkit_lib
             return nullptr;
     }
 
-    string display_name(display disp)
+    std::string display_name(display disp)
     {
         if ( INVALID_PTR(disp, DISPLAY_PTR) )
         {
@@ -169,7 +166,7 @@ namespace splashkit_lib
             return "";
         }
 
-        return string(disp->name);
+        return std::string(disp->name);
     }
 
     int display_width(display disp)
@@ -182,7 +179,7 @@ namespace splashkit_lib
 
         return disp->width;
     }
-    
+
     int display_height(display disp)
     {
         if ( INVALID_PTR(disp, DISPLAY_PTR) )
@@ -190,10 +187,10 @@ namespace splashkit_lib
             LOG(WARNING) << "Attempting to get height of invalid display";
             return 0;
         }
-        
+
         return disp->height;
     }
-    
+
     int display_x(display disp)
     {
         if ( INVALID_PTR(disp, DISPLAY_PTR) )
@@ -201,10 +198,10 @@ namespace splashkit_lib
             LOG(WARNING) << "Attempting to get x of invalid display";
             return 0;
         }
-        
+
         return disp->x;
     }
-    
+
     int display_y(display disp)
     {
         if ( INVALID_PTR(disp, DISPLAY_PTR) )
@@ -212,7 +209,7 @@ namespace splashkit_lib
             LOG(WARNING) << "Attempting to get y of invalid display";
             return 0;
         }
-        
+
         return disp->y;
     }
 }

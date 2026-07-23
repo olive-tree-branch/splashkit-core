@@ -10,7 +10,6 @@
 #include <cmath>
 
 #include <vector>
-using std::vector;
 
 namespace splashkit_lib
 {
@@ -111,22 +110,22 @@ namespace splashkit_lib
     }
 
     bool triangle_ray_intersection(const point_2d &origin, const vector_2d &heading, const triangle &tri, point_2d &hit_point, double &hit_distance)
-    {        
+    {
         vector_2d unit_heading = unit_vector(heading);
-        
+
         // check whether unit heading is a zero vector
         if (vector_magnitude_squared(unit_heading) < __DBL_EPSILON__)
         {
             return false;
         }
-        
+
         if (point_in_triangle(origin, tri))
         {
             hit_point = origin;
             hit_distance = 0.0;
             return true;
         }
-        
+
         bool has_collision = false;
         double closest_distance = __DBL_MAX__;
 
@@ -137,7 +136,7 @@ namespace splashkit_lib
             point_2d end_point = tri.points[(i + 1) % 3];          // End point of the edge
 
             vector_2d edge_vector = vector_point_to_point(start_point, end_point); // Edge vector
-            vector_2d origin_to_edge = vector_point_to_point(origin, start_point); 
+            vector_2d origin_to_edge = vector_point_to_point(origin, start_point);
 
             // Cross product to determine parallelism
             double cross_ray_and_edge = (unit_heading.x * edge_vector.y) - (unit_heading.y * edge_vector.x);
@@ -174,7 +173,7 @@ namespace splashkit_lib
 
     bool triangle_quad_intersect(const triangle &tri, const quad &q)
     {
-        vector<triangle> q_tris = triangles_from(q);
+        std::vector<triangle> q_tris = triangles_from(q);
 
         for (size_t i = 0; i < q_tris.size(); i++)
         {
@@ -192,8 +191,8 @@ namespace splashkit_lib
             if ( point_in_triangle(t1.points[i], t2) || point_in_triangle(t2.points[i], t1) ) return true;
         }
 
-        vector<line> t1_lines = lines_from(t1);
-        vector<line> t2_lines = lines_from(t2);
+        std::vector<line> t1_lines = lines_from(t1);
+        std::vector<line> t2_lines = lines_from(t2);
 
         // Check if any lines intersect (check first two of both, as if they do not intersect then
         // it cant intersect the third either)
@@ -215,7 +214,7 @@ namespace splashkit_lib
                 (tri.points[0].y + tri.points[1].y + tri.points[2].y) / 3);
     }
 
-    string triangle_to_string(const triangle  &tri)
+    std::string triangle_to_string(const triangle  &tri)
     {
         return "Triangle @" + point_to_string(tri.points[0]) + " - " + point_to_string(tri.points[1]) + " - " + point_to_string(tri.points[2]);
     }

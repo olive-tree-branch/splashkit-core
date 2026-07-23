@@ -14,8 +14,6 @@
 
 #include <cmath>
 
-using std::abs;
-
 namespace splashkit_lib
 {
     circle circle_at(const point_2d &pt, double radius)
@@ -108,13 +106,13 @@ namespace splashkit_lib
     bool circle_ray_intersection(const point_2d &origin, const vector_2d &heading, const circle &circ, point_2d &hit_point, double &hit_distance)
     {
         vector_2d unit_heading = unit_vector(heading);
-        
+
         // check whether unit heading is a zero vector
         if (vector_magnitude_squared(unit_heading) < __DBL_EPSILON__)
         {
             return false;
         }
-        
+
         if (point_in_circle(origin, circ))
         {
             hit_point = origin;
@@ -218,7 +216,7 @@ namespace splashkit_lib
 
         // time to work out the real tangent points then
         double inv_sqr_len = 1.0 / sqr_len;
-        double root = sqrt(abs(sqr_len - r_sqr));
+        double root = sqrt(std::abs(sqr_len - r_sqr));
 
         p1.x = c.center.x + c.radius * (c.radius * pm_c.x - pm_c.y * root) * inv_sqr_len;
         p1.y = c.center.y + c.radius * (c.radius * pm_c.y + pm_c.x * root) * inv_sqr_len;
@@ -230,8 +228,8 @@ namespace splashkit_lib
 
     bool circle_quad_intersect(const circle &c, const quad &q)
     {
-        vector<triangle> q_tris = triangles_from(q);
-        
+        std::vector<triangle> q_tris = triangles_from(q);
+
         for (size_t i = 0; i < q_tris.size(); i++)
         {
             if (circle_triangle_intersect(c, q_tris[i]))

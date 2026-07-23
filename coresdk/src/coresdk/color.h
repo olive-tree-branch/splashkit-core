@@ -843,7 +843,7 @@ namespace splashkit_lib
      * @param  c The color
      * @return   A hex string representing the color
      */
-    string color_to_string(color c);
+    std::string color_to_string(color c);
 
     /**
      *  Returns a color for the passed in color string.
@@ -854,7 +854,7 @@ namespace splashkit_lib
      * @param  str The hex string representing the color
      * @return     The color represented in the string
      */
-    color string_to_color(string str);
+    color string_to_color(std::string str);
 
     /**
      * Returns the alpha of the supplied color.

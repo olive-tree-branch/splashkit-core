@@ -17,12 +17,9 @@
 #include <cstdlib>
 #include <cmath>
 
-using std::map;
-using std::to_string;
-
 namespace splashkit_lib
 {
-    static map<string, bitmap> _bitmaps;
+    static std::map<std::string, bitmap> _bitmaps;
 
     void setup_collision_mask(bitmap bmp)
     {
@@ -31,7 +28,7 @@ namespace splashkit_lib
             LOG(WARNING) << "Attempt to setup collision map with invalid bitmp";
             return;
         }
-        
+
         int *pixels;
         int sz;
         int r, c;
@@ -58,24 +55,24 @@ namespace splashkit_lib
 
         free(pixels);
     }
-    
+
     bool bitmap_valid(bitmap bmp)
     {
         return VALID_PTR(bmp, BITMAP_PTR);
     }
 
-    bool has_bitmap(string name)
+    bool has_bitmap(std::string name)
     {
         return _bitmaps.count(name) > 0;
     }
 
-    bitmap bitmap_named(string name)
+    bitmap bitmap_named(std::string name)
     {
         if (has_bitmap(name))
             return _bitmaps[name];
         else
         {
-            string filename = path_to_resource(name, IMAGE_RESOURCE);
+            std::string filename = path_to_resource(name, IMAGE_RESOURCE);
 
             if ( file_exists(filename) or file_exists(name))
                 return load_bitmap(name, name);
@@ -84,14 +81,14 @@ namespace splashkit_lib
     }
 
 
-    bitmap load_bitmap(string name, string filename)
+    bitmap load_bitmap(std::string name, std::string filename)
     {
         if (has_bitmap(name)) return bitmap_named(name);
 
         sk_drawing_surface surface;
         bitmap result = nullptr;
 
-        string file_path = filename;
+        std::string file_path = filename;
 
         if ( ! file_exists(file_path) )
         {
@@ -132,7 +129,7 @@ namespace splashkit_lib
         return result;
     }
 
-    bitmap create_bitmap(string name, int width, int height)
+    bitmap create_bitmap(std::string name, int width, int height)
     {
         bitmap result = new(_bitmap_data);
 
@@ -149,10 +146,10 @@ namespace splashkit_lib
         result->filename   = "";
 
         int idx = 0;
-        string key = name;
+        std::string key = name;
         while (has_bitmap(key))
         {
-            key = name + to_string(idx);
+            key = name + std::to_string(idx);
             idx++;
         }
 
@@ -187,14 +184,14 @@ namespace splashkit_lib
         FREE_ALL_FROM_MAP(_bitmaps, BITMAP_PTR, free_bitmap);
     }
 
-    string bitmap_filename(bitmap bmp)
+    std::string bitmap_filename(bitmap bmp)
     {
         if ( INVALID_PTR(bmp, BITMAP_PTR)) return "";
 
         return bmp->filename;
     }
 
-    string bitmap_name(bitmap bmp)
+    std::string bitmap_name(bitmap bmp)
     {
         if ( INVALID_PTR(bmp, BITMAP_PTR)) return "";
 
@@ -212,7 +209,7 @@ namespace splashkit_lib
         sk_clear_drawing_surface(&bmp->image.surface, clr);
     }
 
-    void clear_bitmap(string name, color clr)
+    void clear_bitmap(std::string name, color clr)
     {
         clear_bitmap(bitmap_named(name), clr);
     }
@@ -235,8 +232,8 @@ namespace splashkit_lib
         double dst_data[7];
         sk_renderer_flip flip;
         sk_drawing_surface * dest;
-        
-        
+
+
 
         if ( VALID_PTR(opts.anim, ANIMATION_PTR) || opts.draw_cell >= 0 )
         {
@@ -245,7 +242,7 @@ namespace splashkit_lib
                 cell = opts.draw_cell;
             else
                 cell = animation_current_cell(opts.anim);
-            
+
             rectangle part = bitmap_rectangle_of_cell(bmp, cell);
             src_data[0] = part.x;
             src_data[1] = part.y;
@@ -312,12 +309,12 @@ namespace splashkit_lib
         draw_bitmap(bmp, x, y, option_draw_to(destination, opts));
     }
 
-    void draw_bitmap(string name, double x, double y)
+    void draw_bitmap(std::string name, double x, double y)
     {
         draw_bitmap(bitmap_named(name), x, y, option_defaults());
     }
 
-    void draw_bitmap(string name, double x, double y, drawing_options opts)
+    void draw_bitmap(std::string name, double x, double y, drawing_options opts)
     {
         draw_bitmap(bitmap_named(name), x, y, opts);
     }
@@ -457,7 +454,7 @@ namespace splashkit_lib
         return bmp->image.surface.width;
     }
 
-    int bitmap_width(string name)
+    int bitmap_width(std::string name)
     {
         return bitmap_width(bitmap_named(name));
     }
@@ -473,7 +470,7 @@ namespace splashkit_lib
         return bmp->image.surface.height;
     }
 
-    int bitmap_height(string name)
+    int bitmap_height(std::string name)
     {
         return bitmap_height(bitmap_named(name));
     }

@@ -15,9 +15,6 @@
 #include <vector>
 #include <map>
 
-using std::map;
-using std::vector;
-
 namespace splashkit_lib
 {
     void draw_collected_text(color clr, font fnt, int font_size, const drawing_options &opts)
@@ -29,7 +26,7 @@ namespace splashkit_lib
             return;
         }
 
-        string ct = current->input_text;
+        std::string ct = current->input_text;
 
         rectangle input_area = current->input_area;
         double x = input_area.x;
@@ -59,7 +56,7 @@ namespace splashkit_lib
         start_reading_text(current_window(), rect, "");
     }
 
-    void start_reading_text(rectangle rect, string initial_text)
+    void start_reading_text(rectangle rect, std::string initial_text)
     {
         start_reading_text(current_window(), rect, initial_text);
     }
@@ -69,7 +66,7 @@ namespace splashkit_lib
         start_reading_text(wind, rect, "");
     }
 
-    void start_reading_text(window wind, rectangle rect, string initial_text)
+    void start_reading_text(window wind, rectangle rect, std::string initial_text)
     {
         if ( INVALID_PTR(wind, WINDOW_PTR))
         {
@@ -80,12 +77,12 @@ namespace splashkit_lib
         sk_start_reading_text(wind, rect.x, rect.y, rect.width, rect.height, initial_text);
     }
 
-    string text_input()
+    std::string text_input()
     {
         return text_input(current_window());
     }
 
-    string text_input(window wind)
+    std::string text_input(window wind)
     {
         if ( INVALID_PTR(wind, WINDOW_PTR) )
         {
@@ -111,12 +108,12 @@ namespace splashkit_lib
 
         return wind->cancelled_text_reading;
     }
-    
+
     void end_reading_text()
     {
         end_reading_text(current_window());
     }
-    
+
     void end_reading_text(window wind)
     {
         if ( INVALID_PTR(wind, WINDOW_PTR) )

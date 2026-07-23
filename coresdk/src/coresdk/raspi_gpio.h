@@ -144,7 +144,7 @@ namespace splashkit_lib
      * @param bytes_transfered  The number of bytes transferred (output)
      * @returns        The data returned from the spi transfer
      */
-    string raspi_spi_transfer(int handle, const string &send, int count, int &bytes_transfered);
+    std::string raspi_spi_transfer(int handle, const std::string &send, int count, int &bytes_transfered);
 
     /**
      * Opens I2C communication on selected address. It will return -1 if not using Raspberry Pi.
@@ -220,7 +220,7 @@ namespace splashkit_lib
      * @param port   The port to use for the connection.
      * @returns      The connection object used to communicate with the remote Raspberry Pi.
      */
-    connection remote_raspi_init(const string &name, const string &host, unsigned short int port);
+    connection remote_raspi_init(const std::string &name, const std::string &host, unsigned short int port);
 
     /**
      * @brief Sets the mode of the specified pin on a remote Raspberry Pi.

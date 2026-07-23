@@ -14,8 +14,6 @@
 #include <string>
 #include "types.h"
 
-using std::string;
-
 namespace splashkit_lib
 {
 
@@ -195,6 +193,6 @@ namespace splashkit_lib
      * @param matrix    The matrix to convert to a string.
      * @returns         A string representation of the matrix.
      */
-    string matrix_to_string(const matrix_2d &matrix);
+    std::string matrix_to_string(const matrix_2d &matrix);
 }
 #endif /* matrix_2d_h */

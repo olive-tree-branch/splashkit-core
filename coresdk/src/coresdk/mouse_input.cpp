@@ -10,18 +10,14 @@
 #include "input_driver.h"
 #include "vector_2d.h"
 
-#include <vector>
 #include <map>
-
-using std::vector;
-using std::map;
 
 namespace splashkit_lib
 {
     bool _mouse_button_clicked[6] = { false };
 
     vector_2d _wheel_scroll = {0,0};
-    map<int, bool> _button_clicked;
+    std::map<int, bool> _button_clicked;
 
     void _mouse_start_process_events()
     {
@@ -118,30 +114,30 @@ namespace splashkit_lib
         if ( wind )
             sk_warp_mouse(&wind->image.surface, static_cast<int>(x), static_cast<int>(y));
     }
-    
+
     void move_mouse(point_2d point)
     {
         move_mouse(point.x, point.y);
     }
-    
+
     void show_mouse()
     {
         show_mouse(true);
     }
-    
+
     void show_mouse(bool show)
     {
         sk_show_mouse(show ?  1 : 0);
     }
-    
+
     void hide_mouse()
     {
         show_mouse(false);
     }
-    
+
     bool mouse_shown()
     {
         return sk_show_mouse(-1);
     }
-    
+
 }
