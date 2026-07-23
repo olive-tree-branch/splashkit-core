@@ -12,7 +12,7 @@ TEST_CASE("can create a server", "[networking]")
 
     SECTION("can create a UDP server")
     {
-        const string SERVER_NAME = "test_server";
+        const std::string SERVER_NAME = "test_server";
 
         server_socket server = create_server(SERVER_NAME, PORT, UDP);
         REQUIRE(server != nullptr);
@@ -25,7 +25,7 @@ TEST_CASE("can create a server", "[networking]")
     }
     SECTION("can create a TCP server")
     {
-        const string SERVER_NAME = "test_server_2";
+        const std::string SERVER_NAME = "test_server_2";
 
         server_socket server = create_server(SERVER_NAME, PORT, TCP);
         REQUIRE(server != nullptr);
@@ -46,12 +46,12 @@ TEST_CASE("can communicate with server", "[networking]")
     close_all_connections();
 
     constexpr unsigned short int PORT = 3001;
-    const string TEST_IP = "localhost";
+    const std::string TEST_IP = "localhost";
 
     SECTION("can communicate with a TCP server")
     {
-        const string SERVER_NAME = "test_server_3";
-        const string CONNECTION_NAME = "test_connection";
+        const std::string SERVER_NAME = "test_server_3";
+        const std::string CONNECTION_NAME = "test_connection";
         server_socket server;
 
         SECTION("can create server with no connections")
@@ -84,8 +84,8 @@ TEST_CASE("can communicate with server", "[networking]")
     }
     SECTION("can communicate with a UDP server")
     {
-        const string SERVER_NAME = "test_server_4";
-        const string CONNECTION_NAME = "test_connection_2";
+        const std::string SERVER_NAME = "test_server_4";
+        const std::string CONNECTION_NAME = "test_connection_2";
 
         server_socket server;
         SECTION("can create server with no connections")
@@ -127,8 +127,8 @@ TEST_CASE("can communicate with server", "[networking]")
         REQUIRE_FALSE(is_connection_open(conn));
         enable_logging(WARNING);
 
-        const string INVALID_IP = "invalid_ip";
-        
+        const std::string INVALID_IP = "invalid_ip";
+
         disable_logging(ERROR); //Disables "ERROR -> Could not establish connection at open_connection after calling _establish_connection"
         connection conn2 = open_connection("test_connection_4", INVALID_IP, PORT, TCP);
         enable_logging(ERROR);

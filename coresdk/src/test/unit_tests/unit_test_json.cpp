@@ -29,7 +29,7 @@ json create_person()
 
     json_set_object(person, "addresses", addresses);
 
-    vector<string> numbers = {"212 555-1234", "646 555-4567"};
+    std::vector<std::string> numbers = {"212 555-1234", "646 555-4567"};
     json_set_array(person, "phoneNumbers", numbers);
 
     json_set_bool(person, "pensioner", true);
@@ -56,8 +56,8 @@ TEST_CASE("json can be created and read", "[json]")
         REQUIRE(json_read_string(addresses, "state") == "NY");
         REQUIRE(json_read_number_as_int(addresses, "postalCode") == 10021);
 
-        vector<string> validation_numbers { "212 555-1234", "646 555-4567" };
-        vector<string> numbers;
+        std::vector<std::string> validation_numbers { "212 555-1234", "646 555-4567" };
+        std::vector<std::string> numbers;
         json_read_array(person, "phoneNumbers", numbers);
 
         REQUIRE(validation_numbers.size() == numbers.size());
@@ -74,7 +74,7 @@ TEST_CASE("json can be created and read", "[json]")
     {
         SECTION("json can be written to/from string")
         {
-            string json_string = json_to_string(person);
+            std::string json_string = json_to_string(person);
             json j = json_from_string(json_string);
 
             REQUIRE(json_read_string(j, "firstName") == "John");
@@ -82,7 +82,7 @@ TEST_CASE("json can be created and read", "[json]")
 
         SECTION("json can be written to/from file")
         {
-            string filename = "person.json";
+            std::string filename = "person.json";
             json_to_file(person, filename);
             json j = json_from_file(filename);
 

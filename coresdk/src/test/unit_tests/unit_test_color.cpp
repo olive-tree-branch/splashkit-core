@@ -59,14 +59,14 @@ TEST_CASE("can convert a color to a hex string", "[color_to_string][color_green]
     SECTION("color green converts to hex string correctly")
     {
         color green = color_green();
-        string str = color_to_string(green);
+        std::string str = color_to_string(green);
         REQUIRE(str == "#007f00ff");
     }
 
     SECTION("round-trip color to hex string and back")
     {
         color original = rgba_color(50, 100, 150, 200);
-        string hex = color_to_string(original);
+        std::string hex = color_to_string(original);
         color result = string_to_color(hex);
         REQUIRE(red_of(result) == 50);
         REQUIRE(green_of(result) == 100);

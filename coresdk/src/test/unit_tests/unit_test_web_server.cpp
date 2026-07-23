@@ -23,25 +23,24 @@ using namespace splashkit_lib;
 
 TEST_CASE("split uri stubs", "[web_server]")
 {
-    vector<string> empty;
+    std::vector<std::string> empty;
 
     SECTION("can parse uri without path")
     {
        CHECK(split_uri_stubs("")  == empty);
-       CHECK(split_uri_stubs("/") == (vector<string>) {""});
+       CHECK(split_uri_stubs("/") == (std::vector<std::string>) {""});
     }
 
     SECTION("can parse uri with path")
     {
-       CHECK(split_uri_stubs("/one")      == (vector<string>) {"one"});
-       CHECK(split_uri_stubs("/one/two/") == (vector<string>) {"one", "two"});
+       CHECK(split_uri_stubs("/one")      == (std::vector<std::string>) {"one"});
+       CHECK(split_uri_stubs("/one/two/") == (std::vector<std::string>) {"one", "two"});
     }
 
     SECTION("can parse uri with arguments")
     {
        CHECK(split_uri_stubs("?foo=bar")      == empty);
-       CHECK(split_uri_stubs("/one/?foo=bar") == (vector<string>) {"one"});
-       CHECK(split_uri_stubs("/one?foo=bar")  == (vector<string>) {"one"});
+       CHECK(split_uri_stubs("/one/?foo=bar") == (std::vector<std::string>) {"one"});
+       CHECK(split_uri_stubs("/one?foo=bar")  == (std::vector<std::string>) {"one"});
     }
 }
-

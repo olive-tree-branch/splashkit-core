@@ -50,7 +50,7 @@ TEST_CASE("triangle and rectangle collision detection", "[triangle][rectangle]")
             rectangle r = rectangle_from(50, 0, -100, 100);
             CHECK(triangle_rectangle_intersect(t, r));
         }
-        
+
         SECTION("right side")
         {
             rectangle r = rectangle_from(50, 0, 100, 100);
@@ -66,7 +66,7 @@ TEST_CASE("triangle and rectangle collision detection", "[triangle][rectangle]")
 
     SECTION("triangle point ordering")
     {
-        vector<point_2d> triangle_points = {point_at(0, 0), point_at(50, 100), point_at(100, 0)};
+        std::vector<point_2d> triangle_points = {point_at(0, 0), point_at(50, 100), point_at(100, 0)};
         rectangle r = rectangle_from(0, 0, 50, 50);
 
         for (point_2d a : triangle_points) {
@@ -81,4 +81,3 @@ TEST_CASE("triangle and rectangle collision detection", "[triangle][rectangle]")
         }
     }
 }
-

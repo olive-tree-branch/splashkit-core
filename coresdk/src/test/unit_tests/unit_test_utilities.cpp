@@ -512,74 +512,74 @@ TEST_CASE("can split a string into an array of strings based on a delimiter")
 {
     SECTION("string is not empty")
     {
-        vector<string> result = split("splashkit library", ' ');
-        vector<string> expected = { "splashkit", "library" };
+        std::vector<std::string> result = split("splashkit library", ' ');
+        std::vector<std::string> expected = { "splashkit", "library" };
         REQUIRE(result == expected);
     }
     SECTION("string is empty")
     {
-        vector<string> result = split("", ' ');
-        vector<string> expected = { "" };
+        std::vector<std::string> result = split("", ' ');
+        std::vector<std::string> expected = { "" };
         REQUIRE(result == expected);
     }
     SECTION("delimiter is not in the string")
     {
-        vector<string> result = split("splashkit library", ',');
-        vector<string> expected = { "splashkit library" };
+        std::vector<std::string> result = split("splashkit library", ',');
+        std::vector<std::string> expected = { "splashkit library" };
         REQUIRE(result == expected);
     }
     SECTION("delimiter is at the start of the string")
     {
-        vector<string> result = split(",splashkit library", ',');
-        vector<string> expected = { "", "splashkit library" };
+        std::vector<std::string> result = split(",splashkit library", ',');
+        std::vector<std::string> expected = { "", "splashkit library" };
         REQUIRE(result == expected);
     }
     SECTION("delimiter is at the end of the string")
     {
-        vector<string> result = split("splashkit library,", ',');
-        vector<string> expected = { "splashkit library", "" };
+        std::vector<std::string> result = split("splashkit library,", ',');
+        std::vector<std::string> expected = { "splashkit library", "" };
         REQUIRE(result == expected);
     }
     SECTION("delimiter is at the start and end of the string")
     {
-        vector<string> result = split(",splashkit library,", ',');
-        vector<string> expected = { "", "splashkit library", "" };
+        std::vector<std::string> result = split(",splashkit library,", ',');
+        std::vector<std::string> expected = { "", "splashkit library", "" };
         REQUIRE(result == expected);
     }
     SECTION("delimiter is repeated")
     {
-        vector<string> result = split("splashkit,,library", ',');
-        vector<string> expected = { "splashkit", "", "library" };
+        std::vector<std::string> result = split("splashkit,,library", ',');
+        std::vector<std::string> expected = { "splashkit", "", "library" };
         REQUIRE(result == expected);
     }
     SECTION("delimiter is a space")
     {
-        vector<string> result = split("splashkit library", ' ');
-        vector<string> expected = { "splashkit", "library" };
+        std::vector<std::string> result = split("splashkit library", ' ');
+        std::vector<std::string> expected = { "splashkit", "library" };
         REQUIRE(result == expected);
     }
     SECTION("delimiter is a tab")
     {
-        vector<string> result = split("splashkit\tlibrary", '\t');
-        vector<string> expected = { "splashkit", "library" };
+        std::vector<std::string> result = split("splashkit\tlibrary", '\t');
+        std::vector<std::string> expected = { "splashkit", "library" };
         REQUIRE(result == expected);
     }
     SECTION("delimiter is a newline")
     {
-        vector<string> result = split("splashkit\nlibrary", '\n');
-        vector<string> expected = { "splashkit", "library" };
+        std::vector<std::string> result = split("splashkit\nlibrary", '\n');
+        std::vector<std::string> expected = { "splashkit", "library" };
         REQUIRE(result == expected);
     }
     SECTION("delimiter is a carriage return")
     {
-        vector<string> result = split("splashkit\rlibrary", '\r');
-        vector<string> expected = { "splashkit", "library" };
+        std::vector<std::string> result = split("splashkit\rlibrary", '\r');
+        std::vector<std::string> expected = { "splashkit", "library" };
         REQUIRE(result == expected);
     }
     SECTION("delimiter is a space, newline, and carriage return")
     {
-        vector<string> result = split("splashkit \n\rlibrary", ' ');
-        vector<string> expected = { "splashkit", "\n\rlibrary" };
+        std::vector<std::string> result = split("splashkit \n\rlibrary", ' ');
+        std::vector<std::string> expected = { "splashkit", "\n\rlibrary" };
         REQUIRE(result == expected);
     }
 }
@@ -717,7 +717,7 @@ TEST_CASE("gets the number of milliseconds that have passed since the program wa
 TEST_CASE("program is put to sleep for a specified number of milliseconds", "[delay]")
 {
     constexpr long long DELAY_THRESHOLD = 80;
-    
+
     SECTION("milliseconds is 0")
     {
         auto start = std::chrono::steady_clock::now();
@@ -746,24 +746,24 @@ TEST_CASE("program is put to sleep for a specified number of milliseconds", "[de
 TEST_CASE("return a SplashKit resource of resource_kind with name filename as a string", "[file_as_string]")
 {
     const resource_kind RESOURCE = resource_kind::BUNDLE_RESOURCE;
-    const string RESOURCE_PATH = "blah.txt";
-    
+    const std::string RESOURCE_PATH = "blah.txt";
+
     SECTION("filename is a valid file")
     {
-        string result = file_as_string(RESOURCE_PATH, RESOURCE);
-        string expected = "BITMAP,ufo,ufo.png\n";
+        std::string result = file_as_string(RESOURCE_PATH, RESOURCE);
+        std::string expected = "BITMAP,ufo,ufo.png\n";
         REQUIRE(result == expected);
     }
     SECTION("filename is an empty string")
     {
-        string result = file_as_string("", RESOURCE);
-        string expected = "";
+        std::string result = file_as_string("", RESOURCE);
+        std::string expected = "";
         REQUIRE(result == expected);
     }
     SECTION("filename is an invalid file")
     {
-        string result = file_as_string("invalid.txt", RESOURCE);
-        string expected = "";
+        std::string result = file_as_string("invalid.txt", RESOURCE);
+        std::string expected = "";
         REQUIRE(result == expected);
     }
 }

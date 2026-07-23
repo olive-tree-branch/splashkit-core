@@ -18,7 +18,7 @@ TEST_CASE("sound effects can be loaded, played and freed", "[sound_effect]")
     {
         open_audio();
         REQUIRE(audio_ready() == true);
-    }    
+    }
     SECTION("can detect non-existent sound effect")
     {
         REQUIRE(has_sound_effect("non_existent") == false);
@@ -33,7 +33,7 @@ TEST_CASE("sound effects can be loaded, played and freed", "[sound_effect]")
     SECTION("can load, play, stop and free sound effect")
     {
         sound_effect snd;
-        string filename = "SwinGameStart.wav", name = "SwinGameStart";
+        std::string filename = "SwinGameStart.wav", name = "SwinGameStart";
         SECTION("can load sound effect")
         {
             REQUIRE(has_sound_effect(name) == false);
@@ -65,7 +65,7 @@ TEST_CASE("sound effects can be loaded, played and freed", "[sound_effect]")
     SECTION("can load and free multiple sounds effects")
     {
         sound_effect snd1, snd2;
-        string filename1 = "breakdance.wav", name1 = "breakdance", filename2 = "comedy_boing.ogg", name2 = "comedy_boing";
+        std::string filename1 = "breakdance.wav", name1 = "breakdance", filename2 = "comedy_boing.ogg", name2 = "comedy_boing";
         SECTION("can load and create two sound effects")
         {
             REQUIRE(has_sound_effect(name1) == false);

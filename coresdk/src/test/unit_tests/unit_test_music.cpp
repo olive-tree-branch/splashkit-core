@@ -31,7 +31,7 @@ TEST_CASE("music can be loaded, controlled and freed", "[music]")
     SECTION("can load, control and free music")
     {
         music mus;
-        string filename = "magical_night.ogg", name = "magical_night";
+        std::string filename = "magical_night.ogg", name = "magical_night";
         SECTION("can load music")
         {
             REQUIRE(has_music(name) == false);
@@ -80,7 +80,7 @@ TEST_CASE("music can be loaded, controlled and freed", "[music]")
     SECTION("can load and free multiple music files")
     {
         music mus1, mus2;
-        string filename1 = "280.mp3", name1 = "280", filename2 = "dancingFrog.wav", name2 = "dancingFrog";
+        std::string filename1 = "280.mp3", name1 = "280", filename2 = "dancingFrog.wav", name2 = "dancingFrog";
         SECTION("can load and create two music files")
         {
             REQUIRE(has_music(name1) == false);
