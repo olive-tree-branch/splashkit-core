@@ -12,8 +12,10 @@
 #include <algorithm>
 #include <cstdlib>
 #include <string_view>
-#include <format>
 #include <ranges>
+#if __cplusplus >= 202002L // C++20 Check, also appears in dec_to_bin & dec_to_oct
+#include <format>
+#endif
 
 #include <functional>
 #include <cctype>
@@ -201,7 +203,21 @@ namespace splashkit_lib
 
     string dec_to_bin(unsigned int a_dec)
     {
+#if __cplusplus >= 202002L
         return std::format("{:b}", a_dec);
+#else
+        // Without this check, dec to bin will not work if dec is 0
+        if (a_dec == 0)
+            return "0";
+
+        string bin_string;
+        while (a_dec > 0)
+        {
+            bin_string = ((a_dec & 1) ? "1" : "0") + bin_string;
+            a_dec >>= 1;
+        }
+        return bin_string;
+#endif
     }
 
     unsigned int bin_to_dec(const string &bin_str)
@@ -284,7 +300,22 @@ namespace splashkit_lib
 
     string dec_to_oct(unsigned int decimal_value)
     {
+#if __cplusplus >= 202002L
         return std::format("{:o}", decimal_value);
+#else
+        if (decimal_value == 0)
+        {
+            return "0";
+        }
+
+        string octal_string;
+        while (decimal_value > 0)
+        {
+            octal_string = std::to_string(decimal_value % 8) + octal_string;
+            decimal_value /= 8;
+        }
+        return octal_string;
+#endif
     }
 
     unsigned int oct_to_dec(const string &octal_string)
