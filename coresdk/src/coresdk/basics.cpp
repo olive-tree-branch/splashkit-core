@@ -29,24 +29,29 @@ namespace splashkit_lib
 
     // trim see: https://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
 
+    constexpr bool is_a_space(char input) noexcept {
+        auto not_space {std::bind_front(std::not_equal_to{}, input)};
+
+        return bool{" \t\n\v\r\f" | std::views::drop_while(not_space)};
+    }
+
     // trim from start
     string ltrim(const string &text)
     {
-        string s = text;
-        s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int c)
-                                        { return !std::isspace(c); }));
-        return s;
+        auto output = text | std::views::drop_while(is_a_space);
+
+        return {output.begin(), output.end()};
     }
 
     // trim from end
     string rtrim(const string &text)
     {
-        string s = text;
-        s.erase(std::find_if(s.rbegin(), s.rend(), [](int c)
-                             { return !std::isspace(c); })
-                    .base(),
-                s.end());
-        return s;
+        auto output = text
+                    | std::views::reverse
+                    | std::views::drop_while(is_a_space)
+                    | std::views::reverse;
+
+        return {output.begin(), output.end()};
     }
 
     // trim from both ends
